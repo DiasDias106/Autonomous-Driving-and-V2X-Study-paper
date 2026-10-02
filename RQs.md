@@ -9,6 +9,7 @@
 - IEEE 802.11p vs IEEE 802.11bd ---> "bd" is better ([incomplete](https://ieeexplore.ieee.org/document/10961047))
 
 ![world_map_protocol_distribution](image.png)   
+![V2_everything](V2_.png)   
 
 ---
 

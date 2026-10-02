@@ -6,7 +6,7 @@
 
 - SDN ---> compares IEEE 802.11p vs IEEE 802.11bd ([complete](https://ieeexplore.ieee.org/abstract/document/10352136))
 
-- IEEE 802.11p vs IEEE 802.11bd ---> "bd" is better ([incomplete](https://ieeexplore.ieee.org/document/10961047))
+- Comparison between ALL ([complete](https://www.vodafone-chair.org/media/publications/waqar-anwar/Physical_Layer_Evaluation_of_V2X_Communications_Technologies__5G_NR_V2X__LTE_V2X__IEEE_802_11bd__and_IEEE_802_11p.pdf))
 
 ![world_map_protocol_distribution](image.png)   
 ![V2_everything](V2_.png)   

@@ -46,7 +46,7 @@
 
 * **Cenário Com V2X CP: Um "Veículo B" conectado que circula no sentido oposto ou uma câmara/LiDAR instalada numa RSU no topo da rua tem o peão no seu campo de visão desimpedido. Através da rede V2X, esse nó envia as coordenadas e trajetórias detetadas ao "Veículo A". O sistema de controlo do "Veículo A" processa essa informação expandida e desacelera antecipadamente com total segurança, evitando o acidente.** 
 
-![Cenário Urbano de Perceção Cooperativa V2X](../figures/rq2_related_images/rq2_urban_cooperative_perception_scenario.png)
+![Cenário Urbano de Perceção Cooperativa V2X](../figures/rq2/rq2_urban_cooperative_perception_scenario.png)
 
 **1.2 Aspetos Técnicos, Fusão, Infraestrutura e Padrões de Comunicação**
 
@@ -70,7 +70,7 @@
 
    * ***Desvantagem:*** **Não permite recuperar objetos que tenham sido perdidos localmente pelos sensores individuais (*missing detections*).** 
 
-![Estratégias de Fusão: Early, Intermediate e Late Collaboration](../figures/rq2_related_images/rq2_fusion_schemes_early_intermediate_late.png)
+![Estratégias de Fusão: Early, Intermediate e Late Collaboration](../figures/rq2/rq2_fusion_schemes_early_intermediate_late.png)
 
 **Mecanismos de Transmissão e Protocolos V2X (DSRC e 5G NR V2X)**
 
@@ -94,7 +94,7 @@
 
 * **Detetores End-to-End e Filtros de Kalman: Combinam o processamento profundo de imagem/LiDAR com técnicas de estimação estatística e rastreio multiobjeto (ex.: *Extended/Cubature Kalman Filters*) para atualizar estados de incerteza.** 
 
-![Arquitetura e Pipeline da Etapa de Colaboração](../figures/rq2_related_images/rq2_collaboration_pipeline_architecture.png)
+![Arquitetura e Pipeline da Etapa de Colaboração](../figures/rq2/rq2_collaboration_pipeline_architecture.png)
 
 **1.3 Latência, Fiabilidade e Padrões de Erro na CP**
 
@@ -132,7 +132,7 @@
 
    * **CADE (*Miscorrected Additional Detection Error*): O veículo criou uma deteção fantasma e a cooperação valida incorretamente esse objeto inexistente.** 
 
-![Taxonomia de Erros de Deteção em Perceção Cooperativa](../figures/rq2_related_images/rq2_cooperative_perception_error_taxonomy.png)
+![Taxonomia de Erros de Deteção em Perceção Cooperativa](../figures/rq2/rq2_cooperative_perception_error_taxonomy.png)
 
 **Impacto Prático e Cenários de Acidente**
 
@@ -142,7 +142,7 @@
 
 * **Erros de Posicionamento/Pose (PE): O desalinhamento de GPS/IMU entre o emissor e o recetor causa desvios espaciais que provocam erros críticos do tipo LCLE. *Exemplo:* Um peão a atravessar a estrada é partilhado com um desvio lateral de 1,5 metros; o sistema calcula que o peão está seguro fora da faixa de rodagem, mantendo a velocidade até ao embate.** 
 
-![Consequências e Cenários de Erros em Simulação](../figures/rq2_related_images/rq2_simulation_error_consequences.png)
+![Consequências e Cenários de Erros em Simulação](../figures/rq2/rq2_simulation_error_consequences.png)
 
 **1.4 Testes, Ferramentas e Desempenho em Ambientes de Simulação (CARLA, AWSIM, VAST)**
 
@@ -220,7 +220,7 @@ $${Y}_{i,CP}^{t}={F}_{Decoder}\left({{F}_{i,CP}^{t}}\right)$$
 
 **onde a matriz de rotação $R∈{R}^{3×3}$ é obtida através do produto das matrizes de rotação dos eixos cartesianos $R={R}_{z}\left({\alpha }\right)\cdot {R}_{y}\left({\beta }\right)\cdot {R}_{x}\left({\gamma }\right)$:** 
 
-![Matriz de Rotação 3D](../figures/rq2_related_images/rq2_rotation_matrix_formula.png)
+![Matriz de Rotação 3D](../figures/rq2/rq2_rotation_matrix_formula.png)
 
 **Dado um ponto tridimensional ${p}_{B}={\left[{a,b,c,1}\right]}^{T}$ em coordenadas homogéneas no sistema do agente $B$, a sua projeção direta $p$ no sistema do veículo ego $A$ é dada por:** 
 

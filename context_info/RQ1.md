@@ -40,7 +40,7 @@
 4. **[SDN - 39]** The application of the QR algorithm has succeeded in forming an error-prone wireless channel.
 5. **[SDN - 40]** Implementing architecture and protocol stack for hybrid vehicular network RATs create fewer vertical handovers, higher reliability, and lower delays
 
-![SDN - Figure 3 - Illustration of multi-RATs implementation](../figures/rq1_related_images/rq1_multi_rat_architecture.png)
+![SDN - Figure 3 - Illustration of multi-RATs implementation](../figures/rq1/rq1_multi_rat_architecture.png)
 
 #### States of Deployment
 **European C-ITS Projects (ITS-G5 and Hybrid Networks)**
@@ -70,8 +70,8 @@
 - **Wuxi Internet of Vehicle (China):** Deployed a city-level C-V2X network in Wuxi.
 - **United States Trials (2017):** First C-V2X connected car trials were launched in San Diego by a consortium including AT&T, Ford, Nokia, and Qualcomm.
 
-![Global V2X & C-ITS Deployments](../figures/rq1_related_images/rq1_global_v2x_cits_deployments.png)
+![Global V2X & C-ITS Deployments](../figures/rq1/rq1_global_v2x_cits_deployments.png)
 
-![World Map Protocol Stacks Distribution](../figures/rq1_related_images/rq1_world_map_protocol_stacks.png)   
+![World Map Protocol Stacks Distribution](../figures/rq1/rq1_world_map_protocol_stacks.png)   
 
-![V2X Communication Modalities](../figures/rq1_related_images/rq1_v2x_communication_modes.png)
+![V2X Communication Modalities](../figures/rq1/rq1_v2x_communication_modes.png)

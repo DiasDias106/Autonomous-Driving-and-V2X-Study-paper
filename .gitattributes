@@ -1,0 +1,8 @@
+# Enforce LF endings on all text files across Windows, Linux, and macOS
+* text=auto eol=lf
+*.tex text eol=lf
+*.bib text eol=lf
+*.cls text eol=lf
+*.md text eol=lf
+*.png binary
+*.pdf binary

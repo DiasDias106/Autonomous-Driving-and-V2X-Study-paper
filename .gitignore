@@ -1,0 +1,69 @@
+## LaTeX Compilation Artifacts & Outputs
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.dvi
+*.fdb_latexmk
+*.fls
+*.idx
+*.ilg
+*.ind
+*.log
+*.out
+*.run.xml
+*.synctex
+*.synctex.gz
+*.synctex(busy)
+*.toc
+*.lof
+*.lot
+*.nav
+*.snm
+*.vrb
+*.xdv
+*.latexmk
+_minted*
+
+## Producible PDF Files
+# Ignore compiled PDFs, but keep assignment guidelines and vector figure assets
+*.pdf
+!IDC-2026-Assignment.pdf
+!figures/**/*.pdf
+
+## Build & Temporary Directories
+build/
+out/
+dist/
+
+## Editor & IDE Folders
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+*.code-workspace
+.idea/
+*.bak
+*.swp
+*.swo
+*#
+
+## Multi-OS Metadata
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*

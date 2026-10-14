@@ -3,6 +3,16 @@
 *.tex text eol=lf
 *.bib text eol=lf
 *.cls text eol=lf
+*.sty text eol=lf
 *.md text eol=lf
+*.txt text eol=lf
+.gitignore text eol=lf
+.gitattributes text eol=lf
+.latexmkrc text eol=lf
+
+# Binary media formats
 *.png binary
+*.jpg binary
+*.jpeg binary
 *.pdf binary
+*.eps binary

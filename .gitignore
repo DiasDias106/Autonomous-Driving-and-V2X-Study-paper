@@ -1,6 +1,7 @@
 ## LaTeX Compilation Artifacts & Outputs
 *.aux
 *.bbl
+!main.bbl
 *.bcf
 *.blg
 *.dvi

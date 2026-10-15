@@ -1,7 +1,9 @@
 # Agent Directives — IoT Survey Report (Topic 24: Internet of Vehicles and V2X)
 
 ## 1. Project Context & Objectives
+- **Institution:** Faculdade de Ci\^{e}ncias da Universidade de Lisboa (FCUL).
 - **Course:** Internet das Coisas (IDC 2026/27)[cite: 2].
+- **Authors:** Francisco Dias (68462, fc68462@alunos.ciencias.ulisboa.pt), Lu\'{i}s Lima (62214, 62214@alunos.ciencias.ulisboa.pt), Tiago Freitas (67976, fc67976@alunos.ciencias.ulisboa.pt).
 - **Topic:** 24. Internet of Vehicles and V2X[cite: 7].
 - **Target Deliverable:** A 10-page survey report (inclusive of references) formatted using the IEEE conference class[cite: 2, 38].
 - **Core Requirements:**
@@ -55,10 +57,16 @@ The total compiled output must be exactly 10 pages (including the bibliography)[
   - Maintain all citation data strictly in `references.bib` using the `\bibliographystyle{IEEEtran}` style[cite: 24, 26, 38].
 - **Last-Page Column Balancing:**
   - On page 10, balance the bibliography columns using `\IEEEtriggeratref{X}` or a manual `\newpage`[cite: 24].
+- **Pagination:**
+  - Include centered page numbers at the bottom of each page using `\pagestyle{plain}` and `\thispagestyle{plain}` after `\maketitle`.
+
+## 5. Writing Style & Tone Guidelines
+- **Target Audience & Author Voice:** This paper is meant to be written from our group of 3 non-English speaking people, and is meant to be read by a non-English person.
+- **Vocabulary & Clarity:** We can all speak and write in English, but always keep a simple vocabulary, straight to the point. Avoid overly convoluted words or flowery phrases; prioritize clear, sequential, and direct explanations.
 
 ---
 
-## 5. Verification Protocol
+## 6. Verification Protocol
 Before marking any task as complete:
 1. Ensure all template placeholder text from `conference_041818.tex` is removed[cite: 38, 41].
 2. Compile via CLI: `latexmk -pdf -interaction=nonstopmode main.tex`.

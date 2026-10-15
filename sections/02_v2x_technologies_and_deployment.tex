@@ -1,0 +1,135 @@
+\section{V2X Communication Technologies and Global Deployment}
+\label{sec:technologies_and_deployment}
+
+To enable vehicular cooperation, vehicles require reliable wireless communication links that can handle high vehicle mobility, rapid channel fading, and dynamic network topologies.
+Currently, two major technology families provide direct vehicular communications: the IEEE 802.11 family of standards and the 3GPP Cellular V2X (C-V2X) family \cite{naik2019ieee}.
+This section provides a technical comparison of both standard families and analyzes their global commercial deployment status.
+
+\subsection{IEEE Standards: 802.11p and 802.11bd}
+The IEEE standards are based on adapted versions of Wi-Fi technology designed for ad-hoc, direct vehicular communications without relying on cellular towers.
+
+\subsubsection{IEEE 802.11p (DSRC / ITS-G5)}
+Published in 2010, IEEE 802.11p forms the access layer for Dedicated Short-Range Communications (DSRC) in North America (using IEEE 1609 WAVE standards) and for ITS-G5 in Europe (using ETSI standards) \cite{sudirham2023sdn}.
+It operates in the dedicated 5.9~GHz Intelligent Transportation Systems (ITS) frequency band using 10~MHz channel bandwidths.
+At the physical (PHY) layer, 802.11p uses Orthogonal Frequency Division Multiplexing (OFDM) with up to 64-QAM modulation, achieving data rates between 3~Mbps and 27~Mbps.
+At the Medium Access Control (MAC) layer, it uses Carrier Sense Multiple Access with Collision Avoidance (CSMA/CA).
+Under CSMA/CA, a vehicle listens to the channel before transmitting.
+If the channel is busy, the vehicle waits for a random backoff time.
+
+While 802.11p provides low latency and simple decentralized operation in low-density traffic, it has two major technical drawbacks:
+\begin{itemize}
+    \item \textbf{Congestion in High-Density Traffic:} When many vehicles broadcast beacons at the same time, simultaneous transmissions cause high packet collision rates, leading to severe packet drops.
+    \item \textbf{Doppler Sensitivity:} High vehicle speeds produce large Doppler shifts that degrade channel estimation, sharply reducing packet reception rates at highway speeds.
+\end{itemize}
+
+\subsubsection{IEEE 802.11bd (Next-Generation DSRC)}
+To address these limitations, the IEEE developed 802.11bd as an evolution of 802.11p.
+IEEE 802.11bd introduces several key physical-layer improvements:
+\begin{itemize}
+    \item \textbf{Midamble Insertion:} Additional training symbols (midambles) are placed inside data packets to update channel estimates dynamically, preventing packet errors under high Doppler spread.
+    \item \textbf{Dual Carrier Modulation (DCM):} The same information symbol is transmitted on two separate subcarriers, improving communication range and reception reliability at the cell edge.
+    \item \textbf{Higher Data Rates:} It supports channel bandwidths of up to 20~MHz and 256-QAM modulation, increasing maximum theoretical throughput up to 86~Mbps.
+    \item \textbf{Backward Compatibility:} IEEE 802.11bd devices can coexist with legacy 802.11p devices on the same frequency channel.
+\end{itemize}
+
+\subsection{3GPP Cellular V2X: LTE-V2X and 5G NR-V2X}
+Cellular V2X was developed by 3GPP to integrate vehicular communication into cellular standards, supporting both direct sidelink links and long-range network links.
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=0.88\columnwidth]{figures/rq1/rq1_multi_rat_architecture.png}
+\caption{Multi-RAT architecture showing direct DSRC links alongside C-V2X direct sidelink and cellular base station connections \cite{sudirham2023sdn}.}
+\label{fig:multi_rat_arch}
+\end{figure}
+
+\subsubsection{LTE-V2X (Releases 14 and 15)}
+Standardized in 3GPP Releases 14 and 15, LTE-V2X provides two communication interfaces:
+\begin{itemize}
+    \item \textbf{The Uu Interface:} Connects the vehicle to a cellular base station (eNodeB) for long-range V2N applications.
+    \item \textbf{The PC5 (Sidelink) Interface:} Connects vehicles directly to each other (V2V, V2I, V2P) in the 5.9~GHz band without going through a cellular network.
+\end{itemize}
+
+LTE-V2X defines two distinct radio resource allocation modes for PC5:
+\begin{itemize}
+    \item \textbf{Mode 3 (Scheduled):} The cellular network centrally allocates radio resources to vehicles, which requires cellular network coverage.
+    \item \textbf{Mode 4 (Autonomous):} Vehicles autonomously select transmission resources without cellular base stations using Sensing-Based Semi-Persistent Scheduling (SB-SPS).
+    A vehicle monitors the channel for a historical window, predicts future channel availability, and reserves periodic time-frequency resources.
+\end{itemize}
+Compared to 802.11p, LTE-V2X Mode 4 provides longer communication range and better performance under heavy traffic loads \cite{gyawali2020challenges}.
+
+\subsubsection{5G NR-V2X (Release 16 and Beyond)}
+While LTE-V2X focused on basic safety warnings, 5G NR-V2X was developed to meet the demanding requirements of advanced automated driving.
+It operates alongside LTE-V2X and brings major enhancements:
+\begin{itemize}
+    \item \textbf{Flexible Numerology:} Supports flexible subcarrier spacing (15~kHz, 30~kHz, 60~kHz, and 120~kHz), which reduces slot duration down to 0.125~ms, allowing ultra-low latency.
+    \item \textbf{Cast Types:} While LTE-V2X only supports broadcast, 5G NR-V2X adds native unicast and groupcast communications, enabling private vehicle platooning and cooperative maneuvers.
+    \item \textbf{Physical Layer Feedback (HARQ):} Introduces hybrid automatic repeat request (HARQ) feedback over the sidelink, ensuring packet delivery reliability exceeding 99.999\%.
+    \item \textbf{Enhanced Sidelink Modes:} Introduces Mode 1 (gNodeB-scheduled) and Mode 2 (autonomous with dynamic grant-free reservations and channel sensing).
+\end{itemize}
+
+\subsection{Technical Comparison of V2X Technologies}
+Table~\ref{tab:rat_comparison} summarizes the main technical parameters of IEEE 802.11p, IEEE 802.11bd, LTE-V2X, and 5G NR-V2X.
+The comparison shows a clear evolution: older standards (802.11p and LTE-V2X) support basic hazard alerts, while newer standards (802.11bd and 5G NR-V2X) provide the high data rates and low latency needed for cooperative automated driving.
+
+\begin{table*}[!t]
+\centering
+\caption{Technical Comparison of V2X Radio Access Technologies}
+\label{tab:rat_comparison}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Parameter} & \textbf{IEEE 802.11p} & \textbf{IEEE 802.11bd} & \textbf{LTE-V2X (Rel. 14/15)} & \textbf{5G NR-V2X (Rel. 16+)} \\
+\midrule
+Standard Body & IEEE & IEEE & 3GPP & 3GPP \\
+Physical Layer & OFDM & OFDM & SC-FDMA & CP-OFDM / DFT-s-OFDM \\
+Channel Bandwidth & 10~MHz & 10, 20~MHz & 10, 20~MHz & 10, 20, 40, 100~MHz \\
+Modulation & Up to 64-QAM & Up to 256-QAM & Up to 64-QAM & Up to 256-QAM \\
+Maximum Data Rate & 27~Mbps & 86~Mbps & 30~Mbps & $>$1~Gbps \\
+Channel Access / Sidelink & CSMA/CA & CSMA/CA & Mode 3 / Mode 4 (SB-SPS) & Mode 1 / Mode 2 (HARQ) \\
+Communication Modes & Broadcast & Broadcast & Broadcast & Broadcast, Groupcast, Unicast \\
+Target Latency & $\approx 10$--$20$~ms & $< 5$~ms & $\approx 10$--$20$~ms & $< 3$~ms \\
+Doppler Robustness & Poor & High (Midambles) & Moderate (DMRS) & High (Flexible SCS) \\
+Backward Compatibility & Baseline & Fully with 802.11p & Standalone & Coexists with LTE-V2X \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\subsection{Worldwide Commercial Deployment Status}
+The deployment of V2X communication technologies varies across different regions due to differing regulatory policies and industry backing, as illustrated in Fig.~\ref{fig:global_deployments}.
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=0.88\textwidth]{figures/rq1/rq1_global_v2x_cits_deployments.png}
+\caption{Global V2X and C-ITS deployments and pilot projects across North America, Europe, Asia, and Oceania.}
+\label{fig:global_deployments}
+\end{figure*}
+
+\subsubsection{United States}
+The United States initially pioneered DSRC based on IEEE 802.11p and IEEE 1609 standards.
+The U.S. Department of Transportation (USDOT) funded three major connected vehicle pilots in 2015:
+\begin{itemize}
+    \item \textbf{New York City (NYCDOT):} Deployed 353 RSUs and 8,000 equipped vehicles to improve pedestrian safety in high-density urban corridors.
+    \item \textbf{Tampa (THEA):} Deployed 47 RSUs and over 1,000 equipped cars and buses to reduce morning rush-hour congestion and transit vehicle delays.
+    \item \textbf{Wyoming (WYDOT):} Deployed 75 RSUs and 400 commercial trucks along 400 miles of Interstate 80 to reduce winter weather collisions and truck blow-over incidents.
+\end{itemize}
+However, in November 2020, the Federal Communications Commission (FCC) reallocated the lower 45~MHz of the 5.9~GHz band to unlicensed Wi-Fi, leaving the upper 30~MHz exclusively for C-V2X.
+This decision redirected U.S. commercial deployment decisively toward C-V2X.
+
+\subsubsection{Europe}
+Europe has taken a technology-neutral, hybrid approach under the Cooperative Intelligent Transport Systems (C-ITS) framework:
+\begin{itemize}
+    \item \textbf{C-Roads Platform:} Initiated in 2015 across 16 countries and 43 cities, deploying cross-border interoperable Day-1 services (such as hazardous location warnings and slow vehicle alerts).
+    \item \textbf{National Pilots:} France deployed the SCOOP@F pilot connecting 3,000 vehicles over 2,000~km of road, while Denmark, Finland, Norway, and Sweden tested cellular hazard warning services under NordicWay.
+    \item \textbf{Hybrid Strategy:} Europe utilizes ITS-G5 (802.11p) for direct safety-critical communication at intersections and cellular networks (4G/5G) for wider area alerts, using standardized European protocols (ETSI CAM and DENM).
+\end{itemize}
+
+\subsubsection{China}
+China has adopted a unified national policy centered exclusively on C-V2X.
+The Chinese government established national frequency allocations for C-V2X in the 5.9~GHz band and released national standards for message sets (DSMP).
+China completed large-scale city deployments, notably the Wuxi Internet of Vehicles project covering hundreds of urban intersections, and opened national demonstration test zones in Shanghai, Beijing, and Guangzhou.
+Major Chinese automobile manufacturers are actively releasing production vehicles equipped with factory-installed C-V2X modules.
+
+\subsubsection{Asia-Pacific and Oceania}
+Japan deployed early cooperative systems using its dedicated 760~MHz band under ARIB standards, and is currently testing 5.9~GHz C-V2X alongside 5G deployments.
+South Korea conducted nationwide highway C-ITS pilots led by the Ministry of Land, Infrastructure, and Transport (MOLIT), testing both LTE-V2X and 802.11p.
+Australia and New Zealand developed the Austroads connected vehicle program, evaluating both technologies across major freight routes.
+

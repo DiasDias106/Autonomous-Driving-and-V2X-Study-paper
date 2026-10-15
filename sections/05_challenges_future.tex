@@ -1,0 +1,79 @@
+\section{Challenges, Open Issues, and Future Directions}
+\label{sec:challenges_future}
+
+The deployment of large-scale Internet of Vehicles (IoV) and V2X systems faces several technical bottlenecks.
+This section details four core challenges: wireless channel congestion and spectrum coexistence, edge computing integration, data trustworthiness through misbehavior detection, and the architectural evolution toward 6G-V2X.
+
+\subsection{Channel Congestion and Spectrum Coexistence}
+\label{subsec:congestion_coexistence}
+
+In dense traffic scenarios such as urban intersections and highway traffic jams, hundreds of vehicles compete for the same radio spectrum.
+Both IEEE 802.11p/bd and C-V2X sidelink experience severe performance degradation when vehicle density increases.
+Under IEEE 802.11p, the CSMA/CA protocol causes frequent packet collisions and unbounded backoff delays when channel busy ratios exceed critical thresholds~\cite{naik2019ieee}.
+In C-V2X Mode~4, blind semi-persistent scheduling leads to packet collisions when multiple vehicles select the same time-frequency subchannels without central coordination~\cite{gyawali2020challenges}.
+As safety-critical Cooperative Awareness Messages (CAMs) and Collective Perception Messages (CPMs) flood the 5.9~GHz band, packet delivery ratios drop, jeopardizing collision avoidance algorithms.
+
+Spectrum allocation represents another critical challenge.
+Different jurisdictions have allocated parts of the 5.9~GHz band to DSRC, C-V2X, or shared them with unlicensed Wi-Fi systems~\cite{naik2019ieee}.
+In regions where both DSRC and C-V2X operate concurrently, direct radio coexistence without mutual interference is impossible without dedicated spectrum sharing protocols or dual-mode roadside units~\cite{szalay2023survey}.
+Dynamic spectrum access, adaptive power control, and intelligent message rate throttling (such as ETSI Decentralized Congestion Control) remain essential to prevent wireless channel collapse.
+
+\subsection{Edge Computing and Vehicle-Road-Cloud Integration}
+\label{subsec:edge_computing}
+
+Autonomous driving requires massive computation for sensor fusion and path planning.
+While onboard units (OBUs) have limited processing capacity and battery constraints, central cloud servers introduce round-trip latencies that exceed safety thresholds ($>100$~ms)~\cite{storck2020survey}.
+Multi-access Edge Computing (MEC) solves this problem by placing computing servers near RSUs at the network edge~\cite{huang2025v2x}.
+MEC servers can aggregate sensor feeds from passing vehicles and roadside cameras, execute deep neural networks to build a unified Bird's-Eye-View (BEV) map, and broadcast the map back to vehicles in real time.
+
+However, edge computing introduces three open technical challenges:
+\begin{itemize}
+    \item \textbf{High Mobility and Handover:} Vehicles traveling at high speeds quickly cross the coverage areas of adjacent MEC nodes. Handing over local perception context and active computational tasks between edge servers without dropping safety-critical streams is challenging~\cite{storck2020survey}.
+    \item \textbf{Workload Scheduling Under Deadlines:} Real-time perception models must finish feature extraction and coordinate alignment within 10--20~ms. Edge servers must schedule incoming requests with strict deadline guarantees under varying traffic loads.
+    \item \textbf{Asymmetric Network Links:} Uplink transmissions from vehicles to RSUs frequently experience lower bandwidth than broadcast downlinks, creating bottlenecks when sending high-resolution point clouds or intermediate feature maps.
+\end{itemize}
+
+\subsection{Data Trustworthiness and Misbehavior Detection}
+\label{subsec:misbehavior_detection}
+
+Standard Vehicle PKI (V-PKI) systems verify message authenticity and vehicle authorization via digital signatures~\cite{brecht2018scms}.
+However, cryptography only guarantees that a message was sent by an authorized vehicle; it does not guarantee that the reported data is true.
+A vehicle with valid credentials may broadcast false information due to faulty sensors (e.g., drift in GNSS or miscalibrated LiDAR), software bugs, or malicious intent (e.g., an attacker broadcasting ghost vehicles to clear a lane)~\cite{heijden2017survey}.
+
+To address this issue, researchers are developing Misbehavior Detection Systems (MDS)~\cite{heijden2017survey}:
+\begin{itemize}
+    \item \textbf{Local Consistency Checks:} The receiving vehicle checks incoming messages against basic physical laws (e.g., maximum possible acceleration, speed limits, and non-overlapping vehicle bounding boxes).
+    \item \textbf{Plausibility and Sensor Cross-Validation:} The vehicle compares information received from neighbors with its own onboard radar and camera readings. If an incoming message claims a car is directly ahead but onboard sensors detect an empty road, the message is marked suspicious.
+    \item \textbf{Global Misbehavior Reporting:} When multiple vehicles report inconsistent claims about a specific pseudonym, reports are sent to backend pseudonym authorities to investigate and trigger certificate revocation~\cite{simplicio2018privacy}.
+\end{itemize}
+Balancing rapid misbehavior detection against false positive revocations remains an active research topic, particularly when communication errors or bad weather cause temporary sensor noise.
+
+\subsection{The Roadmap to 6G-V2X}
+\label{subsec:roadmap_6g}
+
+Future autonomous transportation systems require capabilities beyond 5G NR-V2X.
+Standardization bodies and research consortia are designing 6G-V2X networks to deliver sub-millisecond latencies, multi-gigabit throughput, and centimeter-level positioning accuracy~\cite{saad2019vision}.
+Key emerging technologies for 6G-V2X include:
+
+\subsubsection{Integrated Sensing and Communication (ISAC)}
+Currently, vehicular radar and wireless communications operate with separate hardware and different frequency bands.
+ISAC unites both functions into a single hardware platform and unified waveform~\cite{cui2021integrating}.
+By transmitting signals that simultaneously convey V2X data and detect echoes from surrounding objects, ISAC eliminates spectrum competition between radar and communications, reduces onboard hardware cost, and enables hyper-accurate environmental imaging.
+
+\subsubsection{Semantic and Task-Oriented Communication}
+Traditional communication protocols transmit raw bits without considering the semantic value of data for the driving task.
+In cooperative perception, transmitting entire camera frames or uncompressed point clouds wastes spectrum on irrelevant background objects (such as buildings or trees)~\cite{hu2022where2comm}.
+Semantic V2X extracts task-relevant spatial and temporal features, transmitting only critical information about vulnerable road users, dynamic obstacles, and potential collision zones.
+This approach reduces wireless channel overhead by orders of magnitude while preserving target detection accuracy.
+
+\subsubsection{Multimodal Foundation Models and Edge AI}
+The integration of Vision-Language Models (VLMs) and generative foundation models into vehicular edge networks will allow vehicles to perform high-level causal reasoning~\cite{huang2025v2x}.
+Instead of merely detecting 3D bounding boxes, cooperative vehicles will understand complex driving contexts (such as predicting whether an occluded pedestrian will step into the roadway based on body posture and traffic signal state).
+Cooperative federated learning will enable distributed vehicles to train these foundation models locally, sharing only model weights to protect driver privacy.
+
+\subsubsection{Post-Quantum Cryptography (PQC)}
+Current V2X security relies exclusively on elliptic curve cryptography (such as ECDSA and ECIES)~\cite{brecht2018scms}.
+The future arrival of large-scale quantum computers threatens to break these algorithms, allowing attackers to forge safety messages and track vehicles.
+Transitioning V-PKI systems to quantum-resistant lattice-based algorithms (such as ML-DSA and ML-KEM) is essential.
+However, post-quantum signatures and keys are significantly larger than ECDSA counterparts.
+Adapting post-quantum cryptography to meet strict vehicular wireless packet limits (MTU $\approx 1500$~bytes) and real-time verification deadlines ($<10$~ms per signature) is an urgent open challenge.

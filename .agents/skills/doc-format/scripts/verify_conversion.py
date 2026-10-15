@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Compara dois ficheiros (origem e destino de uma conversao) e assinala
-possiveis perdas de conteudo: palavras, titulos, tabelas, imagens, equacoes,
-links e citacoes.
+"""Compares two files (source and destination of a conversion) and flags
+possible content losses: words, headings, tables, images, equations,
+links, and citations.
 
-Uso: python verify_conversion.py ORIGEM DESTINO [--tol 0.03]
-Formatos: md, tex, html, txt (docx/rst/outros via pandoc para texto).
+Usage: python verify_conversion.py SOURCE DESTINATION [--tol 0.03]
+Formats: md, tex, html, txt (docx/rst/others via pandoc to text).
 """
 import re
 import subprocess
@@ -16,7 +16,7 @@ def load_text(path: Path) -> str:
     ext = path.suffix.lower()
     if ext in {".md", ".markdown", ".tex", ".latex", ".html", ".htm", ".txt", ".rst"}:
         return path.read_text(encoding="utf-8", errors="replace")
-    # docx e outros: converter para markdown via pandoc
+    # docx and others: convert to markdown via pandoc
     try:
         out = subprocess.run(
             ["pandoc", str(path), "-t", "gfm", "--wrap=none"],
@@ -24,7 +24,7 @@ def load_text(path: Path) -> str:
         )
         return out.stdout
     except Exception as exc:  # noqa: BLE001
-        print(f"Aviso: nao foi possivel ler {path} ({exc})", file=sys.stderr)
+        print(f"Warning: could not read {path} ({exc})", file=sys.stderr)
         return ""
 
 
@@ -38,11 +38,11 @@ def kind(path: Path) -> str:
         return "md"
     if ext == ".txt":
         return "txt"
-    return "md"  # docx etc. lidos como markdown via pandoc
+    return "md"  # docx etc. read as markdown via pandoc
 
 
 def body(text: str, k: str) -> str:
-    """Para LaTeX, ignora o preambulo (tudo antes de \\begin{document})."""
+    """For LaTeX, ignores preamble (everything before \\begin{document})."""
     if k == "tex":
         m = re.search(r"\\begin\{document\}(.*?)(\\end\{document\}|$)", text, flags=re.S)
         if m:
@@ -107,9 +107,9 @@ def count_images(text: str, k: str) -> int:
 def count_equations(text: str, k: str) -> int:
     n = len(re.findall(r"\\begin\{(equation|align|gather|eqnarray)\*?\}", text))
     n += len(re.findall(r"\$\$.+?\$\$", text, flags=re.S))
-    # matematica inline
-    body = re.sub(r"\$\$.+?\$\$", " ", text, flags=re.S)
-    n += len(re.findall(r"(?<!\\)\$[^$\n]+\$", body))
+    # inline math
+    body_text = re.sub(r"\$\$.+?\$\$", " ", text, flags=re.S)
+    n += len(re.findall(r"(?<!\\)\$[^$\n]+\$", body_text))
     n += len(re.findall(r"\\\(.+?\\\)", text, flags=re.S))
     n += len(re.findall(r"\\\[.+?\\\]", text, flags=re.S))
     return n
@@ -126,55 +126,55 @@ def count_citations(text: str, k: str) -> int:
 
 
 METRICS = [
-    ("titulos", count_headings),
-    ("tabelas", count_tables),
-    ("imagens", count_images),
-    ("equacoes", count_equations),
-    ("links unicos", count_links),
-    ("citacoes", count_citations),
+    ("headings", count_headings),
+    ("tables", count_tables),
+    ("images", count_images),
+    ("equations", count_equations),
+    ("unique links", count_links),
+    ("citations", count_citations),
 ]
 
 
 def main() -> int:
     import argparse
-    ap = argparse.ArgumentParser(description="Verifica perdas numa conversao")
-    ap.add_argument("origem")
-    ap.add_argument("destino")
-    ap.add_argument("--tol", type=float, default=0.03, help="tolerancia de palavras (0.03 = 3%%)")
+    ap = argparse.ArgumentParser(description="Verifies content loss in a document conversion")
+    ap.add_argument("source", help="source file path")
+    ap.add_argument("destination", help="destination file path")
+    ap.add_argument("--tol", type=float, default=0.03, help="word count tolerance (0.03 = 3%%)")
     ns = ap.parse_args()
-    args, tol = [ns.origem, ns.destino], ns.tol
+    args, tol = [ns.source, ns.destination], ns.tol
 
     src, dst = Path(args[0]), Path(args[1])
     k_src, k_dst = kind(src), kind(dst)
     t_src, t_dst = body(load_text(src), k_src), body(load_text(dst), k_dst)
 
     problems = 0
-    print(f"Origem:  {src}  ({k_src})")
-    print(f"Destino: {dst}  ({k_dst})\n")
-    print(f"{'metrica':<16}{'origem':>8}{'destino':>9}   estado")
+    print(f"Source:      {src}  ({k_src})")
+    print(f"Destination: {dst}  ({k_dst})\n")
+    print(f"{'metric':<16}{'source':>8}{'destination':>12}   status")
 
     w_src, w_dst = count_words(t_src, k_src), count_words(t_dst, k_dst)
     diff = abs(w_src - w_dst) / max(w_src, 1)
-    status = "ok" if diff <= tol else f"ATENCAO ({diff:.1%})"
+    status = "ok" if diff <= tol else f"WARNING ({diff:.1%})"
     if diff > tol:
         problems += 1
-    print(f"{'palavras':<16}{w_src:>8}{w_dst:>9}   {status}")
+    print(f"{'words':<16}{w_src:>8}{w_dst:>12}   {status}")
 
     for name, fn in METRICS:
         a, b = fn(t_src, k_src), fn(t_dst, k_dst)
         if a == b:
             status = "ok"
         else:
-            status = "DIFERENTE"
+            status = "DIFFERENT"
             problems += 1
-        print(f"{name:<16}{a:>8}{b:>9}   {status}")
+        print(f"{name:<16}{a:>8}{b:>12}   {status}")
 
     print()
     if problems:
-        print(f"{problems} metrica(s) com diferencas. Rever manualmente: podem ser perdas "
-              "reais ou diferencas esperadas (comandos de formatacao, numeracao automatica).")
+        print(f"{problems} metric(s) with differences. Review manually: these may be "
+              "actual losses or expected differences (formatting commands, automated numbering).")
         return 1
-    print("Sem diferencas detetadas nas metricas verificadas.")
+    print("No differences detected across verified metrics.")
     return 0
 
 

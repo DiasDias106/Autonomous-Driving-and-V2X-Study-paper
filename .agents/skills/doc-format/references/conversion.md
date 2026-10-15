@@ -1,83 +1,83 @@
-# Conversão entre formatos
+# Format Conversion
 
-## Índice
-1. Princípios
-2. Comandos pandoc por par de formatos
-3. LaTeX específico
-4. Verificação
-5. Problemas frequentes
+## Table of Contents
+1. Principles
+2. Pandoc Commands by Format Pair
+3. LaTeX Specifics
+4. Verification
+5. Common Issues
 
-## 1. Princípios
+## 1. Principles
 
-- Converter a partir do formato mais rico disponível. Se existir o `.tex` ou `.md` original, usar esse e não o PDF.
-- Guardar sempre o original intacto; escrever a saída em ficheiro novo.
-- Verificar o resultado (secção 4). Uma conversão "que correu sem erros" não é uma conversão sem perdas.
+- Convert from the richest format available. If the original `.tex` or `.md` exists, use that rather than a compiled PDF.
+- Always keep the original file intact; write the output to a new file.
+- Verify the result (Section 4). A conversion that "ran without errors" is not necessarily a lossless conversion.
 
-## 2. Comandos pandoc
+## 2. Pandoc Commands
 
-Verificar: `which pandoc || pip install pypandoc_binary` (ou `apt-get install pandoc`).
+Check installation: `which pandoc || pip install pypandoc_binary` (or `apt-get install pandoc`).
 
-| De → Para | Comando base |
+| From → To | Base Command |
 |-----------|--------------|
 | md → tex | `pandoc in.md -f markdown -t latex -s -o out.tex` |
 | md → docx | `pandoc in.md -o out.docx` |
 | md → html | `pandoc in.md -s --mathjax -o out.html` |
 | md → pdf | `pandoc in.md --pdf-engine=xelatex -o out.pdf` |
-| tex → md | `pandoc in.tex -f latex -t markdown-smart-fenced_divs-bracketed_spans-native_divs-native_spans-header_attributes-simple_tables-multiline_tables-grid_tables+pipe_tables+tex_math_dollars --wrap=none -o out.md` (o `gfm` descarta `\cite{}`; este sabor mantém `[@chave]`) |
+| tex → md | `pandoc in.tex -f latex -t markdown-smart-fenced_divs-bracketed_spans-native_divs-native_spans-header_attributes-simple_tables-multiline_tables-grid_tables+pipe_tables+tex_math_dollars --wrap=none -o out.md` (`gfm` discards `\cite{}`; this flavour preserves `[@key]`) |
 | tex → docx | `pandoc in.tex -o out.docx` |
 | docx → md | `pandoc in.docx -t gfm --wrap=none --extract-media=./media -o out.md` |
 | docx → tex | `pandoc in.docx -t latex -s --extract-media=./media -o out.tex` |
 | html → md | `pandoc in.html -t gfm --wrap=none -o out.md` |
-| qualquer → txt | `pandoc in.ext -t plain --wrap=none -o out.txt` |
+| any → txt | `pandoc in.ext -t plain --wrap=none -o out.txt` |
 
-Opções úteis:
-- `--citeproc --bibliography=refs.bib` para processar citações.
-- `--number-sections` para numerar secções.
-- `--toc` para índice.
-- `--wrap=none` para não partir linhas (evita diffs ruidosos).
-- `--standalone` (`-s`) para documento completo em tex/html.
-- `--extract-media=DIR` ao ler docx, para não perder as imagens.
+Useful options:
+- `--citeproc --bibliography=refs.bib` to process citations.
+- `--number-sections` to number sections.
+- `--toc` for table of contents.
+- `--wrap=none` to avoid hard line wraps (minimises noisy diffs).
+- `--standalone` (`-s`) for complete document in tex/html.
+- `--extract-media=DIR` when reading docx, to extract and preserve images.
 
-## 3. LaTeX específico
+## 3. LaTeX Specifics
 
-- Português: usar `xelatex`/`lualatex` e `\usepackage{polyglossia}` + `\setmainlanguage{portuguese}`, ou `\usepackage[portuguese]{babel}` com pdflatex.
-- Bibliografia: preferir BibLaTeX (`\usepackage[backend=biber]{biblatex}`) com `\addbibresource{refs.bib}`.
-- Tabelas largas: `\usepackage{longtable,booktabs}`; pandoc já os usa.
-- Se o documento original usa classe ou pacotes próprios (IEEEtran, acmart, llncs), preservá-los em vez de os substituir pelo article.
-- Ao passar de md para tex num modelo de survey ou relatório, mapear `#` → `\section`, `##` → `\subsection`, e manter `\label`/`\ref` coerentes.
+- Language support: use `xelatex`/`lualatex` and `\usepackage{polyglossia}`, or `\usepackage[english]{babel}` with pdflatex.
+- Bibliography: prefer BibTeX (`\bibliographystyle{IEEEtran}`) or BibLaTeX (`\usepackage[backend=biber]{biblatex}`) with `\addbibresource{refs.bib}`.
+- Wide tables: `\usepackage{longtable,booktabs}`; pandoc uses these automatically.
+- If the original document uses custom classes or packages (IEEEtran, acmart, llncs), preserve them rather than replacing with standard article.
+- When moving from md to tex in a survey or report template, map `#` → `\section`, `##` → `\subsection`, and maintain consistent `\label`/`\ref`.
 
-## 4. Verificação
+## 4. Verification
 
-Correr sempre:
+Always run:
 
 ```bash
-python scripts/verify_conversion.py ORIGEM DESTINO
+python scripts/verify_conversion.py SOURCE DESTINATION
 ```
 
-O script extrai de ambos os ficheiros (md, tex, html, txt; para docx usa pandoc para texto) e compara:
+The script extracts content from both files (md, tex, html, txt; for docx it uses pandoc to extract text) and compares:
 
-- número de palavras (tolerância pequena, p. ex. 3%),
-- número de títulos,
-- número de tabelas,
-- número de imagens/figuras,
-- número de equações,
-- número de links/URLs,
-- número de citações/referências.
+- word count (small tolerance, e.g. 3%),
+- number of headings/titles,
+- number of tables,
+- number of images/figures,
+- number of equations,
+- number of unique links/URLs,
+- number of citations/references.
 
-Interpretação:
-- Diferença em palavras, secções, equações, figuras: tratar como perda até prova em contrário e investigar.
-- Diferenças esperadas: comandos LaTeX que não contam como palavras, numeração automática, cabeçalhos de documento gerados.
-- O script não substitui uma leitura rápida do resultado: abrir o ficheiro de saída e conferir as zonas de risco (equações, tabelas, referências).
+Interpretation:
+- Differences in words, sections, equations, or figures: treat as data loss until proven otherwise and investigate.
+- Expected differences: LaTeX commands not counting as words, automated numbering, generated document frontmatter.
+- The script does not replace a quick manual check: open the output file and inspect risk zones (equations, tables, references).
 
-## 5. Problemas frequentes
+## 5. Common Issues
 
-| Sintoma | Causa provável | Solução |
-|---------|----------------|---------|
-| Equações aparecem como texto | Markdown sem `$` ou extensão desligada | Usar `-f markdown+tex_math_dollars` |
-| Citações viram `[?]` | Falta `--citeproc`/`.bib` | Passar `--bibliography` ou manter `\cite` em tex |
-| Imagens desaparecem de docx | Esquecido `--extract-media` | Adicionar a opção |
-| Tabela perde células fundidas | Markdown não suporta | Usar tabela HTML, ou manter em tex/docx |
-| Acentos partidos em tex | Codificação | Garantir UTF-8, usar xelatex |
-| Célula de tabela desaparece (tex → md, tabelas `longtable`) | Bug de leitura do pandoc | Conferir sempre as tabelas à mão; se faltar conteúdo, repor ou converter a tabela em HTML |
-| Citações desaparecem em tex → md | Saída `gfm` não suporta citações | Usar o sabor markdown do pandoc (já feito em `convert.sh`) |
-| PDF não compila | Falta pacote LaTeX | Instalar o pacote ou simplificar o preâmbulo |
+| Symptom | Probable Cause | Solution |
+|---------|----------------|----------|
+| Equations appear as plain text | Markdown missing `$` or extension disabled | Use `-f markdown+tex_math_dollars` |
+| Citations turn into `[?]` | Missing `--citeproc`/`.bib` | Pass `--bibliography` or preserve `\cite` in tex |
+| Images disappear from docx | Omitted `--extract-media` | Add the `--extract-media=./media` flag |
+| Table loses merged cells | Markdown does not support cell spans | Use HTML tables, or maintain in tex/docx |
+| Broken character encoding in tex | Encoding mismatch | Ensure UTF-8, use xelatex |
+| Table cells vanish (tex → md, `longtable` tables) | Pandoc parsing bug | Always check tables manually; restore missing cells or use HTML tables |
+| Citations vanish in tex → md | `gfm` output format discards citations | Use Pandoc's markdown flavour (configured in `convert.sh`) |
+| PDF fails to compile | Missing LaTeX package | Install the missing package or simplify preamble |

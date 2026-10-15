@@ -1,6 +1,6 @@
 ---
 name: survey-from-sources
-description: Reads the source materials stored in the project's sources folder (PDFs, Word, HTML, Markdown, text, notes), filters out what is irrelevant, and writes a new text in the form of a survey (revisão/estado da arte) about a topic given by the user, connecting that topic to neighbouring topics and to its historical background while keeping the given topic as the protagonist. Use this skill whenever the user asks to write, draft, extend or rewrite a survey, state of the art, literature review, overview, "revisão da literatura", "estado da arte" or "texto tipo survey" based on the project's sources, or asks to create new text "a partir das fontes", "com base na pasta de sources", "usando a informação que deixei no folder", even if they never say the word "survey".
+description: Reads the source materials stored in the project's sources folder (PDFs, Word, HTML, Markdown, text, notes), filters out what is irrelevant, and writes a new text in the form of a survey (literature review / state of the art) about a topic given by the user, connecting that topic to neighbouring topics and to its historical background while keeping the given topic as the protagonist. Use this skill whenever the user asks to write, draft, extend or rewrite a survey, state of the art, literature review, overview, or survey-style text based on the project's sources, or asks to create new text from the sources, "based on the sources folder", or "using the information in the folder", even if they never say the word "survey".
 ---
 
 # Survey from sources
@@ -16,9 +16,9 @@ The user collects sources in a folder and wants an agent that (1) actually reads
 Settle these from the conversation; ask the user only for what is missing, and ask once, briefly.
 
 - **Main topic** (required): the subject of the survey.
-- **Sources folder**: default to a folder named `sources`, `fontes` or `references` in the project; if there are several candidates or none, ask.
+- **Sources folder**: default to a folder named `sources` or `references` in the project; if there are several candidates or none, ask.
 - **Adjacent topics** (optional): the topic(s) it sits between or next to (e.g. "between A and B"). If not given, infer them from the sources and tell the user which ones you chose.
-- **Language and register**: write in the language the user writes in (European Portuguese if they write in European Portuguese) unless told otherwise. Academic but plain.
+- **Language and register**: write in the language requested (English UK for this project) unless told otherwise. Academic but plain and direct.
 - **Length / audience**: if not given, aim for roughly 1500–3000 words for a short survey and say so.
 
 ## Workflow

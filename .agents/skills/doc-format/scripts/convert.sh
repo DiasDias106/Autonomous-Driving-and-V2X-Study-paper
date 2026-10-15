@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# Converte um documento entre formatos usando pandoc, com opções que protegem
-# equações, citações, tabelas e imagens.
-# Uso: convert.sh <entrada> <saida> [bibliografia.bib]
+# Converts a document between formats using pandoc, with options that protect
+# equations, citations, tables, and images.
+# Usage: convert.sh <input> <output> [bibliography.bib]
 set -euo pipefail
 
 if [ "$#" -lt 2 ]; then
-  echo "Uso: $0 <entrada> <saida> [bibliografia.bib]" >&2
+  echo "Usage: $0 <input> <output> [bibliography.bib]" >&2
   exit 1
 fi
 
@@ -14,7 +14,7 @@ OUT="$2"
 BIB="${3:-}"
 
 if ! command -v pandoc >/dev/null 2>&1; then
-  echo "pandoc nao encontrado. Instalar com: pip install pypandoc_binary  (ou apt-get install pandoc)" >&2
+  echo "pandoc not found. Install with: pip install pypandoc_binary (or apt-get install pandoc)" >&2
   exit 2
 fi
 
@@ -28,7 +28,7 @@ case "$in_ext" in
   html|htm)    FROM="html" ;;
   rst)         FROM="rst" ;;
   txt)         FROM="markdown" ;;
-  *) echo "Formato de entrada nao suportado: $in_ext" >&2; exit 3 ;;
+  *) echo "Unsupported input format: $in_ext" >&2; exit 3 ;;
 esac
 
 ARGS=(-f "$FROM" --wrap=none)
@@ -39,8 +39,8 @@ case "$out_ext" in
     if [ "$in_ext" = "md" ] || [ "$in_ext" = "markdown" ]; then
       ARGS+=(-t gfm)
     else
-      # Sabor de markdown do pandoc que preserva citacoes como [@chave];
-      # o gfm descarta-as ao converter a partir de tex/docx.
+      # Pandoc markdown flavour preserving citations as [@key];
+      # gfm discards them when converting from tex/docx.
       ARGS+=(-t "markdown-smart-fenced_divs-bracketed_spans-native_divs-native_spans-header_attributes-link_attributes-simple_tables-multiline_tables-grid_tables+pipe_tables+tex_math_dollars")
     fi ;;
   tex|latex)   ARGS+=(-t latex -s --biblatex) ;;
@@ -49,19 +49,19 @@ case "$out_ext" in
   pdf)         ARGS+=(--pdf-engine=xelatex) ;;
   txt)         ARGS+=(-t plain) ;;
   rst)         ARGS+=(-t rst) ;;
-  *) echo "Formato de saida nao suportado: $out_ext" >&2; exit 3 ;;
+  *) echo "Unsupported output format: $out_ext" >&2; exit 3 ;;
 esac
 
-# Extrair imagens ao ler docx
+# Extract images when reading docx
 if [ "$in_ext" = "docx" ]; then
   ARGS+=(--extract-media="$MEDIA_DIR")
 fi
 
-# Citacoes
+# Citations
 if [ -n "$BIB" ]; then
   ARGS+=(--citeproc --bibliography="$BIB")
 fi
 
 pandoc "${ARGS[@]}" "$IN" -o "$OUT"
 echo "OK: $IN -> $OUT"
-echo "Correr agora: python $(dirname "$0")/verify_conversion.py \"$IN\" \"$OUT\""
+echo "Run now: python $(dirname "$0")/verify_conversion.py \"$IN\" \"$OUT\""

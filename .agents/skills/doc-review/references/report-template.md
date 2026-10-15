@@ -1,56 +1,56 @@
-# Modelo do relatório de revisão
+# Review Report Template
 
-Usar esta estrutura. Omitir uma secção só se não houver nada a dizer. Escrever na língua do documento revisto.
+Use this structure. Omit a section only if there is nothing to report. Write in the language of the reviewed document.
 
 ```markdown
-# Revisão: [título do documento]
+# Review: [Document Title]
 
-**Tipo de documento:** [survey / relatório formal / relatório simples / outro] (indicar se foi inferido)
-**Extensão aproximada:** [páginas ou palavras]
+**Document Type:** [survey / formal report / simple report / other] (indicate if inferred)
+**Approximate Length:** [pages or word count]
 
-## 1. Resumo da avaliação
-3 a 5 frases: estado geral, principal força, principal fraqueza.
+## 1. Executive Summary
+3 to 5 sentences: overall status, primary strength, primary weakness.
 
-## 2. Mapa da estrutura
-Lista das secções com uma frase sobre o papel de cada uma.
+## 2. Structural Map
+List of sections with a single sentence summarising the role of each.
 
-## 3. Problemas encontrados
+## 3. Identified Issues
 
-### 3.1 Estrutura
-| # | Gravidade | Local | Problema | Sugestão |
-|---|-----------|-------|----------|----------|
-| E1 | Crítico/Importante/Menor | Sec. X, §Y | ... | ... |
+### 3.1 Structure
+| # | Severity | Location | Issue | Suggestion |
+|---|----------|----------|-------|------------|
+| S1 | Critical/Important/Minor | Sec. X, §Y | ... | ... |
 
-### 3.2 Vocabulário e linguagem
-(mesma tabela, ids V1, V2...)
+### 3.2 Vocabulary and Language
+(same table structure, IDs V1, V2...)
 
-### 3.3 Coesão intertextual
-(ids C1, C2...)
+### 3.3 Intertextual Cohesion
+(IDs C1, C2...)
 
-### 3.4 Conexões entre partes
-(ids L1, L2...)
+### 3.4 Connections Between Sections
+(IDs L1, L2...)
 
-### 3.5 Conteúdo
-(ids Q1, Q2...)
+### 3.5 Content Quality
+(IDs Q1, Q2...)
 
-## 4. Análise de prós e contras
+## 4. Pros and Cons Analysis
 
-### Prós
-Para cada um: **o quê**, **porquê importa**.
+### Pros
+For each point: **what**, **why it matters**.
 
-### Contras
-Para cada um: **o quê**, **porquê importa**, **como corrigir**.
+### Cons
+For each point: **what**, **why it matters**, **how to fix it**.
 
-## 5. Veredicto e prioridades
-- Veredicto global (2-3 frases).
-- As 3 ações com maior retorno, por ordem.
+## 5. Verdict and Action Priorities
+- Overall verdict (2-3 sentences).
+- Top 3 highest-return actions, in order of priority.
 
-## 6. Terminologia inconsistente (anexo, se aplicável)
-| Termo A | Termo B | Ocorrências | Sugestão de termo único |
+## 6. Inconsistent Terminology (Appendix, if applicable)
+| Term A | Term B | Occurrences | Recommended Unified Term |
 ```
 
-## Notas
-- Os ids (E1, V2...) permitem ao autor referir-se aos problemas numa conversa de seguimento ("aplica E1 a E4").
-- A coluna "Local" tem de permitir encontrar o problema sem procurar: secção, parágrafo e, se útil, citação curta do trecho.
-- Se o utilizador só pedir uma dimensão (ex.: "vê só o vocabulário"), entregar apenas essa parte mais o resumo.
-- Se o relatório for longo, entregá-lo como documento (ver skill de docs) e dar no chat apenas o resumo e as prioridades.
+## Notes
+- The IDs (S1, V2...) allow the author to reference specific issues in follow-up discussions ("apply S1 through S4").
+- The "Location" column must allow finding the issue without searching: section, paragraph, and, where useful, a short quote.
+- If the user only requests review of one dimension (e.g. "review only vocabulary"), provide only that dimension plus the summary.
+- If the report is extensive, deliver it as a document (refer to doc skills) and provide only the summary and priorities in the chat.

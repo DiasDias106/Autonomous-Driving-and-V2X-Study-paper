@@ -1,59 +1,59 @@
 ---
 name: doc-review
-description: Revê criticamente um documento (survey, relatório, artigo, tese, capítulo) e devolve um diagnóstico detalhado - falhas de estrutura, problemas de vocabulário, falta de coesão intertextual, ligações fracas entre secções - mais uma análise de prós e contras. Usar sempre que o utilizador pedir para rever, criticar, avaliar, fazer feedback, "ver se está bom", encontrar falhas ou melhorar um documento, mesmo que não diga "review" explicitamente. Especialmente indicado para o projeto de survey de IT. Não reescreve o documento, a menos que seja pedido.
+description: Critically reviews a document (survey, report, paper, thesis, chapter) and returns a detailed diagnosis - structural flaws, vocabulary issues, lack of intertextual cohesion, weak connections between sections - plus a pros and cons analysis. Use whenever the user asks to review, critique, evaluate, provide feedback, "see if it looks good", find flaws or improve a document, even without saying "review" explicitly. Especially suitable for the IT/IoT survey project. Does not rewrite the document unless requested.
 ---
 
 # Doc Review
 
-Esta skill faz a revisão crítica de um documento escrito. O objetivo é dar ao autor um diagnóstico que ele possa **agir de imediato**: cada problema tem de apontar para um local concreto do texto e ter uma sugestão de correção. Uma revisão vaga ("a estrutura podia ser melhor") não serve a ninguém.
+This skill performs a critical review of a written document. The objective is to provide the author with an **actionable diagnosis**: every identified issue must point to a specific location in the text and offer a concrete suggestion for improvement. Vague feedback ("the structure could be better") is not helpful.
 
-## Princípios
+## Principles
 
-- **Responder na língua do documento** (se o documento está em inglês, a revisão sai em inglês, salvo pedido em contrário).
-- **Ser específico**: citar a secção, parágrafo ou frase (citações curtas) onde o problema ocorre.
-- **Ser justo**: apontar também o que está bem feito. Uma revisão só com críticas perde credibilidade e o autor não sabe o que deve preservar.
-- **Não inventar problemas**: se uma dimensão está sólida, dizê-lo. Prefira poucos problemas reais a muitos duvidosos.
-- **Não alterar o conteúdo** do documento original. A revisão é um relatório à parte.
+- **Respond in the document's language** (if the document is written in English, the review must be in English, unless requested otherwise).
+- **Be specific**: cite the section, paragraph, or sentence (using short quotes) where the issue occurs.
+- **Be balanced and fair**: highlight what is well done as well. A review containing only criticisms loses credibility and leaves the author unsure of what should be preserved.
+- **Do not fabricate issues**: if a specific dimension is solid, state so explicitly. Prefer a few genuine issues over many dubious ones.
+- **Do not modify original document content**. The review is delivered as a separate report.
 
-## Fluxo de trabalho
+## Workflow
 
-1. **Ler o documento inteiro antes de comentar.** Muitas falhas (repetição, ideias prometidas e não cumpridas, conceitos usados antes de definidos) só se veem com a visão global. Se o ficheiro for .docx, .pdf ou .tex, extrair o texto primeiro (ver as skills docx/pdf, ou pandoc).
-2. **Mapear a estrutura**: listar secções e subsecções, com uma frase sobre o papel de cada uma. Este mapa serve de base para as análises seguintes e vai também para o relatório.
-3. **Passar pelas cinco dimensões** descritas abaixo. Para o detalhe de cada critério, ler `references/checklist.md`.
-4. **Fazer a análise de prós e contras.**
-5. **Compilar o relatório** com o formato de `references/report-template.md`.
-6. **Priorizar**: ordenar os problemas por gravidade, para o autor saber por onde começar.
+1. **Read the entire document before commenting.** Many flaws (repetition, unfulfilled promises, concepts used before being defined) are only visible with a global perspective. If the file is .docx, .pdf, or .tex, extract the plain text first (refer to docx/pdf skills, or pandoc).
+2. **Map the structure**: list sections and subsections with a single sentence summarising the role of each. This map serves as the baseline for subsequent analyses and is included in the final report.
+3. **Evaluate the five core dimensions** detailed below. For specific criteria, consult `references/checklist.md`.
+4. **Conduct a pros and cons analysis.**
+5. **Compile the report** using the template in `references/report-template.md`.
+6. **Prioritise findings**: order issues by severity so the author knows where to focus first.
 
-## As cinco dimensões
+## The Five Dimensions
 
-1. **Estrutura**: ordem lógica, equilíbrio entre secções, secções em falta ou redundantes, hierarquia de títulos, introdução que anuncia o que o documento realmente contém, conclusão que fecha o que foi aberto.
-2. **Vocabulário e linguagem**: terminologia inconsistente (o mesmo conceito com nomes diferentes), jargão não definido, acrónimos sem expansão na primeira ocorrência, registo desadequado, ambiguidade, frases demasiado longas, vícios de escrita, repetição de palavras.
-3. **Coesão intertextual** (dentro do documento e com a literatura): afirmações sem suporte ou sem citação, referências citadas mas não discutidas, referências na lista final que não aparecem no texto (e vice-versa), contradições entre secções, falta de posicionamento face a trabalhos relacionados. No caso de um survey, verificar também se a literatura é comparada e não apenas listada.
-4. **Conexões entre partes**: transições entre secções, fio condutor, referências cruzadas ("como visto na Secção 3"), promessas da introdução cumpridas nas secções seguintes, conclusões que realmente decorrem do corpo do texto.
-5. **Qualidade do conteúdo**: profundidade, rigor, cobertura do tema, exemplos, figuras e tabelas (legendadas, referidas no texto, legíveis), argumentação.
+1. **Structure**: logical progression, balance across sections, missing or redundant sections, heading hierarchy, an introduction that accurately outlines document contents, and a conclusion that synthesises open threads.
+2. **Vocabulary and Language**: inconsistent terminology (using different names for the same concept), undefined jargon, acronyms not expanded on first use, inappropriate register, ambiguity, overly long sentences, repetitive phrasing.
+3. **Intertextual Cohesion** (internal consistency and engagement with literature): unsupported factual claims, references cited without discussion, bibliography entries missing in-text citations (or vice versa), contradictions between sections, lack of clear positioning relative to related work. In a survey, ensure literature is critically compared rather than merely listed.
+4. **Connections Between Sections**: transitions between sections, narrative thread ("golden thread"), cross-references ("as discussed in Section 3"), promises made in the introduction delivered in subsequent sections, conclusions that logically follow from the body.
+5. **Content Quality**: depth, technical rigour, topical coverage, illustrative examples, figures and tables (captioned, referenced in text, legible), argumentation quality.
 
-## Prós e contras
+## Pros and Cons
 
-Esta parte é uma análise, não uma lista de pontos soltos. Para cada pró e cada contra:
+This section is an analytical evaluation, not a disconnected list of bullet points. For each pro and con:
 
-- dizer **o quê**,
-- dizer **porquê** importa (impacto no leitor ou na credibilidade do trabalho),
-- para os contras, dar **como corrigir**.
+- state **what**,
+- explain **why it matters** (impact on reader comprehension or academic credibility),
+- for cons, provide **how to fix it**.
 
-Terminar com um **veredicto global** curto: estado atual do documento, o que mais o limita, e as 3 ações com melhor retorno.
+Conclude with a concise **overall verdict**: current document state, primary limiting factor, and top 3 highest-impact actions.
 
-## Níveis de gravidade
+## Severity Levels
 
-Classificar cada problema para o autor poder priorizar:
+Classify each issue to help the author prioritise:
 
-- **Crítico**: compromete a compreensão ou a credibilidade (contradição, secção essencial em falta, conclusão sem suporte).
-- **Importante**: prejudica a qualidade mas o documento ainda funciona (transições fracas, terminologia inconsistente).
-- **Menor**: polimento (estilo, repetições, formatação).
+- **Critical**: impairs comprehension or academic credibility (contradictions, missing core section, unsupported conclusion).
+- **Important**: degrades quality but document remains functional (weak transitions, inconsistent terminology).
+- **Minor**: stylistic polish (phrasing, repetition, minor formatting).
 
-## Adaptar ao tipo de documento
+## Adapting to Document Type
 
-Se o utilizador disser o tipo (survey, relatório formal, relatório simples), ajustar as expectativas: um survey deve ter taxonomia/classificação clara, critérios de seleção da literatura e comparação entre trabalhos; um relatório simples não precisa da mesma densidade de referências. Se o tipo não for dito, inferi-lo do próprio texto e indicar a inferência no início da revisão.
+If the user specifies the document type (survey, formal report, simple report), adapt expectations accordingly: a survey requires a clear taxonomy, literature selection criteria, and cross-comparison tables; a simple report does not need dense citations. If not specified, infer the type from the text and note this inference at the beginning of the review.
 
-## Quando o documento é grande
+## Handling Large Documents
 
-Para documentos longos, rever por partes e depois fazer uma passagem final só de consistência global (terminologia, referências cruzadas, promessas da introdução vs. conclusão). Se houver subagentes disponíveis, pode-se distribuir secções por subagentes, mas a passagem global faz-se sempre com a visão do documento completo.
+For long documents, review section by section and perform a final pass focused on global consistency (terminology, cross-references, intro promises vs. conclusion). If subagents are available, sections can be distributed across subagents, but the final consistency pass must evaluate the complete document.

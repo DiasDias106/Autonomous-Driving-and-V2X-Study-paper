@@ -1,57 +1,57 @@
 ---
 name: doc-format
-description: Formata documentos segundo modelos predefinidos (survey, relatório formal, relatório simples) e converte documentos entre formatos (Markdown, LaTeX, DOCX, HTML, PDF, texto simples) sem perder conteúdo. Usar sempre que o utilizador pedir para formatar, reformatar, estruturar, "pôr no formato de survey/relatório", converter, passar para LaTeX, passar para Markdown, exportar para Word/PDF/HTML, ou adaptar um documento a outro formato, mesmo que não use a palavra "formato". Preserva todo o conteúdo (texto, equações, tabelas, figuras, citações, referências) e valida a conversão.
+description: Formats documents according to predefined templates (survey, formal report, simple report) and converts documents between formats (Markdown, LaTeX, DOCX, HTML, PDF, plain text) without losing content. Use whenever the user asks to format, reformat, structure, "format as survey/report", convert, convert to LaTeX, convert to Markdown, export to Word/PDF/HTML, or adapt a document to another format, even without explicitly using the word "format". Preserves all content (text, equations, tables, figures, citations, references) and validates the conversion.
 ---
 
 # Doc Format
 
-Esta skill tem duas funções que se combinam: **aplicar um modelo de formato** (survey, relatório formal, relatório simples) e **converter entre formatos de ficheiro** (md, LaTeX, docx, html, pdf, txt). A regra central é que **formatar e converter nunca podem perder nem alterar conteúdo**: mudam a forma, não o que está dito. É por isso que há uma verificação no fim.
+This skill combines two complementary functions: **applying a format template** (survey, formal report, simple report) and **converting between file formats** (md, LaTeX, docx, html, pdf, txt). The central rule is that **formatting and converting must never lose or alter content**: they change the form, not what is said. This is why a verification step is performed at the end.
 
-## Escolher o que fazer
+## Choosing What to Do
 
-Identificar o pedido:
+Identify the user request:
 
-| Pedido | Ação |
-|--------|------|
-| "Formata isto como survey / relatório" | Aplicar modelo (passos A) |
-| "Converte para LaTeX / md / docx..." | Converter (passos B) |
-| "Passa isto para relatório formal em LaTeX" | A e depois B |
+| Request | Action |
+|---------|--------|
+| "Format this as a survey / report" | Apply template (steps A) |
+| "Convert to LaTeX / md / docx..." | Convert (steps B) |
+| "Turn this into a formal report in LaTeX" | A and then B |
 
-Se o tipo de modelo não for indicado, perguntar uma vez (survey, relatório formal ou relatório simples) ou, se o conteúdo o deixar óbvio, inferir e dizer qual foi escolhido. Se o formato de saída não for indicado, usar Markdown como predefinição e dizê-lo.
+If the template type is not specified, ask once (survey, formal report, or simple report) or, if the content makes it obvious, infer and state which was chosen. If the output format is not specified, use Markdown as default and state so.
 
-## A. Aplicar um modelo
+## A. Applying a Template
 
-Os três modelos estão em `references/formats.md`. Ler esse ficheiro, escolher o modelo e seguir estes passos:
+The three templates are located in `references/formats.md`. Read that file, select the template, and follow these steps:
 
-1. **Ler o documento inteiro** e fazer um inventário do conteúdo: secções, equações, tabelas, figuras, listas, citações, referências, notas de rodapé, links, blocos de código.
-2. **Mapear o conteúdo para as secções do modelo.** Cada bloco de conteúdo existente vai para a secção que lhe corresponde.
-3. **Conteúdo sem lugar no modelo**: não o apagar. Colocá-lo na secção mais próxima, ou criar uma subsecção, e avisar o utilizador.
-4. **Secções do modelo sem conteúdo**: não inventar texto. Deixar a secção com um marcador `[EM FALTA: descrição do que deve entrar]` e listar estas faltas no fim da resposta. Inventar conteúdo num documento de investigação é pior do que deixar uma lacuna visível.
-5. **Não reescrever o texto** do autor, a menos que seja pedido. Pode-se corrigir apenas formatação (títulos, listas, numeração, legendas). Se houver erros de conteúdo, mencioná-los à parte (para análise de qualidade, existe a skill doc-review).
-6. Entregar o documento e um resumo curto: o que foi movido, o que ficou em falta.
+1. **Read the entire document** and inventory the content: sections, equations, tables, figures, lists, citations, references, footnotes, links, and code blocks.
+2. **Map the content to the template sections.** Each existing content block goes into its corresponding section.
+3. **Content without a matching place in the template**: do not delete it. Place it in the closest section, or create a subsection, and inform the user.
+4. **Template sections without content**: do not fabricate text. Leave the section with a placeholder `[MISSING: description of what should be included]` and list these gaps at the end of the response. Inventing content in a research document is worse than leaving a visible gap.
+5. **Do not rewrite the author's text** unless requested. Only formatting may be corrected (headings, lists, numbering, captions). If there are content errors, mention them separately (for quality analysis, use the `doc-review` skill).
+6. Deliver the document and a brief summary: what was moved, what is missing.
 
-## B. Converter entre formatos
+## B. Converting Between Formats
 
-Instruções detalhadas e comandos em `references/conversion.md`. Resumo:
+Detailed instructions and commands are in `references/conversion.md`. Summary:
 
-1. **Usar pandoc** para as conversões de texto estruturado (md, tex, docx, html, rst). Verificar se está instalado (`which pandoc`); se não, tentar instalar.
-2. **Converter via script**: `scripts/convert.sh <entrada> <saida>` escolhe a conversão pelo tipo de ficheiro e aplica as opções que protegem equações, citações e tabelas.
-3. **Validar sempre** com `python scripts/verify_conversion.py <entrada> <saida>`: compara contagem de palavras, secções, tabelas, figuras, equações, links e referências entre origem e destino e assinala diferenças. Corrigir o que for perda real; explicar ao utilizador o que for diferença esperada (ex.: numeração automática).
-4. **Para PDF** como destino: usar a skill pdf, ou LaTeX/pandoc com motor de PDF. PDF é formato de saída, não de edição; avisar se o utilizador quiser voltar atrás a partir de um PDF (a conversão inversa perde estrutura).
-5. **Para docx** como destino ou origem, consultar a skill docx.
+1. **Use pandoc** for structured text conversions (md, tex, docx, html, rst). Check if installed (`which pandoc`); if not, attempt installation.
+2. **Convert via script**: `scripts/convert.sh <input> <output>` selects the conversion based on file type and applies flags that preserve equations, citations, and tables.
+3. **Always validate** with `python scripts/verify_conversion.py <input> <output>`: compares word counts, sections, tables, figures, equations, links, and references between source and destination, flagging differences. Correct any real loss; explain expected differences to the user (e.g., automated numbering).
+4. **For PDF** as destination: use the pdf skill, or LaTeX/pandoc with a PDF engine. PDF is an output format, not an editable format; warn if the user wants to convert backwards from a PDF (reverse conversion loses structure).
+5. **For docx** as destination or source, consult the docx skill.
 
-## Onde há risco de perda
+## Where Loss Risks Occur
 
-Estes são os pontos em que as conversões costumam falhar. Verificar sempre:
+These are common failure points in conversions. Always check:
 
-- **Equações** (LaTeX ↔ md ↔ docx): preservar `$...$` e `$$...$$`; em docx, equações viram objetos nativos.
-- **Tabelas complexas** (células fundidas, tabelas largas): em Markdown simples podem perder a fusão de células; usar tabelas HTML ou avisar.
-- **Citações e bibliografia**: manter chaves BibTeX (`\cite{key}` ↔ `[@key]`); não converter para texto solto sem avisar. Manter o ficheiro `.bib`.
-- **Figuras**: manter referências a ficheiros de imagem, legendas e labels.
-- **Referências cruzadas** (`\ref`, `\label`): preservar.
-- **Notas de rodapé, links, código**: confirmar que sobrevivem.
-- **Caracteres especiais e acentos**: garantir UTF-8 e, em LaTeX, `\usepackage[utf8]{inputenc}` ou XeLaTeX/LuaLaTeX para português.
+- **Equations** (LaTeX ↔ md ↔ docx): preserve `$...$` and `$$...$$`; in docx, equations become native objects.
+- **Complex tables** (merged cells, wide tables): plain Markdown may lose cell merging; use HTML tables or warn the user.
+- **Citations and bibliography**: preserve BibTeX keys (`\cite{key}` ↔ `[@key]`); do not convert to loose text without warning. Keep the `.bib` file.
+- **Figures**: preserve image file references, captions, and labels.
+- **Cross-references** (`\ref`, `\label`): preserve them.
+- **Footnotes, links, code**: confirm they survive.
+- **Special characters and accents**: ensure UTF-8 encoding and appropriate font/package support in LaTeX.
 
-## Resposta final
+## Final Output
 
-Entregar o ficheiro (com `SendUserFile`) e, em poucas linhas: modelo/formato aplicado, resultado da verificação (sem perdas / diferenças encontradas), e o que ficou em falta ou foi movido.
+Deliver the file and, in a few lines: template/format applied, verification result (no loss / differences found), and what was missing or moved.

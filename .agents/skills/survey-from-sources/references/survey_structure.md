@@ -3,7 +3,7 @@
 Use this template. Adapt section names to the language of the text, and merge or drop sections when the material is small, but keep the order: it is the order readers of a survey expect.
 
 ## 1. Title and abstract
-- Title: names the main topic and the angle ("A survey of X", "X: estado da arte").
+- Title: names the main topic and the angle ("A survey of X", "X: state of the art").
 - Abstract (120–200 words): scope, what is covered, how the sources were organised, main takeaways, open problems.
 
 ## 2. Introduction

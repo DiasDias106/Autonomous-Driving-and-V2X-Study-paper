@@ -1,137 +1,137 @@
-# Modelos de formato
+# Format Templates
 
-## Índice
+## Table of Contents
 1. Survey
-2. Relatório formal
-3. Relatório simples
-4. Convenções comuns
+2. Formal Report
+3. Simple Report
+4. Common Conventions
 
 ---
 
 ## 1. Survey
 
-Para revisões da literatura / surveys académicos ou técnicos (ex.: survey de IT).
+For literature reviews / academic or technical surveys (e.g., IoT/IT survey).
 
 ```markdown
-# [Título: "A Survey of ..." / "Um Levantamento de ..."]
+# [Title: "A Survey of ..." / "An Overview of ..."]
 
-**Autores:** ...  **Data:** ...
+**Authors:** ...  **Date:** ...
 
-## Resumo / Abstract
-Contexto, âmbito, metodologia de levantamento, principais conclusões. 150-250 palavras.
-**Palavras-chave:** a, b, c
+## Abstract
+Context, scope, survey methodology, primary conclusions. 150-250 words.
+**Keywords:** a, b, c
 
-## 1. Introdução
-- Motivação e contexto
-- Problema e âmbito do survey
-- Questões de investigação
-- Contribuições
-- Estrutura do documento
+## 1. Introduction
+- Motivation and context
+- Problem and survey scope
+- Research questions
+- Contributions
+- Document structure
 
-## 2. Contexto e conceitos fundamentais
-Definições, terminologia, enquadramento necessário para ler o resto.
+## 2. Background and Fundamental Concepts
+Definitions, terminology, and background required to understand the remaining sections.
 
-## 3. Metodologia do levantamento
-Fontes/bases de dados, palavras-chave, período, critérios de inclusão e exclusão, processo de seleção.
+## 3. Survey Methodology
+Sources/databases, search keywords, time period, inclusion and exclusion criteria, selection process.
 
-## 4. Taxonomia / classificação
-Esquema usado para organizar a literatura (com figura ou tabela).
+## 4. Taxonomy / Classification
+Framework used to organise the literature (including a figure or table).
 
-## 5. Revisão da literatura
-Subsecções organizadas pela taxonomia. Cada trabalho é descrito e posicionado, não só listado.
+## 5. Literature Review
+Subsections organised by the taxonomy. Each study is described, contextualised, and positioned, rather than merely listed.
 
-## 6. Análise comparativa
-Tabela(s) comparativa(s) com critérios explícitos; discussão de tendências.
+## 6. Comparative Analysis
+Comparative table(s) with explicit evaluation criteria; discussion of observed trends.
 
-## 7. Desafios em aberto e direções futuras
+## 7. Open Challenges and Future Directions
 
-## 8. Conclusões
+## 8. Conclusion
 
-## Referências
+## References
 
-## Apêndices (opcional)
+## Appendices (optional)
 ```
 
-Notas: a secção 3 e a 6 distinguem um survey de uma simples lista de trabalhos. Tabelas comparativas com legenda e referidas no texto.
+Notes: Sections 3 and 6 distinguish an academic survey from a mere list of papers. Comparative tables must have captions and be referenced in the body text.
 
 ---
 
-## 2. Relatório formal
+## 2. Formal Report
 
-Para relatórios técnicos ou institucionais com requisitos de formalidade.
+For technical or institutional reports with strict formal requirements.
 
 ```markdown
-# [Título]
+# [Title]
 
-**Autor(es):** ...  **Instituição/Projeto:** ...  **Data:** ...  **Versão:** ...
+**Author(s):** ...  **Institution/Project:** ...  **Date:** ...  **Version:** ...
 
-## Resumo executivo
-1 página no máximo: objetivo, resultados, conclusões, recomendações.
+## Executive Summary
+1 page maximum: objectives, results, conclusions, and recommendations.
 
-## Índice
+## Table of Contents
 
-## 1. Introdução
-Enquadramento, objetivos, âmbito, estrutura do relatório.
+## 1. Introduction
+Context, objectives, scope, report structure.
 
-## 2. Enquadramento / Estado da arte (se aplicável)
+## 2. Background / State of the Art (if applicable)
 
-## 3. Metodologia / Abordagem
-Como o trabalho foi realizado; ferramentas, dados, critérios.
+## 3. Methodology / Approach
+How the work was conducted; tools, data, criteria.
 
-## 4. Desenvolvimento / Implementação
+## 4. Development / Implementation
 
-## 5. Resultados
-Dados, tabelas, figuras, interpretação.
+## 5. Results
+Data, tables, figures, interpretation.
 
-## 6. Discussão
-Análise dos resultados, limitações, implicações.
+## 6. Discussion
+Analysis of results, limitations, implications.
 
-## 7. Conclusões e recomendações
+## 7. Conclusions and Recommendations
 
-## Referências
+## References
 
-## Anexos
+## Appendices
 ```
 
-Notas: tom impessoal e formal; numeração de secções, figuras e tabelas; página de rosto e controlo de versões se o utilizador pedir.
+Notes: Impersonal and formal tone; section, figure, and table numbering; cover page and version history if requested.
 
 ---
 
-## 3. Relatório simples
+## 3. Simple Report
 
-Para relatórios curtos e diretos (ponto de situação, resumo de trabalho, notas técnicas).
+For concise and direct reports (status reports, summary of work, technical notes).
 
 ```markdown
-# [Título]
+# [Title]
 
-**Data:** ...  **Autor:** ...
+**Date:** ...  **Author:** ...
 
-## Objetivo
-1-3 frases.
+## Objective
+1-3 sentences.
 
-## O que foi feito
-Descrição objetiva, em prosa curta ou lista.
+## Work Completed
+Objective description, in concise prose or bulleted list.
 
-## Resultados
-O essencial, com números ou figuras se houver.
+## Results
+Key findings, with metrics or figures if available.
 
-## Problemas e limitações
-(se houver)
+## Issues and Limitations
+(if applicable)
 
-## Próximos passos
+## Next Steps
 
-## Referências / Links (se houver)
+## References / Links (if applicable)
 ```
 
-Notas: sem índice, sem anexos obrigatórios, linguagem direta. Cabe tipicamente em 1-3 páginas.
+Notes: No table of contents, no mandatory appendices, direct tone. Typically fits within 1-3 pages.
 
 ---
 
-## 4. Convenções comuns
+## 4. Common Conventions
 
-- Títulos hierárquicos (`#`, `##`, `###`) sem saltar níveis.
-- Figuras e tabelas numeradas com legenda (Figura 1, Tabela 1) e referidas no texto.
-- Citações num único estilo, coerente em todo o documento.
-- Acrónimos expandidos na primeira ocorrência.
-- Marcador para falta de conteúdo: `[EM FALTA: ...]`.
-- Língua do documento original mantida; os nomes das secções do modelo são traduzidos para essa língua.
+- Hierarchical headings (`#`, `##`, `###`) without skipping levels.
+- Figures and tables numbered with captions (Figure 1, Table 1) and referenced in the text.
+- Consistent citation style throughout the document.
+- Acronyms expanded upon first occurrence.
+- Placeholder marker for missing content: `[MISSING: ...]`.
+- Preserve the language of the original document; template section names should match that language.

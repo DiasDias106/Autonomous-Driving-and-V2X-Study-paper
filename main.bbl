@@ -7,8 +7,7 @@
 \providecommand{\BIBentrySTDinterwordspacing}{\spaceskip=0pt\relax}
 \providecommand{\BIBentryALTinterwordstretchfactor}{4}
 \providecommand{\BIBentryALTinterwordspacing}{\spaceskip=\fontdimen2\font plus
-\BIBentryALTinterwordstretchfactor\fontdimen3\font minus
-  \fontdimen4\font\relax}
+\BIBentryALTinterwordstretchfactor\fontdimen3\font minus \fontdimen4\font\relax}
 \providecommand{\BIBforeignlanguage}[2]{{%
 \expandafter\ifx\csname l@#1\endcsname\relax
 \typeout{** WARNING: IEEEtran.bst: No hyphenation pattern has been}%
@@ -22,113 +21,63 @@
 \BIBdecl
 
 \bibitem{szalay2023survey}
-Z.~Szalay \emph{et~al.}, ``A survey on the use-cases and deployment efforts
-  toward converged internet of things ({IoT}) and vehicle-to-everything ({V2X})
-  environments,'' \emph{Acta Technica Jaurinensis}, vol.~16, no.~4, pp.
-  180--200, 2023.
+Z.~Szalay \emph{et~al.}, ``A survey on the use-cases and deployment efforts toward converged internet of things ({IoT}) and vehicle-to-everything ({V2X}) environments,'' \emph{Acta Technica Jaurinensis}, vol.~16, no.~4, pp. 180--200, 2023.
 
 \bibitem{etsi_cpm_2019}
-{ETSI}, ``Intelligent transport systems ({ITS}); vehicular communications;
-  basic set of applications; analysis of the collective perception service
-  ({CPS}),'' ETSI, Technical Report TR 103 562 V2.1.1, 2019.
+{ETSI}, ``Intelligent transport systems ({ITS}); vehicular communications; basic set of applications; analysis of the collective perception service ({CPS}),'' ETSI, Technical Report TR 103 562 V2.1.1, 2019.
 
 \bibitem{naik2019ieee}
-G.~Naik, B.~Choudhury, and J.-M. Park, ``{IEEE} 802.11bd \& {5G NR V2X}:
-  Evolution of radio access technologies for {V2X} communications,'' \emph{IEEE
-  Access}, vol.~7, pp. 70\,169--70\,184, 2019.
+G.~Naik, B.~Choudhury, and J.-M. Park, ``{IEEE} 802.11bd \& {5G NR V2X}: Evolution of radio access technologies for {V2X} communications,'' \emph{IEEE Access}, vol.~7, pp. 70\,169--70\,184, 2019.
 
 \bibitem{sudirham2023sdn}
-J.~Sudirham \emph{et~al.}, ``On {SDN} to support the {IEEE} 802.11 and
-  {C-V2X}-based vehicular communications use-cases and performance: A
-  comprehensive survey,'' \emph{IEEE Access}, vol.~11, pp. 143\,521--143\,555,
-  2023.
+J.~Sudirham \emph{et~al.}, ``On {SDN} to support the {IEEE} 802.11 and {C-V2X}-based vehicular communications use-cases and performance: A comprehensive survey,'' \emph{IEEE Access}, vol.~11, pp. 143\,521--143\,555, 2023.
 
 \bibitem{gyawali2020challenges}
-S.~Gyawali, S.~Xu, Y.~Qian, and R.~Q. Hu, ``Challenges and solutions for
-  cellular based {V2X} communications,'' \emph{IEEE Communications Surveys \&
-  Tutorials}, vol.~23, no.~1, pp. 222--255, 2020.
+S.~Gyawali, S.~Xu, Y.~Qian, and R.~Q. Hu, ``Challenges and solutions for cellular based {V2X} communications,'' \emph{IEEE Communications Surveys \& Tutorials}, vol.~23, no.~1, pp. 222--255, 2020.
 
 \bibitem{castaneda2021tutorial}
-M.~H. Casta{\~n}eda~Garcia, A.~Molina-Galan, M.~Boban, J.~Gozalvez,
-  B.~Coll-Perales, T.~{\c{S}}ahin, and A.~Kousaridas, ``A tutorial on {5G NR
-  V2X} communications,'' \emph{IEEE Communications Surveys \& Tutorials},
-  vol.~23, no.~3, pp. 1689--1726, 2021.
+M.~H. Casta{\~n}eda~Garcia, A.~Molina-Galan, M.~Boban, J.~Gozalvez, B.~Coll-Perales, T.~{\c{S}}ahin, and A.~Kousaridas, ``A tutorial on {5G NR V2X} communications,'' \emph{IEEE Communications Surveys \& Tutorials}, vol.~23, no.~3, pp. 1689--1726, 2021.
 
 \bibitem{xu2022v2xvit}
-R.~Xu, H.~Xiang, X.~Xia, X.~Han, J.~Li, and J.~Ma, ``{V2X-ViT}:
-  Vehicle-to-everything cooperative perception with vision transformer,'' in
-  \emph{Proc. European Conference on Computer Vision (ECCV)}, 2022, pp.
-  107--124.
+R.~Xu, H.~Xiang, X.~Xia, X.~Han, J.~Li, and J.~Ma, ``{V2X-ViT}: Vehicle-to-everything cooperative perception with vision transformer,'' in \emph{Proc. European Conference on Computer Vision (ECCV)}, 2022, pp. 107--124.
 
 \bibitem{hu2022where2comm}
-Y.~Hu, S.~Fang, Z.~Xie, S.~Chen, and Y.~Wang, ``Where2comm:
-  Communication-efficient collaborative perception via spatial confidence
-  maps,'' in \emph{Advances in Neural Information Processing Systems
-  (NeurIPS)}, vol.~35, 2022, pp. 4874--4886.
+Y.~Hu, S.~Fang, Z.~Xie, S.~Chen, and Y.~Wang, ``Where2comm: Communication-efficient collaborative perception via spatial confidence maps,'' in \emph{Advances in Neural Information Processing Systems (NeurIPS)}, vol.~35, 2022, pp. 4874--4886.
 
 \bibitem{chen2019fcooper}
-Q.~Chen, X.~Ma, S.~Tang, J.~Guo, Q.~Yang, and S.~Fu, ``F-cooper: Feature-level
-  cooperative perception for automated driving,'' in \emph{Proc. 2nd ACM/IEEE
-  Symposium on Edge Computing (SEC)}, 2019, pp. 125--138.
+Q.~Chen, X.~Ma, S.~Tang, J.~Guo, Q.~Yang, and S.~Fu, ``F-cooper: Feature-level cooperative perception for automated driving,'' in \emph{Proc. 2nd ACM/IEEE Symposium on Edge Computing (SEC)}, 2019, pp. 125--138.
 
 \bibitem{dosovitskiy2017carla}
-A.~Dosovitskiy, G.~Ros, F.~Codevilla, A.~Lopez, and V.~Koltun, ``{CARLA}: An
-  open urban driving simulator,'' in \emph{Proc. 1st Annual Conference on Robot
-  Learning (CoRL)}, 2017, pp. 1--16.
+A.~Dosovitskiy, G.~Ros, F.~Codevilla, A.~Lopez, and V.~Koltun, ``{CARLA}: An open urban driving simulator,'' in \emph{Proc. 1st Annual Conference on Robot Learning (CoRL)}, 2017, pp. 1--16.
 
 \bibitem{brecht2018scms}
-B.~Brecht, D.~Therriault, A.~Weimerskirch, W.~Whyte, V.~Kumar, T.~Hehn, and
-  R.~Goudy, ``A security credential management system for {V2X}
-  communications,'' \emph{IEEE Transactions on Intelligent Transportation
-  Systems}, vol.~19, no.~12, pp. 3850--3871, 2018.
+B.~Brecht, D.~Therriault, A.~Weimerskirch, W.~Whyte, V.~Kumar, T.~Hehn, and R.~Goudy, ``A security credential management system for {V2X} communications,'' \emph{IEEE Transactions on Intelligent Transportation Systems}, vol.~19, no.~12, pp. 3850--3871, 2018.
 
 \bibitem{haidar2019risk}
-F.~Haidar, A.~Kaiser, B.~Lonc, and P.~Urien, ``Risk analysis on {C-ITS}
-  pseudonymity aspects,'' in \emph{Proc. 10th IFIP International Conference on
-  New Technologies, Mobility and Security (NTMS)}, 2019, pp. 1--5.
+F.~Haidar, A.~Kaiser, B.~Lonc, and P.~Urien, ``Risk analysis on {C-ITS} pseudonymity aspects,'' in \emph{Proc. 10th IFIP International Conference on New Technologies, Mobility and Security (NTMS)}, 2019, pp. 1--5.
 
 \bibitem{yoshizawa2023new}
-T.~Yoshizawa and B.~Preneel, ``A new approach to pseudonym certificate
-  management in {V2X} communication,'' in \emph{Proc. IEEE Vehicular Networking
-  Conference (VNC)}, 2023, pp. 25--32.
+T.~Yoshizawa and B.~Preneel, ``A new approach to pseudonym certificate management in {V2X} communication,'' in \emph{Proc. IEEE Vehicular Networking Conference (VNC)}, 2023, pp. 25--32.
 
 \bibitem{sun2010efficient}
-Y.~Sun, R.~Lu, X.~Lin, X.~Shen, and J.~Su, ``An efficient pseudonymous
-  authentication scheme with strong privacy preservation for vehicular
-  communications,'' \emph{IEEE Transactions on Vehicular Technology}, vol.~59,
-  no.~7, pp. 3589--3603, 2010.
+Y.~Sun, R.~Lu, X.~Lin, X.~Shen, and J.~Su, ``An efficient pseudonymous authentication scheme with strong privacy preservation for vehicular communications,'' \emph{IEEE Transactions on Vehicular Technology}, vol.~59, no.~7, pp. 3589--3603, 2010.
 
 \bibitem{simplicio2018privacy}
-M.~A. Simpl{\'i}cio~Jr., E.~L. Cominetti, H.~K. Patil, J.~E. Ricardini,
-  L.~T.~D. Ferraz, and M.~V.~M. Silva, ``Privacy-preserving method for
-  temporarily linking/revoking pseudonym certificates in {VANETs},'' in
-  \emph{Proc. 17th IEEE International Conference on Trust, Security and Privacy
-  in Computing and Communications (TrustCom)}, 2018, pp. 1322--1329.
+M.~A. Simpl{\'i}cio~Jr., E.~L. Cominetti, H.~K. Patil, J.~E. Ricardini, L.~T.~D. Ferraz, and M.~V.~M. Silva, ``Privacy-preserving method for temporarily linking/revoking pseudonym certificates in {VANETs},'' in \emph{Proc. 17th IEEE International Conference on Trust, Security and Privacy in Computing and Communications (TrustCom)}, 2018, pp. 1322--1329.
 
 \bibitem{storck2020survey}
-C.~R. Storck and F.~Duarte-Figueiredo, ``A survey on {5G} vehicular networks:
-  {5G-V2X} and edge computing architecture,'' \emph{IEEE Access}, vol.~8, pp.
-  66\,935--66\,964, 2020.
+C.~R. Storck and F.~Duarte-Figueiredo, ``A survey on {5G} vehicular networks: {5G-V2X} and edge computing architecture,'' \emph{IEEE Access}, vol.~8, pp. 66\,935--66\,964, 2020.
 
 \bibitem{huang2025v2x}
-T.~Huang, J.~Liu, X.~Zhou, D.~C. Nguyen, M.~R. Azghadi, Y.~Xia, Q.-L. Han, and
-  S.~Sun, ``Vehicle-to-everything cooperative perception for autonomous
-  driving: A review,'' \emph{Proceedings of the IEEE}, vol. 113, no.~1, pp.
-  10--35, 2025.
+T.~Huang, J.~Liu, X.~Zhou, D.~C. Nguyen, M.~R. Azghadi, Y.~Xia, Q.-L. Han, and S.~Sun, ``Vehicle-to-everything cooperative perception for autonomous driving: A review,'' \emph{Proceedings of the IEEE}, vol. 113, no.~1, pp. 10--35, 2025.
 
 \bibitem{heijden2017survey}
-R.~W. van~der Heijden, S.~Dietzel, and F.~Kargl, ``Misbehavior detection in
-  cooperative intelligent transportation systems,'' \emph{IEEE Communications
-  Surveys \& Tutorials}, vol.~21, no.~1, pp. 779--811, 2019.
+R.~W. van~der Heijden, S.~Dietzel, and F.~Kargl, ``Misbehavior detection in cooperative intelligent transportation systems,'' \emph{IEEE Communications Surveys \& Tutorials}, vol.~21, no.~1, pp. 779--811, 2019.
 
 \bibitem{saad2019vision}
-W.~Saad, M.~Bennis, and M.~Chen, ``A vision of {6G} wireless systems:
-  Applications, trends, technologies, and open research problems,'' \emph{IEEE
-  Network}, vol.~34, no.~3, pp. 134--142, 2020.
+W.~Saad, M.~Bennis, and M.~Chen, ``A vision of {6G} wireless systems: Applications, trends, technologies, and open research problems,'' \emph{IEEE Network}, vol.~34, no.~3, pp. 134--142, 2020.
 
 \bibitem{cui2021integrating}
-Y.~Cui, F.~Liu, X.~Jing, and J.~Mu, ``Integrating sensing and communications
-  for ubiquitous {IoT}: Applications, trends, and challenges,'' \emph{IEEE
-  Network}, vol.~35, no.~5, pp. 158--167, 2021.
+Y.~Cui, F.~Liu, X.~Jing, and J.~Mu, ``Integrating sensing and communications for ubiquitous {IoT}: Applications, trends, and challenges,'' \emph{IEEE Network}, vol.~35, no.~5, pp. 158--167, 2021.
 
 \end{thebibliography}

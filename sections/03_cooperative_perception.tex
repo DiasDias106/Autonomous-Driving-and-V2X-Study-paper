@@ -3,7 +3,7 @@
 \label{sec:cooperative_perception}
 
 Once a reliable wireless communication link is established, vehicles can run advanced safety applications.
-The most important application for high-level automated driving is Cooperative Perception (CP), also known as collective perception \cite{etsi_cpm_2019}.
+The most important application for high-level automated driving is Cooperative Perception (CP), also known as collective perception~\cite{etsi_cpm_2019}.
 This section analyzes how V2X enables cooperative perception, examines different sensor fusion levels, defines strict quality-of-service requirements, and reviews error patterns observed in driving simulations.
 
 \subsection{Motivation: Overcoming Sensor Blind Spots}
@@ -35,7 +35,7 @@ To share perception data efficiently, international standardization bodies defin
     \item \textbf{Cooperative Awareness Messages (CAM):} Periodic status messages broadcasted at 1 to 10~Hz.
     They include the sender's own position, speed, acceleration, and heading, but do not describe other objects.
     \item \textbf{Decentralized Environmental Notification Messages (DENM):} Event-driven messages sent when an incident occurs, such as roadworks, emergency braking, or icy roads.
-    \item \textbf{Collective Perception Messages (CPM):} Standardized by ETSI in TR~103~562 \cite{etsi_cpm_2019}.
+    \item \textbf{Collective Perception Messages (CPM):} Standardized by ETSI in TR~103~562~\cite{etsi_cpm_2019}.
     Unlike CAMs, a CPM allows a vehicle or RSU to describe \textit{other} detected objects in its vicinity.
     A CPM contains the sender's sensor capabilities, detected obstacles (3D position, speed, dimensions, and classification confidence), and free-space perception areas.
 \end{itemize}
@@ -64,19 +64,19 @@ As illustrated in Fig.~\ref{fig:fusion_schemes}, cooperative perception systems 
     If a vehicle's onboard detector fails to identify a partially visible object, that object is permanently lost because raw supporting evidence was discarded.
 
     \item \textbf{Intermediate Fusion (Feature Level):} Each vehicle uses a deep neural network encoder to extract compressed intermediate feature representations (latent feature maps).
-    Vehicles share these feature maps over V2X, align them, and fuse them using spatial attention mechanisms or Graph Neural Networks (GNNs), such as V2X-ViT \cite{xu2022v2xvit}, Where2comm \cite{hu2022where2comm}, and F-Cooper \cite{chen2019fcooper}.
+    Vehicles share these feature maps over V2X, align them, and fuse them using spatial attention mechanisms or Graph Neural Networks (GNNs), such as V2X-ViT~\cite{xu2022v2xvit}, Where2comm~\cite{hu2022where2comm}, and F-Cooper~\cite{chen2019fcooper}.
     \textit{Advantages:} Represents the current state of the art by achieving detection accuracy close to early fusion while keeping bandwidth demands within realistic wireless limits.
 \end{itemize}
 
 \subsection{Coordinate Alignment and Transformation}
 Before two vehicles can fuse their perception data, their coordinate systems must be aligned.
 Each vehicle measures objects relative to its own local coordinate frame.
-To transform a 3D point $p_B = [x_B, y_B, z_B, 1]^T$ from the sender vehicle $B$'s frame to the receiver vehicle $A$'s ego frame, the system applies a relative transformation matrix $T_{B \to A}$:
+To transform a 3D point $p_B = [x_B, y_B, z_B, 1]^T$ from the sender vehicle $B$'s frame to the receiver vehicle $A$'s ego frame, the system applies the coordinate transformation in \eqref{eq:coordinate_transform}:
 \begin{equation}
 p_A = T_{B \to A} \cdot p_B = T_A^{-1} \cdot T_B \cdot p_B
 \label{eq:coordinate_transform}
 \end{equation}
-where each transformation matrix $T$ contains a $3 \times 3$ rotation matrix $R$ and a $3 \times 1$ translation vector $t = [x, y, z]^T$:
+where each global transformation matrix $T$ is structured as shown in \eqref{eq:matrix_t}:
 \begin{equation}
 T = \begin{bmatrix}
 R & t \\
@@ -84,7 +84,7 @@ R & t \\
 \end{bmatrix}
 \label{eq:matrix_t}
 \end{equation}
-The rotation matrix $R = R_z(\alpha) R_y(\beta) R_x(\gamma)$ is calculated from the vehicle's yaw ($\alpha$), pitch ($\beta$), and roll ($\gamma$) angles.
+In \eqref{eq:matrix_t}, $t = [x, y, z]^T$ represents the $3 \times 1$ translation vector, while the rotation matrix $R = R_z(\alpha) R_y(\beta) R_x(\gamma)$ is calculated from the vehicle's yaw ($\alpha$), pitch ($\beta$), and roll ($\gamma$) angles.
 If the sender vehicle has noisy GPS or IMU sensors, small angular errors create large spatial offsets when projecting objects, causing misaligned object duplicates.
 
 \subsection{Strict Quality-of-Service (QoS) Requirements}
@@ -99,7 +99,7 @@ Cooperative perception applications demand strict communication performance:
 \end{itemize}
 
 \subsection{Error Taxonomy and Safety Impact in Driving Simulations}
-Extensive testing in simulation environments like CARLA \cite{dosovitskiy2017carla} and OpenCDA reveals that cooperative perception can introduce new failure modes if communication degrades.
+Extensive testing in simulation environments like CARLA~\cite{dosovitskiy2017carla} and OpenCDA reveals that cooperative perception can introduce new failure modes if communication degrades.
 As classified in Fig.~\ref{fig:error_taxonomy}, cooperative perception errors fall into two main categories:
 
 \begin{figure}[!t]

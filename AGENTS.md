@@ -49,12 +49,16 @@ The total compiled output must be exactly 10 pages (including the bibliography)[
   - Refer to figures as "Fig.~\ref{fig:...}"[cite: 18, 38, 41].
 - **Math Environments:**
   - Never use the deprecated `\begin{eqnarray}` environment[cite: 16, 38]. Use `align` from `amsmath` or `IEEEeqnarray`[cite: 16, 38].
-- **Floats & Figures:**
-  - Float placement specifiers must favour top/bottom (`[!t]` or `[!b]`)[cite: 17, 38]. Never use middle-of-column floats (`[h]`)[cite: 17, 38].
+- **Floats & Figures (Top Placement):**
+  - Try to always place figures and tables at the top of pages using `[!t]`. Never use middle-of-column floats (`[h]`)[cite: 17, 38].
   - Table captions appear *above* the table; figure captions appear *below*[cite: 18, 19, 38, 41].
 - **Citations & Bibliography:**
   - All citations must use `\cite{key}`[cite: 16, 38].
   - Maintain all citation data strictly in `references.bib` using the `\bibliographystyle{IEEEtran}` style[cite: 24, 26, 38].
+  - Avoid placing citations at the beginning of a line or sentence (e.g., `[1] ...`). Always attach `\cite{...}` to the preceding word using a non-breaking tilde `~` (e.g., `web preservation~\cite{...}`).
+- **Formulas & Equation Numbering:**
+  - Whenever an equation is assigned a number like (1), (2), etc. via `\begin{equation}` and `\label{eq:...}`, that number must be explicitly referenced in the text using `\eqref{eq:...}`[cite: 38].
+  - If a formula is not referenced in the body text, remove its assigned number and label by using unnumbered math environments (`\[ ... \]` or `equation*`).
 - **Last-Page Column Balancing:**
   - On page 10, balance the bibliography columns using `\IEEEtriggeratref{X}` or a manual `\newpage`[cite: 24].
 - **Pagination:**

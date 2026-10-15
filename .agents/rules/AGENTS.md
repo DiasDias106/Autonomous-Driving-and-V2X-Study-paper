@@ -68,6 +68,9 @@ The total compiled output must be exactly 10 pages (including the bibliography):
 - **Target Audience & Author Voice:** This paper is meant to be written from our group of 3 non-English speaking people, and is meant to be read by a non-English person.
 - **Vocabulary & Clarity:** We can all speak and write in English, but always keep a simple vocabulary, straight to the point. Avoid overly convoluted words or flowery phrases; prioritize clear, sequential, and direct explanations.
 - **Language & Spelling (English UK):** Everything in the paper has to be in English (UK) (British English conventions, e.g., 'colour', 'behaviour', 'modelling', 'programme', 'analyse', 'optimise', 'prioritise'). All text, captions, figures, and tables must consistently adhere to UK English conventions.
+- **Acronym Usage & Lifecycle:**
+  - Avoid introducing acronyms if they are not relevant or not supposed to be remembered/used again in the paper (e.g. write out terms like "signal phase and timing" without parenthesised abbreviations if only mentioned once).
+  - If an acronym is used, always make sure it has been explicitly defined (expanded) upon its first occurrence in the paper (e.g., \textit{Full Name} (FN)) before using the abbreviation.
 
 ---
 
@@ -78,4 +81,5 @@ Before marking any task as complete:
 3. Check build logs to ensure zero undefined references (`?`) and zero overfull/underfull horizontal boxes.
 4. Verify that total page count equals 10 pages.
 5. Verify that all spelling and conventions strictly follow English (UK).
+6. Verify that all acronyms used are defined on first occurrence and that single-use/throwaway acronyms are eliminated.
 

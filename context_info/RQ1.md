@@ -1,77 +1,116 @@
-# Internet of Vehicles and V2X
+# Research Questions (RQs)
 
-## 1. How do C-V2X and IEEE 802.11p/bd compare technically, and what is the current state of deployment?
+## Internet of Vehicles and V2X
+
+### RQ1: How do C-V2X and IEEE 802.11p/bd compare technically, and what is the current state of deployment?
 
 ###  RPs:
 1. "On SDN to Support the IEEE 802.11 and C-V2X-Based Vehicular Communications Use-Cases and Performance: A Comprehensive Survey" ([accessible](https://ieeexplore.ieee.org/abstract/document/10352136))
-2. "A Survey on the Use-Cases and Deployment Efforts Toward Converged Internet of Things (IoT) and Vehicle-to-Everything (V2X) Environments" ([accessible](https://acta.sze.hu/index.php/acta/article/view/627))
+2. "Physical Layer Evaluation of V2X Communications Technologies: 5G NR-V2X, LTE-V2X, IEEE 802.11bd, and IEEE 802.11p" ([accessible](https://ieeexplore.ieee.org/abstract/document/10352136))
+3. "A Survey on the Use-Cases and Deployment Efforts Toward Converged Internet of Things (IoT) and Vehicle-to-Everything (V2X) Environments" ([accessible](https://acta.sze.hu/index.php/acta/article/view/627))
 
-### Introduction
-- Vehicular communications are enabled mainly by two major RATs, one based on wifi/IEEE 802.11 family standard and the other one is cellular/C-V2X. Each RAT family has its advantages and disadvantages.
-- The IEEE standardized the Wifi family (IEEE 802.11), meanwhile, the cellular family was standardized by the 3GPP.
-- In the United States, the Wifi based vehicular communications technologies are called DSRC, and it is implemented as a WAVE. WAVE technology is supported by IEEE 802.11p technology as the physical layer (PHY) and datalink layer (MAC) and supported by IEEE 1609 standards for the transport, network, facilities, management, and security layers. DSRC technologies have several advantages related to low end-to-end latency, low cost, and flexibility of implementation because there is no need for a centralized control system for vehicular communications infrastructure. Meanwhile, the disadvantages of these technologies are security problems and difficulty overcoming line-of-sight problem. In Europe, the Wifi based vehicle communication standard is called cooperative-ITS (C-ITS), also known as the ITS generation 5 (ITS-G5) standard. The PHY and MAC layer of the C-ITS used the IEEE 802.11p standard as the basis and adopted the ETSI EN 302 663, which specified the C-ITS access layer standard. Meanwhile, the RAT in the cellular family currently used are LTE-V2X and 5G. Cellular technologies have advantages related to a wide coverage area, security, performance, and better scalability. However, these technologies have weaknesses related to infrastructure, which must always be managed in a centralized manner, end-to-end latency, and a higher implementation price.
-- IEEE 802.11-based vehicular communications technologies appeared first because the IEEE 802.11p standard has existed since 2010, while LTE-V2X technology has only emerged as a standard in 2015-2016. From all papers discussed in this section, WiFi (IEEE 802.11) and cellular (C-V2X) are the main technologies enabling vehicular communications.
+#### 1. Introduction
 
-### Problem
-- Frequency spectrum scarcity in vehicular communications -> using both RAT family protocols [SDN - 38]. 
-	- Using only one RAT cannot meet all communication performance requirements, such as CAM communication. The study in [36] encourages multiple RAT coexistence and interoperability on the shared 5.9GHz frequency. IEEE 802.11p is suitable for low-moderate vehicle density, while LTE-V2X excels in high vehicle density situations.
-	- The research findings suggest that the coexistence of multiple RATs can address challenges in vehicular communication, such as low data rate and high latency in multi-hop V2X communication [6]. Clustering vehicles and allowing them to choose between cellular and DSRC communication based on network performance improves V2X communication QoS, reduces network load, and minimizes unnecessary handovers [6]. Additionally, the coexistence of IEEE 802.11p and LTE-V2X in the same geographical area and channel with a fixed preamble insertion helps overcome frequency spectrum scarcity. It reduces collisions, particularly in high vehicle density conditions. Using multiple RATs on the shared frequency, such as IEEE 802.11p and LTEV2X, improves performance in varying vehicle density situations [38].
+* **RAT Families & Governance:** Vehicular communications are enabled mainly by two major **Radio Access Technology (RAT)** families:
+  * **Wi-Fi-based Family:** Standardized by the **IEEE** (Institute of Electrical and Electronics Engineers) and **ETSI** (European Telecommunications Standards Institute).
+  * **Cellular-based Family (C-V2X):** Standardized globally by the **3GPP** (3rd Generation Partnership Project).
 
-### Paper results
+* **Regional Frameworks:**
+  * **United States:** Wi-Fi vehicular technology is designated as **DSRC** (Dedicated Short-Range Communications) operating under the **WAVE** (Wireless Access in Vehicular Environments) architecture. WAVE uses **IEEE 802.11p** for the Physical (PHY) and Data Link (MAC) layers, supported by the **IEEE 1609** standards suite for transport, network, and security. DSRC features low end-to-end latency, low cost, and decentralized ad-hoc flexibility without requiring central infrastructure. Disadvantages include line-of-sight (LOS) occlusions and poor scalability under high channel loads. Recent **FCC** regulatory spectrum allocations have accelerated a shift toward **C-V2X**.
+  * **Europe:** Wi-Fi vehicular communications operate under **C-ITS** (Cooperative Intelligent Transport Systems) or **ITS-G5** (ETSI EN 302 663), utilizing IEEE 802.11p as the access layer.
+  * **Cellular V2X (C-V2X):** Encompasses **LTE-V2X** (3GPP Rel. 14/15) and **5G NR-V2X** (3GPP Rel. 16+). Operating via direct **PC5 Sidelink** (5.9 GHz) and cellular **Uu** interfaces, cellular networks offer wide coverage, robust security, high throughput, and superior scalability, though requiring centralized management and infrastructure investments.
 
-#### SDN - Table 2 - Performance comparison of vehicular communications RATs.
-1. **[SDN - 23]** NR-V2X outperformed IEEE 802.11bd, and IEEE 802.11bd outperformed IEEE 802.11p regarding latency and data rates. IEEE 802.11bd improve the performance of IEEE 802.11p in high Doppler scenarios. The dual carrier modulation and extended range options in IEEE 802.11bd could improve cell edge performance and communication range.
-2. **[SDN - 5]** The LTE-V2X communication range better than IEEE 802.11p, and LTE-V2X PDR better than IEEE 802.11p.
-3. **[SDN - 21]** The safety communication performance requirements can be met by IEEE 802.11bd but not with IEEE 802.11p.
-4. **[SDN - 30]** The packet drop rate of IEEE 802.16e is lower than IEEE 802.11p at various speeds. Communication throughput for IEEE 802.11p is better than IEEE 802.16e for speeds below 90 km/hour; above 90 km/hour, IEEE 802.16e is better.
-5. **[SDN - 22]** PRR of IEEE 802.bd with or without DCM+RE is better than IEEE 802.11p. IEEE 802.11bd with DCM+RE extends the communication range; however, it creates channel congestion.
-6. **[SDN - 25]** LTE-V2X has better performance than IEEE 802.11p in terms of beaconing frequency, vehicle mobility, and scalability.
-7. **[SDN - 31]** The ability of IEEE 802.11p to support the communication of beacon messages for safety applications is better than LTE.
-8. **[SDN - 32]** The IEEE 802.11bd standard has a higher throughput and lower latency than the IEEE 802.11p standard. And also packet reception ratio of IEEE 802.11bd also better than IEEE 802.11p: 88% vs 75%.
-9. **[SDN - 33]** IEEE 802.11bd can fulfill QoS at the PHY, MAC, and Application layers for several safety applications that IEEE 802.11p cannot fulfill.
-10. **[SDN - 34]** The UW-based PHY with low-complexity channel estimation has the same performance as high-complexity channel estimation in IEEE 802.11bd standard draft.
-11. **[SDN - 35]** The IEEE 802.11bd standard performance is better than the IEEE 802.11p standard, especially in high Doppler scenarios. IEEE 802.11bd also has a better communication range than IEEE 802.11p.
-12. **[SDN - 16]** The IEEE 802.11p standard can better overcome variations in message size and time intervals between messages than LTE-V2X. However, under shallow channel load conditions, the inefficiency of IEEE 802.11p is higher than that of LTE-V2X.
+* **Evolution Timeline:** IEEE 802.11p was standardized in 2010, whereas LTE-V2X emerged in 2015–2016, followed by IEEE 802.11bd (2022) and 5G NR-V2X (2020+).
 
-#### SDN - Table 3 - RAT Coexistence
-1. **[SDN - 6]** The implementation of vehicle clustering and RAT selection result in better communication QoS and reduce the network load and the number of handovers.
-2. **[SDN - 38]** The application of methods has successfully reduced collision between two RATs and proof the effectiveness of the proposed solution on the dense vehicle's condition.
-3. **[SDN - 36]** IEEE 802.11p standard performance can meet the safety communication performance requirements in low-moderate vehicle density condition and LTE-V2X communication performance requirements in high vehicle density condition.
-4. **[SDN - 39]** The application of the QR algorithm has succeeded in forming an error-prone wireless channel.
-5. **[SDN - 40]** Implementing architecture and protocol stack for hybrid vehicular network RATs create fewer vertical handovers, higher reliability, and lower delays
+---
 
-![SDN - Figure 3 - Illustration of multi-RATs implementation](../figures/rq1/rq1_multi_rat_architecture.png)
+#### 2. Problem & Multi-RAT Coexistence
 
-#### States of Deployment
-**European C-ITS Projects (ITS-G5 and Hybrid Networks)**
+* **Spectrum Scarcity:** Operating strictly within a single RAT family cannot meet all vehicular safety demands under varying traffic densities in the shared **5.9 GHz ITS band** [SDN - 38].
 
-- **CROCODILE (2013):** Links road networks across 13 Central and Eastern European countries, focusing on data collection via **CCTV** (Closed-Circuit Television) and sensors to support cross-border traffic management.
-- **C-ROADS (2015):** Implemented in 43 cities across 16 countries, using a hybrid **C-ITS** (Cooperative Intelligent Transport Systems) model. It transmits "Day-1-services" (early-stage deployment services like hazardous location or roadworks warnings) via **OBUs** (On-Board Units installed inside vehicles) and **RSUs** (Roadside Units installed on road infrastructure), utilizing **AMQP** (Advanced Message Queuing Protocol) for message sharing.
-- **NordicWay (2015–2017):** A pilot in Denmark, Finland, Norway, and Sweden providing hazard warnings through cellular networks, paving the way for **CCAM** (Cooperative, Connected and Automated Mobility).
-- **SCOOP@F (2014–2019):** A French pilot connecting 3,000 vehicles over 2,000 km of roads, evolving from Wi-Fi-based ITS-G5 to hybrid cellular communication for European interoperability.
-- **SAFER-LC (2017):** A 10-country project integrating road and rail infrastructure to improve safety at level crossings.
-- **AUTOPILOT (2017–2019):** A large-scale pilot across 14 European countries and South Korea focusing on automated driving use cases like autonomous car sharing and automated parking.
-- **InterCor & DRIVE C2X:** InterCor linked corridors in the Netherlands, France, the UK, and Belgium for cross-border testing. DRIVE C2X established seven national test sites, proving that cooperative systems (like in-vehicle speed limit signage) successfully reduce road fatalities.
+* **Density & Operational Adaptation:**
+  * **IEEE 802.11p** is well-suited for low-to-moderate vehicle density scenarios, whereas **LTE-V2X** and **5G NR-V2X** excel in dense urban traffic [36].
+  * Coexistence of multiple RATs addresses multi-hop V2X limitations, high latency, and low data rates [6].
 
-**U.S. USDOT Deployments (DSRC / WAVE)**
+* **Coexistence Mechanisms:**
+  * **Fixed Preamble Insertion:** Inserting an IEEE 802.11p preamble into LTE-V2X frames reduces co-channel collisions in dense traffic [38].
+  * **Vehicle Clustering & Smart Routing:** Grouping vehicles into dynamic clusters to select between cellular and DSRC based on network metrics improves **Quality of Service (QoS)**, reduces overall network load, and minimizes unnecessary handovers [6].
+  * **Software-Defined Networking (SDN):** SDN-based control plane management orchestrates hybrid protocol stacks, creating fewer vertical handovers, higher link reliability, and reduced transmission delays [40].
 
-- **NYCDOT Connected Vehicle Pilot (2015):** Deployed 353 RSUs and 8,000 OBU-equipped vehicles in New York City to achieve "Vision Zero" safety goals using **DSRC** (Dedicated Short-Range Communications). It also integrated 100 personal mobile devices to warn pedestrians.
-- **Tampa DOT Pilot (THEA) (2015):** Focused on urban congestion and collision avoidance in downtown Tampa, utilizing 47 RSUs, over 1,000 equipped vehicles, and 500 personal safety devices connected to a **TMC** (Traffic Management Center)
-- **Wyoming DOT Pilot (WYDOT) (2015):** Addressed commercial vehicle safety and weather incidents along the I-80 freight corridor with 75 RSUs and 400 equipped trucks.
+---
 
-**Asian & Australasian Deployments**
+#### 3. Technical Performance Comparison & Specifications
 
-- South Korea established a C-ITS program through **MOLIT** (Ministry of Land, Infrastructure, and Transport).
-- Japan deployed C-ITS across its national highway system, and Australia and New Zealand are advancing deployments through the Austroads program.
+| Technical Parameter | IEEE 802.11p (DSRC / ITS-G5) | IEEE 802.11bd (Next-Gen Wi-Fi) | LTE-V2X (C-V2X Rel. 14/15) | 5G NR-V2X (C-V2X Rel. 16+) |
+| :--- | :--- | :--- | :--- | :--- |
+| **Standardization Body** | IEEE (2010) / ETSI Rel. 1 | IEEE (802.11bd-2022) / ETSI Rel. 2 | 3GPP Rel. 14/15 (2017) | 3GPP Rel. 16+ (2020) |
+| **Operating Frequency** | 5.855 – 5.925 GHz | 5.9 GHz ITS band & 6 GHz | 5.9 GHz ITS & Cellular Bands | 5.9 GHz, sub-6 GHz (FR1), mmWave (FR2) |
+| **Channel Bandwidth** | **10 MHz** (optional 20 MHz) | **10 MHz, 20 MHz** (Bonding to 40 MHz) | **10 MHz, 20 MHz** | **10–100 MHz** (FR1) / **400 MHz** (FR2) |
+| **Peak Data Rate** | **3 – 27 Mbps** (Default: **6 Mbps**) | **54 – 108 Mbps+** | **26 – 50 Mbps** (PC5 Sidelink) | **Up to 1 Gbps+** (Sidelink Mode 2 / Uu) |
+| **Latency (End-to-End)** | **< 10 ms** (PHY ~1–2 ms) | **< 5 ms** | **< 20 ms** (Sidelink Mode 4) | **< 1 – 3 ms** (URLLC mini-slots) |
+| **Effective Range** | **~300 m – 500 m** | **~1000 m+** (DCM & Midambles) | **~450 m – 1000 m** | **> 1000 m+** (Direct Sidelink & Uu) |
+| **Subcarrier Spacing (SCS)** | **156.25 kHz** (OFDM) | **156.25 kHz / 312.5 kHz** | **15 kHz** (SC-FDMA / OFDM) | Flexible **15, 30, 60 kHz** (FR1) / **120, 240 kHz** (FR2) |
+| **Modulation & Coding** | BPSK to 64-QAM (Convolutional) | BPSK to 256-QAM (LDPC) | QPSK to 64-QAM (Turbo Coding) | QPSK to 256-QAM (LDPC Data / Polar Control) |
+| **Target Use Cases** | Basic Safety Beacons (CAM/BSM) | High-speed safety, Extended Range | Basic & Enhanced Safety, Platooning | URLLC, Cooperative Perception, Remote Driving |
 
-**5G & Next-Generation C-V2X Trials**
+---
 
-- **5GCAR (2019):** A 14-partner European project demonstrating a 5G testbed in France for advanced maneuvers like lane-merge coordination and pedestrian protection.
-- **Wuxi Internet of Vehicle (China):** Deployed a city-level C-V2X network in Wuxi.
-- **United States Trials (2017):** First C-V2X connected car trials were launched in San Diego by a consortium including AT&T, Ford, Nokia, and Qualcomm.
+#### 4. Paper Results & Empirical Findings
 
-![Global V2X & C-ITS Deployments](../figures/rq1/rq1_global_v2x_cits_deployments.png)
+##### 4.1 SDN Survey – Table 2: Performance Comparison of Vehicular Communications RATs
 
-![World Map Protocol Stacks Distribution](../figures/rq1/rq1_world_map_protocol_stacks.png)   
+1. **[SDN - 23]** NR-V2X outperformed IEEE 802.11bd, and IEEE 802.11bd outperformed IEEE 802.11p regarding latency and data rates. IEEE 802.11bd improves the performance of IEEE 802.11p in high Doppler scenarios. Dual Carrier Modulation (DCM) and Range Extension (RE) options in IEEE 802.11bd improve cell-edge performance and communication range.
+2. **[SDN - 5]** LTE-V2X communication range and Packet Delivery Ratio (PDR) are superior to IEEE 802.11p.
+3. **[SDN - 21]** Safety communication performance requirements can be met by IEEE 802.11bd, whereas IEEE 802.11p fails under stringent conditions.
+4. **[SDN - 30]** IEEE 802.16e exhibits a lower packet drop rate than IEEE 802.11p across speeds. Communication throughput for IEEE 802.11p is superior below 90 km/h; above 90 km/h, IEEE 802.16e performs better.
+5. **[SDN - 22]** Packet Reception Ratio (PRR) of IEEE 802.11bd (with or without DCM+RE) exceeds IEEE 802.11p. While DCM+RE extends communication range, extended coverage can induce channel congestion.
+6. **[SDN - 25]** LTE-V2X outperforms IEEE 802.11p in terms of beaconing frequency, vehicle mobility support, and scalability.
+7. **[SDN - 31]** IEEE 802.11p supports beacon message transmission for basic safety applications better than legacy LTE.
+8. **[SDN - 32]** IEEE 802.11bd delivers higher throughput and lower latency than IEEE 802.11p, with a superior PRR (88% vs. 75%).
+9. **[SDN - 33]** IEEE 802.11bd fulfills QoS requirements across PHY, MAC, and Application layers for advanced safety applications that IEEE 802.11p cannot fulfill.
+10. **[SDN - 34]** Unique Word (UW)-based PHY with low-complexity channel estimation matches the performance of high-complexity estimation in the IEEE 802.11bd standard draft.
+11. **[SDN - 35]** IEEE 802.11bd performance surpasses IEEE 802.11p in high Doppler scenarios and extends communication range.
+12. **[SDN - 16]** IEEE 802.11p handles variations in message size and generation intervals better than LTE-V2X. However, under shallow channel load conditions, IEEE 802.11p incurs higher operational inefficiency than LTE-V2X.
 
-![V2X Communication Modalities](../figures/rq1/rq1_v2x_communication_modes.png)
+##### 4.2 SDN Survey – Table 3: RAT Coexistence
+
+1. **[SDN - 6]** Implementing vehicle clustering and dynamic RAT selection improves communication QoS while reducing network load and vertical handovers.
+2. **[SDN - 38]** Coexistence methods using fixed preambles successfully reduce collisions between RATs in high vehicle density conditions.
+3. **[SDN - 36]** IEEE 802.11p meets safety performance requirements in low-to-moderate vehicle density, while LTE-V2X meets requirements in high density conditions.
+4. **[SDN - 39]** The QoS-Aware Relaying (QR) algorithm successfully mitigates error-prone wireless channel conditions.
+5. **[SDN - 40]** Implementing an SDN protocol stack for hybrid vehicular RATs results in fewer vertical handovers, higher reliability, and lower transmission delays.
+
+##### 4.3 SDN Survey – Figure 3: Illustration of Multi-RAT Implementation
+
+![Multi-RAT Implementation](figure3_multi_Rat_implementation_example.png)
+
+---
+
+#### 5. Global Deployment Efforts & Field Trials
+
+##### 5.1 Europe (C-ITS / ITS-G5 & Hybrid Networks)
+
+* **C-ROADS Platform:** Operational across 43 cities in 16 European countries. Standardizes C-ITS "Day-1" safety services (hazardous location warnings, roadworks alerts) using **Roadside Units (RSUs)**, **On-Board Units (OBUs)**, and **AMQP** back-office message brokers.
+* **CROCODILE / CROCODILE 2:** Encompasses 13 Central and Eastern European countries across 15 border crossings, leveraging CCTV, roadside sensors, and National Access Points (NAPs) for cross-border traffic management.
+* **NordicWay (1, 2, & 3):** Multi-country pilot (Denmark, Finland, Norway, Sweden) demonstrating cloud-to-cloud hybrid cellular C-ITS communications for automated driving (CCAM).
+* **SCOOP@F:** Connected 3,000 vehicles across 2,000 km of French highways, transitioning from pure ITS-G5 Wi-Fi to hybrid cellular communications.
+* **AUTOPILOT & InterCor:** Validated automated car-sharing, automated valet parking, and cross-border corridor interoperability using IoT platforms and multi-RAT communications.
+
+##### 5.2 United States (DSRC Pilots to C-V2X Transition)
+
+* **NYCDOT Connected Vehicle Pilot:** Deployed 353 RSUs and 8,000 equipped vehicles in New York City advancing *Vision Zero* safety goals using DSRC at 5.9 GHz.
+* **Tampa DOT Pilot (THEA):** Installed 47 RSUs and ~1,000 OBUs in Florida, integrating 12 V2V, V2I, and V2P safety applications connected to a Traffic Management Center (TMC).
+* **Wyoming DOT Pilot (WYDOT):** Equipped 75 RSUs and 400 commercial freight trucks along the I-80 corridor for real-time weather and collision warnings.
+* **C-V2X Transition:** Following FCC regulatory spectrum reallocations, US deployments are actively transitioning toward cellular C-V2X direct communications.
+
+##### 5.3 Asia & Australasia
+
+* **China (Wuxi C-V2X Project):** City-scale C-V2X deployment in Wuxi led by Huawei, deploying C-V2X RSUs and smart traffic infrastructure as a global benchmark.
+* **South Korea (MOLIT):** National C-ITS deployment program managed by the Ministry of Land, Infrastructure, and Transport.
+* **Japan & Australasia:** Japan deployed C-ITS across its highway system; Australia and New Zealand advance regional pilots through the **Austroads** initiative.
+
+##### 5.4 Required Infrastructure & Capital Investment
+
+* **Roadside Infrastructure:** Installation of **RSUs**, traffic signal controllers, sensors (cameras/LiDAR), and high-speed fiber backhaul.
+* **Vehicular Hardware:** **OBUs**, dual-mode radio modems (Wi-Fi/Cellular), and **Hardware Security Modules (HSMs)** for cryptographic signature processing.
+* **Network & Compute Nodes:** **Multi-access Edge Computing (MEC)** servers at base stations/RSUs for low-latency spatial data fusion, Traffic Management Centers (TMCs), and **Vehicular Public Key Infrastructure (VPKI)** backend servers for pseudonym credential management.

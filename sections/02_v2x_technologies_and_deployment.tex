@@ -11,7 +11,6 @@
 \textbf{Parameter} & \textbf{IEEE 802.11p} & \textbf{IEEE 802.11bd} & \textbf{LTE-V2X (Rel. 14/15)} & \textbf{5G NR-V2X (Rel. 16+)} \\
 \midrule
 Standard Body & IEEE & IEEE & 3GPP & 3GPP \\
-Channel Bandwidth & 10~MHz & 10, 20~MHz & 10, 20~MHz & Flexible \\
 Relative Throughput & Baseline & Higher than 802.11p & Moderate & Outperforms 802.11bd \\
 Relative Latency & Baseline & Lower than 802.11p & Moderate & Lowest (outperforms 802.11bd) \\
 Channel Access Architecture & Decentralised & Decentralised & Scheduled / Autonomous & Scheduled / Autonomous \\
@@ -29,27 +28,27 @@ This section compares both standard families across their physical (PHY) and med
 \subsection{IEEE Standards: 802.11p and 802.11bd}
 \label{subsec:ieee_standards}
 
-The IEEE standards are based on adapted versions of Wi-Fi technology designed for ad-hoc, direct vehicular communications without relying on cellular network infrastructure.
+The IEEE standards are based on adapted versions of Wi-Fi technology for direct, decentralised vehicle-to-everything communications.
 
 \subsubsection{IEEE 802.11p (DSRC / ITS-G5)}
 Published in 2010, IEEE 802.11p serves as the access layer for Dedicated Short-Range Communications (DSRC) in North America (supported by the IEEE 1609 Wireless Access in Vehicular Environments (WAVE) protocol stack) and for ITS-G5 in Europe (standardised by the European Telecommunications Standards Institute (ETSI) in EN 302 663).
-It operates in the dedicated 5.9~GHz Intelligent Transportation Systems (ITS) frequency band using 10~MHz channels.
+It operates in the dedicated 5.9~GHz Intelligent Transportation Systems (ITS) frequency band.
 At the medium access control layer, IEEE 802.11p provides decentralised, ad-hoc communication without requiring a centralised control system or cellular infrastructure.
 This decentralised architecture offers low implementation costs and low end-to-end latency under light channel loads, but lacks coordination across transmitting nodes.
 
-While 802.11p provides low latency in low-to-moderate vehicle density, it exhibits two major technical drawbacks:
+While effective in sparse environments, 802.11p exhibits two major technical drawbacks:
 \begin{itemize}
-    \item \textbf{Channel Congestion in Dense Traffic:} When vehicle density increases, simultaneous uncoordinated safety beacon broadcasts lead to frequent packet collisions and packet loss~\cite{szalay2023survey}.
+    \item \textbf{Channel Congestion in Dense Traffic:} As vehicle density increases, simultaneous uncoordinated safety beacon broadcasts cause frequent packet collisions and severe packet loss~\cite{szalay2023survey}.
     \item \textbf{Doppler Sensitivity at High Mobility:} At vehicular speeds exceeding 90~km/h, rapid Doppler shifts degrade channel estimation, causing throughput and communication performance to drop sharply compared to lower speeds~\cite{sudirham2023sdn}.
 \end{itemize}
 
 \subsubsection{IEEE 802.11bd (Next-Generation V2X)}
 To overcome these limitations, the IEEE developed 802.11bd as an evolutionary successor to 802.11p.
-IEEE 802.11bd introduces key physical-layer advancements to improve vehicular communications:
+IEEE 802.11bd introduces key physical-layer advancements to improve vehicular communications~\cite{sudirham2023sdn}:
 \begin{itemize}
     \item \textbf{High Doppler Mitigation:} Enhances channel tracking to maintain low error rates and reliable communications in high Doppler scenarios.
-    \item \textbf{Dual Carrier Modulation:} Transmits information across two subcarriers, boosting signal-to-noise ratio and extending communication range at cell edges.
-    \item \textbf{Higher Throughput and Lower Latency:} Supports 10~MHz and 20~MHz channels, achieving higher throughput and lower latency than 802.11p.
+    \item \textbf{Dual Carrier Modulation:} Transmits identical information across subcarriers, boosting signal-to-noise ratio and extending communication range at cell edges.
+    \item \textbf{Higher Throughput and Lower Latency:} Delivers higher data throughput and lower communication latency compared to 802.11p.
     \item \textbf{Backward Compatibility:} IEEE 802.11bd frames include legacy-compatible preambles, allowing 802.11bd and legacy 802.11p devices to share the same frequency channel safely.
 \end{itemize}
 Empirical evaluations show that 802.11bd increases the packet reception ratio from 75\% in 802.11p to over 88\% under identical channel conditions~\cite{sudirham2023sdn}.

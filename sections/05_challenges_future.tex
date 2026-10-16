@@ -9,17 +9,22 @@ This section details four core challenges: wireless channel congestion and spect
 \label{subsec:congestion_coexistence}
 
 In dense traffic scenarios such as multi-lane urban intersections and highway traffic jams, hundreds of communicating nodes compete for the shared 5.9~GHz ITS spectrum~\cite{zhang2026cooperative}.
-While early Day-1 deployments transmitted lightweight status beacons (CAM/BSM of approximately 300~bytes), Day-2+ Cooperative Perception introduces Collective Perception Messages (CPMs) carrying multiple detected obstacle objects and free-space polygons, with payloads often exceeding several kilobytes~\cite{etsi_cpm_2019}.
-Under heavy vehicular density, this message volume causes severe channel congestion.
+In international intelligent transport roadmaps, vehicular communication deployment is structured into progressive phases, commonly classified as initial awareness services (often termed Day~1) and advanced cooperative sensing services (Day~2 and beyond).
+Initial Day~1 services rely on lightweight status beacons, such as Cooperative Awareness Messages (CAM) or Basic Safety Messages (BSM) of approximately 300~bytes.
+In these initial services, each vehicle only broadcasts its own dynamic state (its own GPS coordinates, velocity, and heading) or basic hazard notifications.
+In contrast, advanced Day~2 services introduce Collective Perception Messages (CPMs), where vehicles and roadside infrastructure share what their onboard sensors observe in the surrounding environment~\cite{etsi_cpm_2019}.
+Because a single CPM carries descriptions of multiple third-party obstacles, spatial coordinates, velocity vectors, and free-space polygons, message payloads expand from a few hundred bytes to several kilobytes.
+
+When hundreds of vehicles in a congested area broadcast these large perception messages at frequencies between 10~Hz and 20~Hz, the wireless channel experiences severe congestion.
 In IEEE 802.11p/bd networks, CSMA/CA channel busy ratios quickly surpass saturation thresholds, triggering exponential backoffs and frequent packet collisions that destroy real-time latency guarantees~\cite{naik2019ieee}.
 In C-V2X Mode~4, distributed semi-persistent scheduling suffers persistent subchannel selection collisions among uncoordinated vehicles~\cite{gyawali2020challenges}.
-These packet drops directly induce misleading missing (LCME) and localization (LCLE) perception errors.
+These communication delays and packet losses directly cause perception errors, making automated vehicles miss real obstacles or localise them incorrectly.
 
-To prevent channel saturation, standardization bodies are developing Decentralized Congestion Control (DCC) mechanisms (such as ETSI TS 102 687) tailored for collective perception.
-Rather than merely throttling message transmission frequency, advanced CPM DCC algorithms dynamically filter redundant data.
-By calculating whether an obstacle has already been reported by neighboring vehicles with sufficient confidence, an agent suppresses redundant transmissions, drastically saving radio bandwidth while preserving perceptual coverage.
+To prevent wireless channel collapse, standardisation bodies are developing Decentralised Congestion Control (DCC) mechanisms, such as ETSI TS 102 687, tailored specifically for collective perception.
+Rather than merely reducing transmission frequencies, advanced CPM congestion control algorithms dynamically filter out redundant information.
+By assessing whether an obstacle has already been reported by neighbouring vehicles with high confidence, an agent suppresses repetitive transmissions, saving vital radio bandwidth while preserving full spatial awareness.
 Furthermore, multi-RAT spectrum coexistence remains an open regulatory and technical hurdle~\cite{szalay2023survey}.
-Because IEEE 802.11p/bd and C-V2X share the same 5.9~GHz band without unified physical preamble coordination, asynchronous transmissions create mutual co-channel interference.
+Because IEEE 802.11p/bd and C-V2X share the same 5.9~GHz frequency band without a shared physical preamble or coordinated access layer, asynchronous transmissions cause mutual co-channel interference.
 Software-defined radio gateways and multi-channel roadside coordination mechanisms are required to ensure cross-standard coexistence in mixed deployment corridors.
 
 \subsection{Edge Computing and Vehicle-Road-Cloud Integration}
@@ -35,7 +40,7 @@ Despite its benefits, edge-assisted cooperative perception introduces three crit
     \item \textbf{High-Speed Mobility and Context Handover:} As vehicles move at highway speeds, they traverse edge server coverage cells in a few seconds.
     Migrating active deep learning tracking contexts and spatial feature caches between adjacent edge nodes without interrupting safety-critical perception streams remains an open scheduling challenge~\cite{storck2020survey}.
     \item \textbf{Deadline-Constrained Workload Scheduling:} Real-time perception and trajectory prediction must conclude within strict 10--20~ms windows.
-    Edge schedulers must prioritize safety-critical VRU tracking over non-critical infotainment workloads during sudden traffic surges.
+    Edge schedulers must prioritise safety-critical vulnerable road user tracking over non-critical infotainment workloads during sudden traffic surges.
     \item \textbf{Asymmetric Uplink Bottlenecks:} Uplink channels from vehicles to RSUs frequently experience lower data throughput than broadcast downlinks, constraining the upload of rich point cloud data and necessitating adaptive feature compression.
 \end{itemize}
 
@@ -45,7 +50,7 @@ Despite its benefits, edge-assisted cooperative perception introduces three crit
 Standard Vehicular Public Key Infrastructure (V-PKI) guarantees message authenticity, sender authorization, and packet integrity through digital signatures~\cite{brecht2018scms}.
 However, cryptography only validates that a message originated from a certified device; it cannot guarantee that the sensor measurements inside the packet correspond to physical reality.
 An authorized vehicle with valid cryptographic credentials may transmit erroneous or deceptive data due to hardware failures (e.g., lens occlusion, dirty cameras, GNSS drift), software errors, or malicious compromise (e.g., an insider fabricating ghost obstacles to clear a highway lane)~\cite{heijden2017survey}.
-Such falsifications inject artificial LADE and LCME errors, threatening automated driving safety.
+Such falsifications inject artificial ghost objects or hide real obstacles, threatening automated driving safety.
 
 To bridge this trust gap, vehicular networks rely on Misbehavior Detection Systems (MDS)~\cite{heijden2017survey}:
 \begin{itemize}
@@ -60,7 +65,7 @@ Achieving rapid misbehavior detection while preventing false positive revocation
 \label{subsec:roadmap_6g}
 
 Future autonomous mobility requires capabilities beyond the limits of 5G NR-V2X.
-Standardization bodies and research consortia are conceptualizing 6G-V2X networks to deliver sub-millisecond end-to-end latencies, terabit-per-second throughput, and centimeter-level localization accuracy~\cite{saad2019vision}.
+Standardisation bodies and research consortia are conceptualising 6G-V2X networks to deliver sub-millisecond end-to-end latencies, terabit-per-second throughput, and centimetre-level localisation accuracy~\cite{saad2019vision}.
 Four key emerging paradigms define this architectural roadmap:
 
 \subsubsection{Integrated Sensing and Communication (ISAC)}

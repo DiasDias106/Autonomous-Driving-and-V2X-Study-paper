@@ -11,15 +11,12 @@
 \toprule
 \textbf{Parameter} & \textbf{IEEE 802.11p} & \textbf{IEEE 802.11bd} & \textbf{LTE-V2X} & \textbf{5G NR-V2X} \\
 \midrule
-Standard Body & IEEE (2010) & IEEE (2022) & 3GPP Rel. 14/15 (2017) & 3GPP Rel. 16+ (2020) \\
+Standard Body & IEEE (2010) & IEEE (2022) & 3GPP (2017) & 3GPP (2020) \\
 Operating Frequency & 5.855--5.925~GHz & 5.9~GHz, 6~GHz & 5.9~GHz, Cellular & 5.9~GHz, sub-6~GHz, mmWave \\
 Channel Bandwidth & 10~MHz (opt. 20) & 10, 20~MHz (to 40) & 10, 20~MHz & 10--100~MHz, 400~MHz \\
 Peak Data Rate & 3--27~Mbps (default 6) & 54--108~Mbps+ & 26--50~Mbps & Up to 1~Gbps+ \\
 End-to-End Latency & $<$10~ms & $<$5~ms & $<$20~ms & $<$1--3~ms \\
 Effective Range & 300--500~m & $\sim$1000~m+ & 450--1000~m & $>$1000~m+ \\
-Subcarrier Spacing & 156.25~kHz & 156.25, 312.5~kHz & 15~kHz & 15--60~kHz, 120--240~kHz \\
-Channel Coding & Convolutional & LDPC & Turbo & LDPC (Data) / Polar (Ctrl) \\
-Channel Access & Decentralised & Decentralised & Scheduled / Autonomous & Scheduled / Autonomous \\
 Communication Modes & Broadcast & Broadcast & Broadcast & Broadcast, Groupcast, Unicast \\
 Target Use Cases & Basic Safety Beacons & High-Speed Safety & Platooning, Safety & URLLC, Cooperative Perception \\
 \bottomrule
@@ -43,54 +40,51 @@ This decentralised architecture offers low implementation costs and low end-to-e
 
 While effective in sparse environments, 802.11p exhibits two major technical drawbacks:
 \begin{itemize}
-    \item \textbf{Channel Congestion in Dense Traffic:} As vehicle density increases, simultaneous uncoordinated safety beacon broadcasts cause frequent packet collisions and severe packet loss~\cite{szalay2023survey}.
-    \item \textbf{Doppler Sensitivity at High Mobility:} At vehicular speeds exceeding 90~km/h, rapid Doppler shifts degrade channel estimation, causing throughput and communication performance to drop sharply compared to lower speeds~\cite{sudirham2023sdn}.
+    \item \textbf{Channel Congestion in Dense Traffic:} As vehicle density increases, simultaneous uncoordinated safety beacon broadcasts cause frequent packet collisions and severe packet loss~\cite{ansari2021joint}.
+    \item \textbf{Doppler Sensitivity at High Mobility:} At vehicular speeds exceeding 90~km/h, rapid Doppler shifts degrade channel estimation, causing throughput and communication performance to drop sharply compared to lower speeds~\cite{benkirane2018performance}.
 \end{itemize}
 
 \subsubsection{IEEE 802.11bd (Next-Generation V2X)}
 To overcome these limitations, the IEEE developed 802.11bd as an evolutionary successor to 802.11p.
-IEEE 802.11bd introduces key physical-layer advancements to improve vehicular communications~\cite{sudirham2023sdn}:
+IEEE 802.11bd introduces key physical-layer advancements to improve vehicular communications~\cite{anwar2019physical}:
 \begin{itemize}
     \item \textbf{High Doppler Mitigation:} Enhances channel tracking to maintain low error rates and reliable communications in high Doppler scenarios.
     \item \textbf{Dual Carrier Modulation:} Transmits identical information across subcarriers, boosting signal-to-noise ratio and extending communication range at cell edges.
     \item \textbf{Higher Throughput and Lower Latency:} Delivers higher data throughput and lower communication latency compared to 802.11p.
     \item \textbf{Backward Compatibility:} IEEE 802.11bd frames include legacy-compatible preambles, allowing 802.11bd and legacy 802.11p devices to share the same frequency channel safely.
 \end{itemize}
-Empirical evaluations show that 802.11bd increases the packet reception ratio from 75\% in 802.11p to over 88\% under identical channel conditions~\cite{sudirham2023sdn}.
+Empirical evaluations show that 802.11bd increases the packet reception ratio from 75\% in 802.11p to over 88\% under identical channel conditions~\cite{yacheur2020analysis}.
 
 \subsection{3GPP Cellular V2X: LTE-V2X and 5G NR-V2X}
 \label{subsec:cv2x_standards}
 
-Cellular V2X (C-V2X) was standardised by 3GPP to provide two types of communication: direct PC5 sidelink links, which allow nearby vehicles to talk directly to each other without cellular base stations, and long-range Uu network links, which connect vehicles to cellular base stations over long distances.
-While cellular networks offer wide coverage, high throughput, and superior scalability, they also require centralised network management and dedicated infrastructure investments~\cite{sudirham2023sdn}.
+Cellular V2X (C-V2X) was standardised by 3GPP to support vehicular communications using two primary interfaces:
+\begin{itemize}
+    \item \textbf{PC5 Interface (Sidelink):} Enables direct communication between nearby vehicles without relying on cellular base stations.
+    \item \textbf{Uu Interface (Network):} Connects vehicles to cellular base stations for long-range network services and traffic management.
+\end{itemize}
+While cellular networks offer wide coverage, high throughput, and superior scalability, they also require centralised network management and dedicated infrastructure investments.
 
 \subsubsection{LTE-V2X}
-Standardised by 3GPP in Releases 14 and 15 (2017), LTE-V2X provides cellular vehicular communications using 10~MHz or 20~MHz channels in the 5.9~GHz ITS band and commercial cellular frequencies.
-On the direct PC5 sidelink, LTE-V2X delivers peak data rates between 26~Mbps and 50~Mbps, end-to-end latency below 20~ms, and an effective communication range between 450~m and 1000~m, exceeding the 300~m to 500~m range of legacy 802.11p~\cite{anwar2019physical,sudirham2023sdn}.
-It supports two primary communication interfaces:
-\begin{itemize}
-    \item \textbf{The Uu Interface:} Connects vehicles to cellular base stations for long-range network services and traffic management.
-    \item \textbf{The PC5 Interface:} Enables direct vehicle-to-vehicle (V2V) and vehicle-to-infrastructure (V2I) communication without using base stations.
-\end{itemize}
-
-For direct PC5 communication, 3GPP defines two radio resource allocation modes:
+3GPP introduced LTE-V2X to adapt cellular technology for vehicular safety communications.
+For direct vehicle-to-vehicle communication on the PC5 sidelink, LTE-V2X defines two radio resource allocation modes:
 \begin{itemize}
     \item \textbf{Mode 3 (Scheduled):} Cellular base stations dynamically assign radio channels to vehicles, which requires network coverage.
-    \item \textbf{Mode 4 (Autonomous):} Vehicles select radio channels on their own without network coverage.
-    Each vehicle senses channel energy over a past observation window, finds unused resources, and reserves them for its regular safety messages.
+    \item \textbf{Mode 4 (Autonomous):} Vehicles select radio channels on their own without cellular network coverage by sensing channel energy and reserving free resources.
 \end{itemize}
-Mode~4 reliably supports regular safety messages in dense traffic, but packet collisions increase when vehicles suddenly send emergency warnings at the same time~\cite{gyawali2020challenges}.
+Empirical evaluations show that LTE-V2X achieves higher packet delivery rates and longer communication range than IEEE 802.11p in highway environments and dense traffic~\cite{nguyen2017comparison}.
+However, IEEE 802.11p handles sudden changes in message sizes and generation intervals more easily than LTE-V2X, which is optimised for regular, periodic safety beacons~\cite{molina2020comparison}.
 
 \subsubsection{5G NR-V2X}
-To support advanced autonomous driving services—such as cooperative perception, platooning, and remote driving—3GPP standardised 5G New Radio V2X (NR-V2X) in Release 16 (2020).
-Physical layer evaluations show that NR-V2X achieves peak data rates exceeding 1~Gbps and transmission latency between 1~ms and 3~ms, substantially outperforming both LTE-V2X and IEEE 802.11bd~\cite{anwar2019physical,sudirham2023sdn}:
+To support advanced connected driving use cases—such as cooperative perception, vehicle platooning, and remote driving—3GPP standardised 5G New Radio V2X (NR-V2X).
+Physical layer evaluations demonstrate that NR-V2X achieves lower latency and higher data throughput than both LTE-V2X and IEEE 802.11bd~\cite{anwar2019physical}.
+NR-V2X introduces key technical enhancements:
 \begin{itemize}
-    \item \textbf{Wide Bandwidth and Flexible Spectrum:} Supports channels from 10~MHz up to 100~MHz in sub-6~GHz (FR1) and up to 400~MHz in millimeter-wave (FR2) bands, enabling effective ranges exceeding 1000~m.
-    \item \textbf{Flexible Subcarrier Spacing:} Supports configurable subcarrier spacing from 15~kHz to 240~kHz to shorten symbol transmission duration and reduce latency.
-    \item \textbf{Multiple Transmission Types:} Supports broadcast, groupcast, and unicast communications, whereas LTE-V2X only supports broadcast.
-    \item \textbf{Physical Layer Feedback:} Introduces Hybrid Automatic Repeat Request (HARQ) feedback over the physical sidelink feedback channel, achieving packet reliability above 99.999\%.
-    \item \textbf{Enhanced Sidelink Modes:} Introduces Mode~1 (scheduled by base stations) and Mode~2 (autonomous distributed channel selection by vehicles).
+    \item \textbf{Flexible Transmission Types:} Unlike LTE-V2X which only supports broadcast, NR-V2X adds groupcast (for groups of vehicles such as platoons) and unicast (for direct point-to-point communication).
+    \item \textbf{Physical Layer Feedback:} NR-V2X introduces Hybrid Automatic Repeat Request (HARQ) feedback on the direct sidelink, enabling receiving vehicles to request retransmissions for higher reliability.
+    \item \textbf{Enhanced Sidelink Modes:} It defines Mode~1 (scheduled by 5G base stations) and Mode~2 (autonomous channel selection by vehicles without base station coverage).
 \end{itemize}
+Rather than replacing LTE-V2X, NR-V2X is designed to operate alongside it, where LTE-V2X provides basic safety alerts and NR-V2X delivers high-capacity links for automated driving services.
 
 \subsection{Spectrum Allocation and Multi-RAT Coexistence}
 \label{subsec:spectrum_coexistence}
@@ -98,20 +92,20 @@ Physical layer evaluations show that NR-V2X achieves peak data rates exceeding 1
 Direct vehicular communication operates within the shared 5.9~GHz ITS band.
 However, spectrum scarcity and competing technological ecosystems present major operational challenges.
 Because neither standard family alone satisfies all communication requirements across varying traffic densities, multi-RAT architectures have been proposed, as illustrated in Fig.~\ref{fig:multi_rat_arch}.
-These hybrid architectures leverage 802.11p for sporadic, low-overhead direct warnings while relying on C-V2X for dense vehicular traffic~\cite{szalay2023survey}.
+These hybrid architectures leverage 802.11p for sporadic, low-overhead direct warnings while relying on C-V2X for dense vehicular traffic~\cite{ansari2021joint}.
 
 \begin{figure}[!t]
 \centering
 \includegraphics[width=0.88\columnwidth]{figures/rq1/rq1_multi_rat_architecture.png}
-\caption{Multi-RAT architecture showing direct DSRC links alongside C-V2X direct sidelink and cellular base station connections~\cite{sudirham2023sdn}.}
+pirical evaluations show that 802.\caption{Multi-RAT architecture showing direct DSRC links alongside C-V2X direct sidelink and cellular base station connections~\cite{sudirham2023sdn}.}
 \label{fig:multi_rat_arch}
 \end{figure}
 
-When both standard families operate in the same 5.9~GHz band without coordination, severe cross-technology interference occurs because nodes cannot detect transmissions across different protocols~\cite{sudirham2023sdn}.
+When both standard families operate in the same 5.9~GHz band without coordination, severe cross-technology interference occurs because nodes cannot detect transmissions across different protocols~\cite{bazzi2022performance}.
 To resolve this coexistence challenge, two primary mechanisms have been developed:
 \begin{itemize}
-    \item \textbf{Fixed Preamble Insertion:} Inserting fixed preambles into transmissions allows 802.11p and LTE-V2X devices to detect each other's channel occupancy, successfully reducing cross-technology packet collisions in dense traffic~\cite{sudirham2023sdn}.
-    \item \textbf{Dynamic RAT Selection and Clustering:} Vehicles form local clusters and dynamically switch between DSRC and C-V2X based on network performance, minimising unnecessary handovers and improving Quality of Service (QoS)~\cite{sudirham2023sdn}.
+    \item \textbf{Fixed Preamble Insertion:} Inserting fixed preambles into transmissions allows 802.11p and LTE-V2X devices to detect each other's channel occupancy, successfully reducing cross-technology packet collisions in dense traffic~\cite{bazzi2022performance}.
+    \item \textbf{Dynamic RAT Selection and Clustering:} Vehicles form local clusters and dynamically switch between DSRC and C-V2X based on network performance, minimising unnecessary handovers and improving Quality of Service (QoS)~\cite{qi2020traffic}.
 \end{itemize}
 
 \subsection{Worldwide Commercial Deployment Status}
@@ -124,7 +118,7 @@ To resolve this coexistence challenge, two primary mechanisms have been develope
 \label{fig:global_deployments}
 \end{figure*}
 
-The commercial deployment of V2X communication technologies varies across different regions due to differing regulatory policies and industry backing, as surveyed by Szalay et al.~\cite{szalay2023survey} and illustrated in Fig.~\ref{fig:global_deployments}.
+The commercial deployment of V2X communication technologies varies across different regions due to differing regulatory policies and industry backing, as surveyed by Hejazi and Bokor~\cite{szalay2023survey} and illustrated in Fig.~\ref{fig:global_deployments}.
 
 \subsubsection{United States}
 The United States initially pioneered vehicular networking using DSRC.

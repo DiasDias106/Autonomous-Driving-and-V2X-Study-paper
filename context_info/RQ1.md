@@ -49,8 +49,7 @@
 | **Peak Data Rate** | **3 – 27 Mbps** (Default: **6 Mbps**) | **54 – 108 Mbps+** | **26 – 50 Mbps** (PC5 Sidelink) | **Up to 1 Gbps+** (Sidelink Mode 2 / Uu) |
 | **Latency (End-to-End)** | **< 10 ms** (PHY ~1–2 ms) | **< 5 ms** | **< 20 ms** (Sidelink Mode 4) | **< 1 – 3 ms** (URLLC mini-slots) |
 | **Effective Range** | **~300 m – 500 m** | **~1000 m+** (DCM & Midambles) | **~450 m – 1000 m** | **> 1000 m+** (Direct Sidelink & Uu) |
-| **Subcarrier Spacing (SCS)** | **156.25 kHz** (OFDM) | **156.25 kHz / 312.5 kHz** | **15 kHz** (SC-FDMA / OFDM) | Flexible **15, 30, 60 kHz** (FR1) / **120, 240 kHz** (FR2) |
-| **Modulation & Coding** | BPSK to 64-QAM (Convolutional) | BPSK to 256-QAM (LDPC) | QPSK to 64-QAM (Turbo Coding) | QPSK to 256-QAM (LDPC Data / Polar Control) |
+| **Channel Coding** | Convolutional Coding | LDPC | Turbo Coding | LDPC (Data) / Polar (Control) |
 | **Target Use Cases** | Basic Safety Beacons (CAM/BSM) | High-speed safety, Extended Range | Basic & Enhanced Safety, Platooning | URLLC, Cooperative Perception, Remote Driving |
 
 ---

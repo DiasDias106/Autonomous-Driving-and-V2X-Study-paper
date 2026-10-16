@@ -32,11 +32,6 @@ Z.~Szalay \emph{et~al.}, ``A survey on the use-cases and deployment efforts
   basic set of applications; analysis of the collective perception service
   ({CPS}),'' ETSI, Technical Report TR 103 562 V2.1.1, 2019.
 
-\bibitem{naik2019ieee}
-G.~Naik, B.~Choudhury, and J.-M. Park, ``{IEEE} 802.11bd \& {5G NR V2X}:
-  Evolution of radio access technologies for {V2X} communications,'' \emph{IEEE
-  Access}, vol.~7, pp. 70\,169--70\,184, 2019.
-
 \bibitem{sudirham2023sdn}
 J.~Sudirham \emph{et~al.}, ``On {SDN} to support the {IEEE} 802.11 and
   {C-V2X}-based vehicular communications use-cases and performance: A
@@ -47,12 +42,6 @@ J.~Sudirham \emph{et~al.}, ``On {SDN} to support the {IEEE} 802.11 and
 S.~Gyawali, S.~Xu, Y.~Qian, and R.~Q. Hu, ``Challenges and solutions for
   cellular based {V2X} communications,'' \emph{IEEE Communications Surveys \&
   Tutorials}, vol.~23, no.~1, pp. 222--255, 2020.
-
-\bibitem{castaneda2021tutorial}
-M.~H. Casta{\~n}eda~Garcia, A.~Molina-Galan, M.~Boban, J.~Gozalvez,
-  B.~Coll-Perales, T.~{\c{S}}ahin, and A.~Kousaridas, ``A tutorial on {5G NR
-  V2X} communications,'' \emph{IEEE Communications Surveys \& Tutorials},
-  vol.~23, no.~3, pp. 1689--1726, 2021.
 
 \bibitem{huang2025v2x}
 T.~Huang, J.~Liu, X.~Zhou, D.~C. Nguyen, M.~R. Azghadi, Y.~Xia, Q.-L. Han, and
@@ -131,6 +120,11 @@ M.~A. Simpl{\'i}cio~Jr., E.~L. Cominetti, H.~K. Patil, J.~E. Ricardini,
   temporarily linking/revoking pseudonym certificates in {VANETs},'' in
   \emph{Proc. 17th IEEE International Conference on Trust, Security and Privacy
   in Computing and Communications (TrustCom)}, 2018, pp. 1322--1329.
+
+\bibitem{naik2019ieee}
+G.~Naik, B.~Choudhury, and J.-M. Park, ``{IEEE} 802.11bd \& {5G NR V2X}:
+  Evolution of radio access technologies for {V2X} communications,'' \emph{IEEE
+  Access}, vol.~7, pp. 70\,169--70\,184, 2019.
 
 \bibitem{storck2020survey}
 C.~R. Storck and F.~Duarte-Figueiredo, ``A survey on {5G} vehicular networks:

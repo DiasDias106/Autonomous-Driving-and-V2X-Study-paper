@@ -17,7 +17,6 @@ Channel Bandwidth & 10~MHz (opt. 20) & 10, 20~MHz (to 40) & 10, 20~MHz & 10--100
 Peak Data Rate & 3--27~Mbps (default 6) & 54--108~Mbps+ & 26--50~Mbps & Up to 1~Gbps+ \\
 End-to-End Latency & $<$10~ms & $<$5~ms & $<$20~ms & $<$1--3~ms \\
 Effective Range & 300--500~m & $\sim$1000~m+ & 450--1000~m & $>$1000~m+ \\
-Communication Modes & Broadcast & Broadcast & Broadcast & Broadcast, Groupcast, Unicast \\
 Target Use Cases & Basic Safety Beacons & High-Speed Safety & Platooning, Safety & URLLC, Cooperative Perception \\
 \bottomrule
 \end{tabular}
@@ -76,15 +75,9 @@ Empirical evaluations show that LTE-V2X achieves higher packet delivery rates an
 However, IEEE 802.11p handles sudden changes in message sizes and generation intervals more easily than LTE-V2X, which is optimised for regular, periodic safety beacons~\cite{molina2020comparison}.
 
 \subsubsection{5G NR-V2X}
-To support advanced connected driving use cases—such as cooperative perception, vehicle platooning, and remote driving—3GPP standardised 5G New Radio V2X (NR-V2X).
-Physical layer evaluations demonstrate that NR-V2X achieves lower latency and higher data throughput than both LTE-V2X and IEEE 802.11bd~\cite{anwar2019physical}.
-NR-V2X introduces key technical enhancements:
-\begin{itemize}
-    \item \textbf{Flexible Transmission Types:} Unlike LTE-V2X which only supports broadcast, NR-V2X adds groupcast (for groups of vehicles such as platoons) and unicast (for direct point-to-point communication).
-    \item \textbf{Physical Layer Feedback:} NR-V2X introduces Hybrid Automatic Repeat Request (HARQ) feedback on the direct sidelink, enabling receiving vehicles to request retransmissions for higher reliability.
-    \item \textbf{Enhanced Sidelink Modes:} It defines Mode~1 (scheduled by 5G base stations) and Mode~2 (autonomous channel selection by vehicles without base station coverage).
-\end{itemize}
-Rather than replacing LTE-V2X, NR-V2X is designed to operate alongside it, where LTE-V2X provides basic safety alerts and NR-V2X delivers high-capacity links for automated driving services.
+3GPP standardised 5G New Radio V2X (NR-V2X) to support advanced vehicular use cases that require higher performance than basic safety beaconing, including cooperative perception and remote driving.
+In physical layer evaluations, Anwar et al.~\cite{anwar2019physical} demonstrated that 5G NR-V2X achieves lower latency and higher data throughput than both LTE-V2X and IEEE 802.11bd.
+Furthermore, while IEEE 802.11p is effective in low-to-moderate vehicle density, cellular technologies including LTE-V2X and 5G NR-V2X scale better in dense traffic conditions~\cite{ansari2021joint}.
 
 \subsection{Spectrum Allocation and Multi-RAT Coexistence}
 \label{subsec:spectrum_coexistence}

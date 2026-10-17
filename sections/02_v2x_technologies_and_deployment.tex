@@ -4,7 +4,7 @@
 
 \begin{table*}[!t]
 \centering
-\caption{Technical Comparison of V2X Radio Access Technologies~\cite{sudirham2023sdn,anwar2019physical}}
+\caption{Technical Comparison of V2X Radio Access Technologies~\cite{nurkahfi2024sdn,anwar2019physical}}
 \label{tab:rat_comparison}
 \small
 \begin{tabular}{lcccc}
@@ -75,7 +75,7 @@ Empirical evaluations show that LTE-V2X achieves higher packet delivery rates an
 However, IEEE 802.11p handles sudden changes in message sizes and generation intervals more easily than LTE-V2X, which is optimised for regular, periodic safety beacons~\cite{molina2020comparison}.
 
 \subsubsection{5G NR-V2X}
-3GPP standardised 5G New Radio V2X (NR-V2X) to support advanced vehicular use cases that require higher performance than basic safety beaconing, including cooperative perception and remote driving.
+3GPP standardised 5G New Radio V2X (NR-V2X) to support advanced vehicular use cases that require higher performance than basic safety beaconing, including cooperative perception and remote driving~\cite{castaneda2021tutorial}.
 In physical layer evaluations, Anwar et al.~\cite{anwar2019physical} demonstrated that 5G NR-V2X achieves lower latency and higher data throughput than both LTE-V2X and IEEE 802.11bd.
 Furthermore, while IEEE 802.11p is effective in low-to-moderate vehicle density, cellular technologies including LTE-V2X and 5G NR-V2X scale better in dense traffic conditions~\cite{ansari2021joint}.
 
@@ -90,7 +90,7 @@ These hybrid architectures help overcome the limitations of single-technology sy
 \begin{figure}[!t]
 \centering
 \includegraphics[width=0.88\columnwidth]{figures/rq1/rq1_multi_rat_architecture.png}
-\caption{Multi-RAT architecture showing direct DSRC links alongside C-V2X direct sidelink and cellular base station connections~\cite{sudirham2023sdn}.}
+\caption{Multi-RAT architecture showing direct DSRC links alongside C-V2X direct sidelink and cellular base station connections~\cite{nurkahfi2024sdn}.}
 \label{fig:multi_rat_arch}
 \end{figure}
 
@@ -108,11 +108,11 @@ To resolve this coexistence challenge, research literature identifies three main
 \begin{figure}[!t]
 \centering
 \includegraphics[width=\columnwidth]{figures/rq1/rq1_protocols_world_map.jpg}
-\caption{Global landscape of V2X communication standards and pilot deployments across North America, Europe, China, South Korea, Japan, and Australasia~\cite{szalay2023survey}.}
+\caption{Global landscape of V2X communication standards and pilot deployments across North America, Europe, China, South Korea, Japan, and Australasia~\cite{hejazi2022survey}.}
 \label{fig:global_deployments}
 \end{figure}
 
-The commercial deployment of V2X communication technologies varies across different regions due to differing regulatory policies and industry backing, as surveyed by Hejazi and Bokor~\cite{szalay2023survey} and illustrated in Fig.~\ref{fig:global_deployments}.
+The commercial deployment of V2X communication technologies varies across different regions due to differing regulatory policies and industry backing, as surveyed by Hejazi and Bokor~\cite{hejazi2022survey} and illustrated in Fig.~\ref{fig:global_deployments}.
 
 \subsubsection{United States}
 The United States initially pioneered vehicular networking using DSRC.
@@ -130,7 +130,7 @@ This framework has been validated through major multinational pilots:
 \begin{itemize}
     \item \textbf{C-Roads Platform:} Deployed cross-border interoperable Day-1 services (such as hazardous location and slow vehicle alerts) across 16 countries and 43 cities via RSUs and On-Board Units (OBUs) using the Advanced Message Queuing Protocol.
     \item \textbf{Cross-Border and National Pilots:} The CROCODILE project linked road networks across 13 Central and Eastern European countries for data collection, while France deployed the SCOOP@F pilot connecting 3,000 vehicles over 2,000~km of road.
-    The DRIVE C2X project established seven national test sites proving that cooperative speed limit signage reduces road casualties~\cite{szalay2023survey}, while NordicWay tested cellular hazard warning services across Scandinavia.
+    The DRIVE C2X project established seven national test sites proving that cooperative speed limit signage reduces road casualties~\cite{hejazi2022survey}, while NordicWay tested cellular hazard warning services across Scandinavia.
     \item \textbf{5G Testbeds:} The European 5GCAR project demonstrated 5G testbeds in France for lane-merge coordination and pedestrian protection.
 \end{itemize}
 

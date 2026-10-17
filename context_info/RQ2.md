@@ -132,7 +132,7 @@
 
    * **CADE (*Miscorrected Additional Detection Error*): O veículo criou uma deteção fantasma e a cooperação valida incorretamente esse objeto inexistente.** 
 
-![Taxonomia de Erros de Deteção em Perceção Cooperativa](../figures/rq2/rq2_cooperative_perception_error_taxonomy.png)
+![Taxonomia de Erros de Deteção em Perceção Cooperativa](../figures/rq2/rq2_cooperative_perception_error_taxonomy.jpg)
 
 **Impacto Prático e Cenários de Acidente**
 

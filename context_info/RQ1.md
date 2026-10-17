@@ -5,8 +5,8 @@
 ### RQ1: How do C-V2X and IEEE 802.11p/bd compare technically, and what is the current state of deployment?
 
 #### Reference Papers (RPs):
-1. **[RP1] Nurkahfi et al. (2024):** G. N. Nurkahfi et al., *"On SDN to Support the IEEE 802.11 and C-V2X-Based Vehicular Communications Use-Cases and Performance: A Comprehensive Survey,"* IEEE Access, vol. 12, pp. 33410-33492, 2024. ([accessible](https://ieeexplore.ieee.org/document/10352136))
-2. **[RP2] Anwar et al. (2019):** W. Anwar, N. Franchi, and G. Fettweis, *"Physical Layer Evaluation of V2X Communications Technologies: 5G NR-V2X, LTE-V2X, IEEE 802.11bd, and IEEE 802.11p,"* in Proc. IEEE 90th Vehicular Technology Conference (VTC-Fall), 2019, pp. 1-7. ([accessible](https://ieeexplore.ieee.org/document/8891313))
+1. **[RP1] Nurkahfi et al. (2024):** G. N. Nurkahfi et al., *"On SDN to Support the IEEE 802.11 and C-V2X-Based Vehicular Communications Use-Cases and Performance: A Comprehensive Survey,"* IEEE Access, vol. 12, pp. 95926-95958, 2024. ([accessible](https://ieeexplore.ieee.org/document/10352136))
+2. **[RP2] Anwar et al. (2019):** W. Anwar, N. Franchi, and G. Fettweis, *"Physical Layer Evaluation of V2X Communications Technologies: 5G NR-V2X, LTE-V2X, IEEE 802.11bd, and IEEE 802.11p,"* in Proc. IEEE 90th Vehicular Technology Conference (VTC-Fall), 2019. ([accessible](https://ieeexplore.ieee.org/document/8891313))
 3. **[RP3] Hejazi & Bokor (2022):** H. Hejazi and L. Bokor, *"A Survey on the Use-Cases and Deployment Efforts Toward Converged Internet of Things (IoT) and Vehicle-to-Everything (V2X) Environments,"* Acta Technica Jaurinensis, vol. 15, no. 2, pp. 58-73, 2022. ([accessible](https://acta.sze.hu/index.php/acta/article/view/627))
 
 ---

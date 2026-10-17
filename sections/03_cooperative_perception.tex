@@ -78,42 +78,12 @@ This spatial alignment relies heavily on accurate onboard positioning systems, s
 If the sending vehicle suffers from sensor noise or calibration drift, even a minor orientation error of one degree can displace a detected obstacle by more than a metre at a distance of 50~metres.
 Such spatial offsets can cause the receiving vehicle to see duplicated obstacles or place pedestrians into the wrong road lane.
 
-\subsection{Strict QoS Requirements}
-Cooperative perception imposes rigorous QoS constraints on the wireless network:
-\begin{itemize}
-    \item \textbf{Low Latency:} Industry standards (such as 3GPP and ETSI) require end-to-end latencies between 10~ms and 100~ms for safety-critical services.
-    When transmission delay exceeds 100~ms, shared coordinates become stale and tracking accuracy drops quickly.
-    If delay exceeds 500~ms, cooperative perception can perform worse than an isolated vehicle driving alone~\cite{guo2025autonomous}.
-    \item \textbf{High Reliability:} Safety applications require near-zero packet loss during emergency manoeuvres, as dropped messages can lead directly to collisions.
-    For advanced cooperative driving, 5G NR V2X sidelink standards target packet delivery reliability levels of up to 99.999\% within the active braking horizon~\cite{castaneda2021tutorial,zhang2026cooperative}.
-    \item \textbf{Update Frequency:} Collective perception services require message update rates between 10 and 20~Hz so that tracking filters can reliably follow accelerating vehicles and pedestrians~\cite{huang2025v2x,antonopoulos2026beyond}.
-\end{itemize}
-
-\subsection{Error Taxonomy and Simulation Benchmarks}
-Extensive empirical testing using simulation toolchains such as CARLA, OpenCDA, and VAST~\cite{ito2026vast} reveals that wireless network impairments induce critical perception failures~\cite{guo2025autonomous}.
-As classified in Fig.~\ref{fig:error_taxonomy}, cooperative perception errors fall into two formal classes:
-
 \begin{figure}[!t]
 \centering
 \includegraphics[width=0.98\columnwidth]{figures/rq2/rq2_cooperative_perception_error_taxonomy.jpg}
 \caption{Taxonomy of cooperative perception errors: Misleading (LE) and Miscorrecting (CE) errors.}
 \label{fig:error_taxonomy}
 \end{figure}
-
-\begin{enumerate}
-    \item \textbf{Misleading Errors (LE):} Occur when the ego vehicle's individual perception was correct, but cooperative data corrupts the final fused result:
-    \begin{itemize}
-        \item \textit{LCME (Misleading Missing Error):} The ego vehicle detected an object, but cooperative fusion causes it to be discarded.
-        \item \textit{LCLE (Misleading Localisation Error):} The ego vehicle localised an object accurately, but shared data shifts its bounding box into an incorrect position.
-        \item \textit{LADE (Misleading Additional Detection Error):} The cooperative network injects a non-existent phantom object, triggering dangerous phantom braking.
-    \end{itemize}
-    \item \textbf{Miscorrecting Errors (CE):} Occur when individual perception failed, and the cooperative network fails to resolve or worsens the mistake:
-    \begin{itemize}
-        \item \textit{CCME (Miscorrected Missing Error):} Both the ego vehicle and cooperative partners fail to detect an obstacle.
-        \item \textit{CCLE (Miscorrected Localisation Error):} Both nodes detect an obstacle with large spatial errors that cooperation fails to correct.
-        \item \textit{CADE (Miscorrected Additional Detection Error):} The cooperative network validates an onboard phantom detection as real.
-    \end{itemize}
-\end{enumerate}
 
 In closed-loop driving simulations, intermediate feature fusion lowers collision rates from 36.8\% in isolated driving down to 26.3\% under good wireless conditions~\cite{guo2025autonomous}.
 However, when transmission delay exceeds 500~ms or positioning errors occur, the overall Driving Score drops and collisions increase to 42.1\%, performing worse than an isolated vehicle.

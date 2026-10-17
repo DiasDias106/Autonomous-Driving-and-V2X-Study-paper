@@ -176,19 +176,22 @@
 
 5. **Perceção Resiliente ao Erro e Aprendizagem Federada Mantenedora de Privacidade (*Privacy-Preserving Federated Learning*): Implementação de mecanismos adaptativos em tempo real capazes de recalibrar a incerteza percetiva e treinar modelos distribuídos em múltiplos veículos e RSUs sem necessidade de partilhar dados brutos privados dos utilizadores.** 
 
-**1.6 Lista Completa de Referências Bibliográficas (6 Artigos)**
+**1.6 Lista Completa de Referências Bibliográficas (6 Artigos Principais e Modelos Citados)**
 
-* **\[Ref-1 / arXiv:2310.03525v5\] T. Huang, J. Liu, X. Zhou, D. C. Nguyen, M. R. Azghadi, Y. Xia, Q.-L. Han, e S. Sun, "Vehicle-to-Everything Cooperative Perception for Autonomous Driving," *Proceedings of the IEEE*, vol. 113, 2025\.** 
+* **[Ref-1 / arXiv:2310.03525]** T. Huang, J. Liu, X. Zhou, D. C. Nguyen, M. R. Azghadi, Y. Xia, Q.-L. Han, and S. Sun, "Vehicle-to-Everything Cooperative Perception for Autonomous Driving," *Proceedings of the IEEE*, vol. 113, no. 5, pp. 443–477, 2025, doi: [10.1109/JPROC.2025.3600903](https://doi.org/10.1109/JPROC.2025.3600903).
+* **[Ref-2 / arXiv:2509.24927]** A. Guo, S. Zhang, E. Tang, X. Gao, H. Pang, H. Tian, Y. Mu, W. Wen, C. Fang, and Z. Chen, "When Autonomous Vehicle Meets V2X Cooperative Perception: How Far Are We?," in *Proc. 40th IEEE/ACM International Conference on Automated Software Engineering (ASE 2025)*, 2025, doi: [10.1109/ASE63991.2025.00101](https://doi.org/10.1109/ASE63991.2025.00101).
+* **[Ref-3 / arXiv:2512.00490]** J. Zhang, Q. Xu, Z. Li, Y. Wu, C. Xu, and K. Li, "Cooperative Safety Intelligence over V2X Networks: A Survey," *IEEE Communications Surveys & Tutorials*, vol. 28, pp. 6836–6867, 2026, doi: [10.1109/COMST.2026.3723946](https://doi.org/10.1109/COMST.2026.3723946).
+* **[Ref-4 / arXiv:2607.00874]** M. Antonopoulos, A. Bolovinou, B. Roungas, E. Daskalaki, and A. Amditis, "Beyond Line of Sight: Hybrid Validation of V2X Collective Perception in Complex Scenarios," *arXiv preprint arXiv:2607.00874*, 2026, doi: [10.48550/arXiv.2607.00874](https://doi.org/10.48550/arXiv.2607.00874).
+* **[Ref-5 / arXiv:2609.19681]** S. Ito and T. Azumi, "VAST: V2X/Dynamic Map-Aware Autonomous Driving Systems Validation Toolchain,", in *Proc. 29th Euromicro Conference on Digital System Design (DSD)*, 2026, doi: [10.23919/DSDCPS00089.2026.00033](https://doi.org/10.23919/DSDCPS00089.2026.00033).
+* **[Ref-6 / arXiv:2102.04538]** M. H. Castañeda Garcia, A. Molina-Galan, M. Boban, J. Gozalvez, B. Coll-Perales, T. Şahin, and A. Kousaridas, "A Tutorial on 5G NR V2X Communications," *IEEE Communications Surveys & Tutorials*, vol. 23, no. 3, pp. 1972–2026, 2021, doi: [10.1109/COMST.2021.3058688](https://doi.org/10.1109/COMST.2021.3058688),.
 
-* **\[Ref-2 / arXiv:2509.24927v1\] A. Guo, S. Zhang, E. Tang, X. Gao, H. Pang, H. Tian, Y. Mu, W. Wen, C. Fang, e Z. Chen, "When Autonomous Vehicle Meets V2X Cooperative Perception: How Far Are We?," *arXiv preprint arXiv:2509.24927v1*, 2025\.** 
+##### Modelos e Plataformas Adicionais Citados:
+* **[V2X-ViT]** R. Xu, H. Xiang, X. Xia, X. Han, J. Li, and J. Ma, "V2X-ViT: Vehicle-to-Everything Cooperative Perception with Vision Transformer," in *Proc. European Conference on Computer Vision (ECCV)*, 2022, pp. 107–124, doi: [10.1007/978-3-031-19824-3_7](https://doi.org/10.1007/978-3-031-19824-3_7).
+* **[Where2comm]** Y. Hu, S. Fang, Z. Xie, S. Chen, and Y. Wang, "Where2comm: Communication-Efficient Collaborative Perception via Spatial Confidence Maps," in *Advances in Neural Information Processing Systems (NeurIPS)*, 2022, arXiv: [2209.12836](https://arxiv.org/abs/2209.12836).
+* **[F-Cooper]** Q. Chen, X. Ma, S. Tang, J. Guo, Q. Yang, and S. Fu, "F-Cooper: Feature-Level Cooperative Perception for Automated Driving," in *Proc. 2nd ACM/IEEE Symposium on Edge Computing (SEC)*, pp. 88-100, 2019, doi: [10.1145/3318216.3363300](https://doi.org/10.1145/3318216.3363300).
+* **[CARLA]** A. Dosovitskiy, G. Ros, F. Codevilla, A. Lopez, and V. Koltun, "CARLA: An Open Urban Driving Simulator," in *Proc. 1st Annual Conference on Robot Learning (CoRL)*, 2017, arXiv: [1711.03938](https://arxiv.org/abs/1711.03938).
 
-* **\[Ref-3 / arXiv:2512.00490v2\] J. Zhang, Q. Xu, Z. Li, Y. Wu, C. Xu, e K. Li, "Cooperative Safety Intelligence over V2X Networks: A Survey," *arXiv preprint arXiv:2512.00490v2*, 2026\.** 
 
-* **\[Ref-4 / arXiv:2607.00874v2\] M. Antonopoulos et al., "Beyond Line of Sight: Hybrid Validation of V2X Collective Perception in Complex Scenarios," *arXiv preprint arXiv:2607.00874v2*, 2026\.**
-
-* **\[Ref-5 / arXiv:2609.19681v1\] S. Ito e T. Azumi, "VAST: V2X/Dynamic Map-Aware Autonomous Driving Systems Validation Toolchain," *arXiv preprint arXiv:2609.19681v1*, 2026\.**
-
-* **\[Ref-6 / arXiv:2102.04538v1\] M. H. Castañeda Garcia, A. Molina-Galan, M. Boban, J. Gozalvez, B. Coll-Perales, T. Şahin, e A. Kousaridas, "A Tutorial on 5G NR V2X Communications," *IEEE Communications Surveys & Tutorials*, vol. 23, no. 3, pp. 1689-1726, 2021\.**
 
 **Secção Complementar: Formulação Matemática**
 

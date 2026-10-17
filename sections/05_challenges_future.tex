@@ -23,7 +23,7 @@ These communication delays and packet losses directly cause perception errors, m
 To prevent wireless channel collapse, standardisation bodies are developing Decentralised Congestion Control mechanisms, such as ETSI TS 102 687, tailored specifically for collective perception.
 Rather than merely reducing transmission frequencies, advanced CPM congestion control algorithms dynamically filter out redundant information.
 By assessing whether an obstacle has already been reported by neighbouring vehicles with high confidence, an agent suppresses repetitive transmissions, saving vital radio bandwidth while preserving full spatial awareness.
-Furthermore, multi-RAT spectrum coexistence remains an open regulatory and technical hurdle~\cite{szalay2023survey}.
+Furthermore, multi-RAT spectrum coexistence remains an open regulatory and technical hurdle~\cite{hejazi2022survey}.
 Because IEEE 802.11p/bd and C-V2X share the same 5.9~GHz frequency band without a shared physical preamble or coordinated access layer, asynchronous transmissions cause mutual co-channel interference.
 Software-defined radio gateways and multi-channel roadside coordination mechanisms are required to ensure cross-standard coexistence in mixed deployment corridors.
 
@@ -31,7 +31,7 @@ Software-defined radio gateways and multi-channel roadside coordination mechanis
 \label{subsec:edge_computing}
 
 Autonomous vehicles require massive computational resources to process multi-modal neural network fusion in real time.
-While automotive OBUs operate under strict thermal and power limits, centralised cloud servers introduce wide-area round-trip latencies that exceed safety-critical operational deadlines ($>100$~ms)~\cite{storck2020survey}.
+While automotive OBUs operate under strict thermal and power limits, centralised cloud servers introduce wide-area round-trip latencies that exceed safety-critical operational deadlines (over 100~ms)~\cite{storck2020survey}.
 Multi-access Edge Computing (MEC) resolves this bottleneck by co-locating high-performance edge servers with RSUs~\cite{huang2025v2x}.
 MEC nodes ingest sensor streams from surrounding vehicles and infrastructure cameras, execute intermediate feature fusion, generate an omniscient regional Bird's-Eye-View dynamic map, and broadcast this fused context back to vehicles within single-digit milliseconds.
 
@@ -89,4 +89,4 @@ Current V-PKI security depends on classical elliptic curve cryptography (ECDSA a
 The eventual development of cryptanalytically relevant quantum computers will break these algorithms, compromising vehicular safety and driver privacy.
 Transitioning V2X networks to quantum-resistant lattice-based cryptography (such as ML-DSA and ML-KEM) is imperative.
 However, post-quantum signatures and public keys are significantly larger than classical counterparts.
-Fitting post-quantum cryptographic tokens into vehicular wireless packet constraints (MTU $\approx 1500$~bytes) while meeting real-time verification deadlines ($<10$~ms) represents a formidable open engineering challenge.
+Fitting post-quantum cryptographic tokens into vehicular wireless packet limits (under 1500~bytes) while meeting real-time verification deadlines (under 10~ms) represents a major open engineering challenge.

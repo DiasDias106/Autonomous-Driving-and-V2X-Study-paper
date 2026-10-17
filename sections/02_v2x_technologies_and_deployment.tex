@@ -83,22 +83,23 @@ Furthermore, while IEEE 802.11p is effective in low-to-moderate vehicle density,
 \label{subsec:spectrum_coexistence}
 
 Direct vehicular communication operates within the shared 5.9~GHz ITS band.
-However, spectrum scarcity and competing technological ecosystems present major operational challenges.
-Because neither standard family alone satisfies all communication requirements across varying traffic densities, multi-RAT architectures have been proposed, as illustrated in Fig.~\ref{fig:multi_rat_arch}.
-These hybrid architectures leverage 802.11p for sporadic, low-overhead direct warnings while relying on C-V2X for dense vehicular traffic~\cite{ansari2021joint}.
+However, operating strictly within a single technology cannot meet all vehicular communication requirements across varying traffic densities~\cite{bazzi2022performance}.
+Because IEEE 802.11p performs well in low-to-moderate traffic density while C-V2X excels in dense urban traffic, hybrid multi-RAT architectures have been proposed~\cite{ansari2021joint}, as illustrated in Fig.~\ref{fig:multi_rat_arch}.
+These hybrid architectures help overcome the limitations of single-technology systems, such as multi-hop delays and low data rates~\cite{qi2020traffic}.
 
 \begin{figure}[!t]
 \centering
 \includegraphics[width=0.88\columnwidth]{figures/rq1/rq1_multi_rat_architecture.png}
-pirical evaluations show that 802.\caption{Multi-RAT architecture showing direct DSRC links alongside C-V2X direct sidelink and cellular base station connections~\cite{sudirham2023sdn}.}
+\caption{Multi-RAT architecture showing direct DSRC links alongside C-V2X direct sidelink and cellular base station connections~\cite{sudirham2023sdn}.}
 \label{fig:multi_rat_arch}
 \end{figure}
 
-When both standard families operate in the same 5.9~GHz band without coordination, severe cross-technology interference occurs because nodes cannot detect transmissions across different protocols~\cite{bazzi2022performance}.
-To resolve this coexistence challenge, two primary mechanisms have been developed:
+When both technology families share the 5.9~GHz band without coordination, cross-technology interference occurs because devices cannot detect signals from different protocols~\cite{bazzi2022performance}.
+To resolve this coexistence challenge, research literature identifies three main mechanisms:
 \begin{itemize}
-    \item \textbf{Fixed Preamble Insertion:} Inserting fixed preambles into transmissions allows 802.11p and LTE-V2X devices to detect each other's channel occupancy, successfully reducing cross-technology packet collisions in dense traffic~\cite{bazzi2022performance}.
-    \item \textbf{Dynamic RAT Selection and Clustering:} Vehicles form local clusters and dynamically switch between DSRC and C-V2X based on network performance, minimising unnecessary handovers and improving Quality of Service (QoS)~\cite{qi2020traffic}.
+    \item \textbf{Fixed Preamble Insertion:} Inserting an IEEE 802.11p preamble into LTE-V2X transmissions allows 802.11p devices to detect channel occupancy, successfully reducing cross-technology packet collisions in dense traffic~\cite{bazzi2022performance}.
+    \item \textbf{Dynamic RAT Selection and Clustering:} Grouping vehicles into dynamic clusters to select between cellular and DSRC links based on network conditions improves Quality of Service (QoS), lowers overall network load, and minimises unnecessary handovers~\cite{qi2020traffic}.
+    \item \textbf{Software-Defined Networking (SDN):} An SDN-based control plane coordinates hybrid protocol stacks across vehicles, resulting in fewer network handovers, higher link reliability, and lower transmission delays~\cite{mir2020enabling}.
 \end{itemize}
 
 \subsection{Worldwide Commercial Deployment Status}

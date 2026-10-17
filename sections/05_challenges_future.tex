@@ -2,7 +2,7 @@
 \section{Challenges, Open Issues, and Future Directions}
 \label{sec:challenges_future}
 
-The deployment of large-scale Internet of Vehicles (IoV) and cooperative automated driving faces several unresolved technical bottlenecks.
+The deployment of large-scale IoV and cooperative automated driving faces several unresolved technical bottlenecks.
 This section details four core challenges: wireless channel congestion and spectrum coexistence under collective perception traffic, edge computing integration within Vehicle-Road-Cloud architectures, data trustworthiness through misbehaviour detection, and the architectural roadmap toward 6G-V2X.
 
 \subsection{Channel Congestion and Spectrum Coexistence}
@@ -20,7 +20,7 @@ In IEEE 802.11p/bd networks, CSMA/CA channel busy ratios quickly surpass saturat
 In C-V2X Mode~4, distributed semi-persistent scheduling suffers persistent subchannel selection collisions among uncoordinated vehicles~\cite{molina2020comparison}.
 These communication delays and packet losses directly cause perception errors, making automated vehicles miss real obstacles or localise them incorrectly.
 
-To prevent wireless channel collapse, standardisation bodies are developing Decentralised Congestion Control mechanisms, such as ETSI TS 102 687, tailored specifically for collective perception.
+To prevent wireless channel collapse, standardisation bodies are developing Decentralised Congestion Control (DCC) mechanisms, such as ETSI TS 102 687, tailored specifically for collective perception.
 Rather than merely reducing transmission frequencies, advanced CPM congestion control algorithms dynamically filter out redundant information.
 By assessing whether an obstacle has already been reported by neighbouring vehicles with high confidence, an agent suppresses repetitive transmissions, saving vital radio bandwidth while preserving full spatial awareness.
 Furthermore, multi-RAT spectrum coexistence remains an open regulatory and technical hurdle~\cite{hejazi2022survey}.
@@ -52,12 +52,12 @@ However, cryptography only validates that a message originated from a certified 
 An authorised vehicle with valid cryptographic credentials may transmit erroneous or deceptive data due to hardware failures (e.g., lens occlusion, dirty cameras, GNSS drift), software errors, or malicious compromise (e.g., an insider fabricating ghost obstacles to clear a highway lane)~\cite{haidar2019risk,guo2025autonomous}.
 Such falsifications inject artificial ghost objects or hide real obstacles, threatening automated driving safety.
 
-To bridge this trust gap, vehicular networks rely on MDS~\cite{haidar2019risk}:
+To bridge this trust gap, vehicular networks rely on Misbehaviour Detection Systems (MDS)~\cite{haidar2019risk}:
 \begin{itemize}
     \item \textbf{Kinematic and Physical Plausibility Checks:} Receiving nodes verify incoming trajectories against physical motion laws, rejecting claims of impossible accelerations or overlapping vehicle volumes.
     \item \textbf{Multi-Sensor Cross-Validation:} Vehicles compare shared cooperative reports with their own onboard radar, LiDAR, and camera returns.
     If an authenticated CPM claims an obstacle exists in a clear area, the receiving vehicle flags the sender's observation as suspect.
-    \item \textbf{Global Misbehaviour Reporting and Revocation:} When multiple independent nodes corroborate inconsistent reports regarding a specific pseudonym, misbehaviour reports are relayed to backend pseudonym authorities (such as the SCMS Linkage Authorities or C-ITS Authorisation Authority) to initiate certificate revocation~\cite{simplicio2018privacy}.
+    \item \textbf{Global Misbehaviour Reporting and Revocation:} When multiple independent nodes corroborate inconsistent reports regarding a specific pseudonym, misbehaviour reports are relayed to backend pseudonym authorities (such as the SCMS Linkage Authorities or C-ITS AA) to initiate certificate revocation~\cite{simplicio2018privacy}.
 \end{itemize}
 Achieving rapid misbehaviour detection while preventing false positive revocations caused by temporary sensor noise or bad weather remains a crucial open problem.
 

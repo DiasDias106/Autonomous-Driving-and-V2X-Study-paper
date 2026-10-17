@@ -23,18 +23,18 @@ Target Use Cases & Basic Safety Beacons & High-Speed Safety & Platooning, Safety
 \end{table*}
 
 To enable vehicular cooperation, vehicles require reliable wireless communication links that can handle high mobility, rapid multipath fading, and dynamically changing network topologies.
-Currently, two major technology families provide direct vehicular communications: the IEEE 802.11 standard family and the 3GPP Cellular V2X (C-V2X) family.
+Currently, two major technology families provide direct vehicular communications: the IEEE 802.11 standard family and the 3GPP C-V2X family.
 This section compares both standard families across their physical (PHY) and medium access control (MAC) layers, evaluates spectrum allocation and multi-Radio Access Technology (multi-RAT) coexistence challenges, and analyses commercial deployment status worldwide.
 
 \subsection{IEEE Standards: 802.11p and 802.11bd}
 \label{subsec:ieee_standards}
 
-The IEEE standards are based on adapted versions of Wi-Fi technology for direct, decentralised vehicle-to-everything communications.
+The IEEE standards are based on adapted versions of Wi-Fi technology for direct, decentralised V2X communications.
 
 \subsubsection{IEEE 802.11p (DSRC / ITS-G5)}
 Published in 2010, IEEE 802.11p serves as the access layer for Dedicated Short-Range Communications (DSRC) in North America (supported by the IEEE 1609 Wireless Access in Vehicular Environments (WAVE) protocol stack) and for ITS-G5 in Europe (standardised by the European Telecommunications Standards Institute (ETSI) in EN 302 663).
 It operates in the dedicated 5.9~GHz Intelligent Transport Systems (ITS) frequency band.
-At the MAC layer, IEEE 802.11p provides decentralised, ad-hoc communication without requiring a centralised control system or cellular infrastructure.
+At the MAC layer, IEEE 802.11p uses Carrier Sense Multiple Access with Collision Avoidance (CSMA/CA) to provide decentralised, ad-hoc communication without requiring centralised cellular infrastructure.
 This decentralised architecture offers low implementation costs and low end-to-end latency under light channel loads, but lacks coordination across transmitting nodes.
 
 While effective in sparse environments, 802.11p exhibits two major technical drawbacks:
@@ -66,7 +66,7 @@ While cellular networks offer wide coverage, high throughput, and superior scala
 
 \subsubsection{LTE-V2X}
 3GPP introduced LTE-V2X to adapt cellular technology for vehicular safety communications.
-For direct vehicle-to-vehicle communication on the PC5 sidelink, LTE-V2X defines two radio resource allocation modes:
+For direct V2V communication on the PC5 sidelink, LTE-V2X defines two radio resource allocation modes:
 \begin{itemize}
     \item \textbf{Mode 3 (Scheduled):} Cellular base stations dynamically assign radio channels to vehicles, which requires network coverage.
     \item \textbf{Mode 4 (Autonomous):} Vehicles select radio channels on their own without cellular network coverage by sensing channel energy and reserving free resources.
@@ -137,7 +137,7 @@ This framework has been validated through major multinational pilots:
 \subsubsection{China}
 China has adopted a unified national policy centred exclusively on C-V2X.
 The Chinese government established dedicated frequency allocations in the 5.9~GHz band and released national standards for vehicular message sets.
-Large-scale city deployments include the Wuxi Internet of Vehicles project covering hundreds of urban intersections, alongside national demonstration test zones in Shanghai, Beijing, and Guangzhou.
+Large-scale city deployments include the Wuxi IoV project covering hundreds of urban intersections, alongside national demonstration test zones in Shanghai, Beijing, and Guangzhou.
 Major Chinese automobile manufacturers are actively releasing production vehicles equipped with factory-installed C-V2X modules.
 
 \subsubsection{Asia-Pacific and Oceania}

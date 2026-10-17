@@ -25,19 +25,19 @@ OAuth V-PKI (Yoshizawa \& Preneel~\cite{yoshizawa2023new}) & Daily OAuth 2.0 tok
 
 Securing V2X communications is essential to prevent attackers from sending fake danger warnings, altering position data, or triggering emergency braking.
 However, verifying vehicle messages creates a direct conflict with driver privacy~\cite{brecht2018scms}.
-This section evaluates Vehicular Public Key Infrastructure (V-PKI), pseudonym certificate lifecycles, batch issuance, revocation methods, and practical attack risks in dense vehicle networks.
+This section evaluates V-PKI, pseudonym certificate lifecycles, batch issuance, revocation methods, and practical attack risks in dense vehicle networks.
 
 \subsection{Vehicular Security versus Privacy}
 \label{subsec:security_privacy_dilemma}
 
 Connected vehicles broadcast periodic status messages at 10~Hz over the dedicated 5.9~GHz band.
-These broadcasts use Basic Safety Messages (BSMs) in North America and Cooperative Awareness Messages (CAMs) in Europe.
+These broadcasts use BSMs in North America and CAMs in Europe.
 Each message contains vehicle movement data, including satellite position coordinates, speed, heading, acceleration, and vehicle size.
 This creates two opposing requirements:
 \begin{itemize}
     \item \textbf{Authentication and Integrity:} Collision avoidance and cooperative cruising require verifying that messages come from authentic, certified vehicles without alteration during transmission.
     Interactive handshakes like Transport Layer Security (TLS) cannot meet sub-10~ms latency deadlines or support fast ad-hoc broadcasts.
-    Vehicles must therefore attach digital signatures (such as ECDSA) and certificates directly to each message.
+    Vehicles must therefore attach digital signatures using the Elliptic Curve Digital Signature Algorithm (ECDSA) and certificates directly to each message.
     \item \textbf{Privacy and Location Unlinkability:} Signing messages with fixed hardware credentials acts like a digital licence plate.
     Eavesdroppers collecting 10~Hz broadcasts can reconstruct complete trips, find home and work locations, and track drivers continuously.
 \end{itemize}
@@ -56,10 +56,10 @@ In the Security Credential Management System (SCMS)~\cite{brecht2018scms}, opera
     \item \textbf{Enrolment CA (ECA):} Verifies hardware identities during manufacturing and issues long-term credentials used exclusively to request pseudonyms.
     \item \textbf{Location Obscurer Proxy (LOP):} Anonymises network traffic by stripping IP addresses and location metadata.
     \item \textbf{Registration Authority (RA):} Validates enrolment credentials and batches requests across vehicles to obscure request timing before forwarding blinded requests to the PCA.
-    \item \textbf{Pseudonym CA (PCA):} Generates compact implicit certificates (ECQV) where public keys are calculated directly from certificate data without explicit signatures; the PCA encrypts certificates for the OBU, knowing \textit{which} certificates were issued while the RA knows \textit{who} requested them.
+    \item \textbf{Pseudonym CA (PCA):} Generates compact implicit certificates using Elliptic Curve Qu-Vanstone (ECQV), where public keys are calculated directly from certificate data without explicit signatures; the PCA encrypts certificates for the OBU, knowing \textit{which} certificates were issued while the RA knows \textit{who} requested them.
     \item \textbf{Linkage Authorities (LA1, LA2):} Two independent servers that generate separate random values combined by the PCA into certificate Linkage Values, ensuring neither authority can link certificates alone.
 \end{itemize}
-Driver privacy is mathematically guaranteed unless at least two independent entities, such as the Registration Authority and the Pseudonym CA, or both Linkage Authorities, collude.
+Driver privacy is mathematically guaranteed unless at least two independent entities, such as the RA and the PCA, or both Linkage Authorities, collude.
 
 \subsubsection{European C-ITS Trust Framework}
 The European C-ITS architecture (ETSI TS~102~940 and TS~102~941) implements a similar functional separation~\cite{haidar2019risk, yoshizawa2023new}.
@@ -105,7 +105,7 @@ Certificates are activated in 90-day periods using compact keys encrypted under 
 Revocation is passive: the authority stops delivering future activation keys, which disables compromised vehicles once their current 90-day period expires without needing broadcast revocation lists.
 
 To reduce this 90-day window and avoid fixed transport keys, Yoshizawa and Preneel~\cite{yoshizawa2023new} proposed an automotive OAuth~2.0 model with ratcheted encryption (AES-GCM-SIV).
-Starting vehicle ignition prompts the OBU to request daily activation tokens from the Authorisation Authority over cellular channels.
+Starting vehicle ignition prompts the OBU to request daily activation tokens from the AA over cellular channels.
 The onboard Hardware Security Module (HSM) verifies the token before enabling message signing.
 Deriving temporary session keys using a one-way hash ratchet ensures forward and backward secrecy while shrinking the revocation window from 90 days to 24 hours.
 

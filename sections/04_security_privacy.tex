@@ -2,146 +2,186 @@
 \section{V2X Security, Privacy, and Pseudonym Lifecycles}
 \label{sec:security_privacy}
 
-As vehicles exchange high-frequency safety alerts and sensor observations, securing these transmissions becomes vital.
-If an attacker can inject fake obstacle warnings or modify legitimate emergency alerts, automated vehicles may brake abruptly or steer into oncoming traffic.
-However, securing vehicular messages introduces a major conflict with driver privacy~\cite{brecht2018scms}.
-This section evaluates Vehicular Public Key Infrastructure (V-PKI), pseudonym certificate lifecycles, scalable issuance, revocation methods, and key security limitations.
+\begin{table*}[!t]
+\centering
+\caption{Comparative Analysis of V-PKI and Pseudonym Management Architectures}
+\label{tab:vpki_comparison}
+\begin{tabular}{>{\raggedright\arraybackslash}p{3.2cm}>{\raggedright\arraybackslash}p{4.2cm}>{\raggedright\arraybackslash}p{4.8cm}>{\raggedright\arraybackslash}p{4.0cm}}
+\toprule
+\textbf{Architecture / Scheme} & \textbf{Core Security and Privacy Focus} & \textbf{Primary Architectural Limitation} & \textbf{Operational Trade-off} \\
+\midrule
+SCMS (Brecht et al.~\cite{brecht2018scms}) & Multi-authority separation; Butterfly keys; Hash-chain Linkage Values. & CRL size scales linearly with revoked nodes ($O(N)$ entries); ECDSA is vulnerable to quantum attacks. & High organisational complexity across multiple independent operational entities. \\
+\addlinespace
+Simpl\'icio et al.~\cite{simplicio2018privacy} & Domain-separated security strings; Tree-structured Linkage Hooks. & Multi-key collisions lower 128-bit linkage keys to 108 bits of security without domain separation. & Adding a 40-bit tree identifier per entry slightly increases CRL broadcast payload. \\
+\addlinespace
+ETSI TVRA (Haidar et al.~\cite{haidar2019risk}) & European C-ITS trust model; TVRA risk analysis; Concurrent pseudonym pools. & Concurrent pools permit Sybil attacks; replay echoes cause rapid pseudonym pool exhaustion (DoS). & Cryptographically authenticates sender identity, but cannot verify physical truth of sensor data. \\
+\addlinespace
+PASS (Sun et al.~\cite{sun2010efficient}) & Dual hash-chain $O(1)$ revocation; Local RSU proxy re-signatures. & Bilinear pairing latency ($\approx 14.7$~ms per check) induces 40\%--50\% packet loss in dense traffic. & Eliminates RSU tracking and shrinks CRLs, but requires heavy cryptographic coprocessors. \\
+\addlinespace
+OAuth V-PKI (Yoshizawa \& Preneel~\cite{yoshizawa2023new}) & Daily OAuth 2.0 token activation; Ratcheted AES-GCM-SIV key derivation. & Rigid sequential slot allocation causes 95.2\% certificate waste; relies on cellular connectivity. & Shrinks revocation latency from 90 days to 24 hours, but requires periodic network access. \\
+\bottomrule
+\end{tabular}
+\end{table*}
 
-\subsection{The Security versus Privacy Dilemma}
-Vehicles continuously broadcast unencrypted telemetry beacons---Basic Safety Messages (BSMs) in the U.S. and Cooperative Awareness Messages (CAMs) in Europe---ten times per second (10~Hz) over the 5.9~GHz wireless band.
-These packets contain precise GPS coordinates, speed, heading, and vehicle dimensions.
-This operational environment creates two opposing requirements:
+Securing Vehicle-to-Everything (V2X) communications is essential to prevent malicious actors from injecting falsified hazard alerts, altering trajectory coordinates, or triggering emergency braking.
+However, authenticating vehicular transmissions introduces an acute conflict with driver privacy~\cite{brecht2018scms}.
+This section evaluates Vehicular Public Key Infrastructure (V-PKI), pseudonym certificate lifecycles, scalable batch issuance, revocation architectures, and practical attack surfaces in high-density vehicular networks.
+
+\subsection{Vehicular Security versus Privacy}
+\label{subsec:security_privacy_dilemma}
+
+Connected vehicle networks broadcast periodic status beacons at 10~Hz over the dedicated 5.9~GHz Intelligent Transport Systems (ITS) band.
+These beacons comprise Basic Safety Messages (BSMs) in North America and Cooperative Awareness Messages (CAMs) in Europe.
+Each packet conveys dynamic telemetry, including high-precision Global Navigation Satellite System (GNSS) coordinates, speed, heading, acceleration, and vehicle dimensions.
+This operational environment creates a fundamental engineering conflict:
 \begin{itemize}
-    \item \textbf{The Need for Authentication:} Receiving vehicles must verify that a message is authentic, comes from a certified vehicle, and has not been altered in transit.
-    Because safety beacons cannot tolerate the multi-step handshake latency of protocols like TLS, vehicles attach a digital signature (using ECDSA over NIST P-256 or Brainpool curves) and a digital certificate directly to each outgoing packet.
-    \item \textbf{The Threat to Privacy:} If a vehicle signs messages using a permanent hardware certificate or static cryptographic key, any roadside observer or hacker with a radio receiver can record and correlate these broadcasts.
-    Because beacons broadcast exact locations ten times every second, a static signature acts as an unchangeable digital license plate.
-    An adversary can reconstruct the driver's daily routes, locate their home and workplace, and profile their private life.
+    \item \textbf{Authentication and Integrity:} Autonomous collision avoidance and cooperative cruising require verifying that beacons originate from authentic, certified vehicles without transit tampering.
+    Interactive handshakes such as Transport Layer Security (TLS) cannot meet sub-10~ms latency deadlines or support transient ad-hoc broadcasts.
+    Vehicles must therefore attach digital signatures (typically ECDSA over NIST P-256 or Brainpool curves) and digital certificates directly to each beacon.
+    \item \textbf{Privacy and Location Unlinkability:} Signing beacons with static hardware credentials creates a wireless licence plate.
+    Eavesdroppers recording 10~Hz location broadcasts can reconstruct historical journeys, infer residential and employment locations, and track motorists continuously.
 \end{itemize}
+Modern V-PKIs resolve this conflict by provisioning On-Board Units (OBUs) with \textbf{pseudonym certificates} devoid of personally identifiable information.
+Rotating pseudonyms provides \textit{conditional anonymity}: ordinary observers cannot link consecutive messages across pseudonym switches, while authorised traffic authorities retain cryptographic capabilities to trace and revoke misbehaving nodes.
 
-\begin{figure}[!t]
+\begin{figure*}[!t]
 \centering
-\includegraphics[width=0.88\columnwidth]{figures/rq3/rq3_vpki_security_solution_overview.png}
-\caption{Overview of a V-PKI security solution: vehicles download batches of short-lived pseudonym certificates to sign safety messages without exposing permanent vehicle identities~\cite{brecht2018scms}.}
-\label{fig:vpki_overview}
-\end{figure}
-
-To resolve this conflict, modern Vehicular Public Key Infrastructures (V-PKIs) use \textbf{pseudonym certificates}, as shown in Fig.~\ref{fig:vpki_overview}.
-Instead of using a permanent certificate on the road, a vehicle is provisioned with a large pool of temporary, short-lived pseudonym certificates that contain no personal identity information.
-By regularly switching between different pseudonyms, the system provides \textit{conditional anonymity}: ordinary observers cannot link different messages to the same driver, yet authorized traffic authorities retain the mathematical ability to trace and revoke vehicles that broadcast false data.
-
-\subsection{Trust Architecture and Multi-Authority Separation of Duties}
-If a single Certificate Authority (CA) knew a vehicle's permanent identity and also issued all of its pseudonyms, an insider at that CA could easily track every car in the country.
-To prevent this single point of privacy failure, modern standards enforce a strict \textbf{separation of duties} based on an honest-but-curious non-collusion model:
-
-\begin{figure}[!t]
+\begin{minipage}[t]{0.54\textwidth}
 \centering
-\includegraphics[width=0.95\columnwidth]{figures/rq3/rq3_scms_multi_authority_issuance_pipeline.png}
-\caption{The SCMS multi-authority pseudonym issuance pipeline~\cite{brecht2018scms}.}
-\label{fig:scms_pipeline}
-\end{figure}
+\includegraphics[width=\linewidth]{figures/rq3/rq3_scms_multi_authority_issuance_pipeline.png}\\
+\vspace{2pt}\footnotesize (a) Multi-authority issuance pipeline~\cite{brecht2018scms}.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.42\textwidth}
+\centering
+\includegraphics[width=\linewidth]{figures/rq3/rq3_butterfly_key_expansion_flow.png}\\
+\vspace{2pt}\footnotesize (b) Butterfly Key expansion flow~\cite{brecht2018scms}.
+\end{minipage}
+\caption{SCMS pseudonym issuance framework: (a) Multi-authority functional separation across ECA, LOP, RA, PCA, and Linkage Authorities; (b) Butterfly Key expansion mechanism deriving thousands of pseudonym keys from a single caterpillar seed.}
+\label{fig:scms_and_butterfly}
+\end{figure*}
+
+\newpage
+
+\subsection{Trust Architectures and Multi-Authority Separation of Duties}
+\label{subsec:trust_architectures}
+
+A centralised PKI wherein a single Certificate Authority (CA) knows vehicle identities and issues pseudonyms represents a single point of failure; an insider or server compromise could track every vehicle.
+Modern standards enforce an honest-but-curious non-collusion model with strict separation of duties, as compared in Table~\ref{tab:vpki_comparison}.
 
 \subsubsection{North American SCMS Architecture}
-In the Security Credential Management System (SCMS)~\cite{brecht2018scms}, backend responsibilities are divided across independent organizations, as shown in Fig.~\ref{fig:scms_pipeline}:
+In the Security Credential Management System (SCMS)~\cite{brecht2018scms}, duties are split across independent entities (Fig.~\ref{fig:scms_and_butterfly}(a)):
 \begin{itemize}
-    \item \textbf{Enrollment CA (ECA):} Verifies the vehicle's permanent hardware identity during manufacturing and issues a long-term enrollment certificate (its cryptographic passport).
-    The vehicle never uses this certificate on the road; it only uses it to request pseudonyms.
-    \item \textbf{Location Obscurer Proxy (LOP):} Acts as an anonymizing proxy that removes IP addresses and location metadata from requests before passing them to backend servers.
-    \item \textbf{Registration Authority (RA):} Validates that the request comes from an authorized, non-revoked enrollment certificate.
-    Crucially, the RA shuffles requests from thousands of vehicles together to break timing correlations before forwarding them to the Pseudonym CA.
-    \item \textbf{Pseudonym CA (PCA):} Generates and signs the actual pseudonym certificates using compact implicit certificates.
-    The PCA receives blinded requests through the RA and encrypts the resulting certificates directly for the vehicle's On-Board Unit (OBU).
-    Therefore, the RA knows \textit{who} asked for certificates, and the PCA knows \textit{which} certificates were issued, but neither entity knows both.
-    \item \textbf{Linkage Authorities ($LA_1$ and $LA_2$):} Two independent servers that generate pre-linkage values ($plv_1, plv_2$) embedded inside each pseudonym.
-    If a car misbehaves, the XOR combination of both values ($lv = plv_1 \oplus plv_2$) allows revoking all of that car's certificates at once.
-    Neither LA can link certificates on its own.
+    \item \textbf{Enrolment CA (ECA):} Verifies hardware identities during manufacturing and issues long-term enrolment credentials used solely to request pseudonyms.
+    \item \textbf{Location Obscurer Proxy (LOP):} Anonymises requests by stripping IP addresses and network-layer location metadata.
+    \item \textbf{Registration Authority (RA):} Validates enrolment credentials and batches requests across thousands of vehicles to break timing correlations before forwarding blinded requests to the Pseudonym CA.
+    \item \textbf{Pseudonym CA (PCA):} Generates and signs compact implicit certificates (such as Elliptic Curve Qu-Vanstone, ECQV), where public keys are mathematically reconstructed from certificate data without explicit signature overhead.
+    The PCA encrypts certificates directly for the OBU.
+    The RA knows \textit{who} requested certificates, and the PCA knows \textit{which} certificates were issued, but neither entity knows both.
+    \item \textbf{Linkage Authorities ($LA_1, LA_2$):} Two independent servers that generate pre-linkage values ($plv_1, plv_2$).
+    The PCA combines them via exclusive-OR (XOR) into a Linkage Value ($lv = plv_1 \oplus plv_2$).
+    Neither LA can link certificates independently.
 \end{itemize}
+Driver privacy is mathematically guaranteed unless at least two structurally independent entities (such as RA and PCA, or $LA_1$ and $LA_2$) actively collude.
 
-\subsubsection{European C-ITS Trust Model}
-The European C-ITS architecture (ETSI TS~102~940 and TS~102~941) uses a similar functional split~\cite{haidar2019risk, yoshizawa2023new}.
-An Enrolment Authority (EA) manages long-term identities, while an Authorization Authority (AA) issues short-term Authorization Tickets (ATs) used as pseudonym certificates.
-Long-term credentials are never broadcast over the air.
+\subsubsection{European C-ITS Trust Framework}
+The European C-ITS architecture (ETSI TS~102~940 and TS~102~941) implements a similar functional separation~\cite{haidar2019risk, yoshizawa2023new}.
+An Enrolment Authority (EA) manages long-term identities, while an Authorisation Authority (AA) issues short-term Authorisation Tickets (ATs) acting as pseudonym certificates.
+A central Distribution Centre (DC) publishes European Certificate Trust Lists (CTLs).
+ATs sign CAMs and Decentralised Environmental Notification Messages (DENMs), keeping long-term credentials off the air.
 
-\subsection{Scalable Batch Issuance: Butterfly Key Expansion}
-Vehicles often drive through rural areas or underground tunnels without cellular coverage for extended periods.
-Consequently, an OBU must preload a batch of thousands of pseudonym certificates at a time (e.g., a one- to three-year supply).
-However, generating and uploading thousands of individual public keys over wireless connections is prohibitively slow and consumes excessive cellular bandwidth.
+\subsection{Scalable Batch Issuance: Butterfly Keys vs. Proxy Re-Signatures}
+\label{subsec:issuance_and_rollover}
 
-\begin{figure}[!t]
-\centering
-\includegraphics[width=0.88\columnwidth]{figures/rq3/rq3_butterfly_key_expansion_flow.png}
-\caption{The Butterfly Key expansion process~\cite{brecht2018scms}.}
-\label{fig:butterfly_flow}
-\end{figure}
-
-The \textbf{Butterfly Key Expansion} mechanism solves this scalability bottleneck~\cite{brecht2018scms}, as illustrated in Fig.~\ref{fig:butterfly_flow}:
+Vehicles frequently navigate rural motorways or subterranean tunnels without cellular connectivity, requiring OBUs to preload batches of thousands of certificates (e.g., a one- to three-year supply).
+However, generating and uploading thousands of individual public keys onboard consumes excessive cellular bandwidth.
+The \textbf{Butterfly Key Expansion} mechanism resolves this dilemma~\cite{brecht2018scms} (Fig.~\ref{fig:scms_and_butterfly}(b)):
 \begin{enumerate}
-    \item The vehicle uploads a single base public key (the \textit{caterpillar key}) to the RA along with an expansion function.
-    \item The RA uses this single key to mathematically derive thousands of intermediate public keys (\textit{cocoon keys}) on the vehicle's behalf, and shuffles them across many vehicles.
-    \item For each cocoon key, the PCA generates a random secret offset, adds it to the cocoon key to create the final \textit{butterfly public key}, and embeds it into a pseudonym certificate.
-    \item The PCA encrypts the certificates and offsets for the vehicle and returns them through the RA.
-    \item The vehicle decrypts the package, adds the PCA's secret offset to its original private seed, and reconstructs the corresponding private signing key locally.
+    \item The vehicle uploads a single seed public key (the caterpillar key) and an expansion function to the RA.
+    \item The RA derives thousands of intermediate cocoon keys and shuffles them across multiple vehicles.
+    \item The PCA adds random secret offsets to cocoon keys to produce final butterfly public keys embedded into implicit certificates.
+    \item The PCA encrypts certificates and offsets for the vehicle and returns them through the RA.
+    \item The vehicle decrypts the package, applies the PCA offsets and expansion steps to its private seed, and derives matching private signing keys locally.
 \end{enumerate}
-This process allows an OBU to obtain thousands of valid pseudonym certificates in a single compact message without the RA or PCA compromising privacy.
-Earlier alternatives, such as the PASS proxy re-signature scheme~\cite{sun2010efficient}, offloaded certificate generation to RSUs using bilinear pairing cryptography, but required high computation overhead.
+Earlier schemes such as PASS~\cite{sun2010efficient} offloaded certificate generation to Roadside Units (RSUs) using bilinear pairing proxy re-signatures with 175-byte re-signature keys.
+However, bilinear pairing verification consumes substantial processing time ($\approx 14.7$~ms), hindering wide adoption.
 
-\subsection{Revocation Mechanisms and Credential Management}
-When a vehicle is compromised, hacked, or suffers a sensor malfunction, it must be revoked so other vehicles ignore its safety messages.
-However, revoking pseudonym certificates is difficult: if a rogue vehicle holds 3,000 valid pseudonyms, placing every individual serial number on a traditional Certificate Revocation List (CRL) would make the CRL file huge, overwhelming wireless channels and OBU memory.
+\subsection{Revocation Paradigms and Credential Management}
+\label{subsec:revocation_mechanisms}
+
+Revoking compromised vehicles holding thousands of valid pseudonyms would cause conventional Certificate Revocation Lists (CRLs) to expand exponentially, congesting wireless channels.
 
 \subsubsection{Active Revocation via Linkage Values}
-To keep CRLs small, SCMS embeds hash-chain Linkage Values inside each certificate~\cite{brecht2018scms}.
-For each time period $t$, both Linkage Authorities advance their one-way hash chains and compute pre-linkage values ($plv_1, plv_2$).
-Under normal driving, the resulting Linkage Value ($lv = plv_1 \oplus plv_2$) looks like random noise to outside observers.
-When a vehicle must be revoked at time period $t_s$, the authority publishes only that vehicle's two seed values for period $t_s$ on the CRL.
-This requires only 48~bytes per revoked vehicle ($O(1)$ constant overhead).
-Using these seeds, any receiving vehicle on the road can compute all current and future linkage values for that vehicle ($t \ge t_s$) and instantly reject its messages.
-Because cryptographic hash functions are one-way, publishing seeds for period $t_s$ provides \textit{retrospective unlinkability} (backward privacy): attackers cannot reverse the hash to uncover trips the driver made before being revoked.
+Modern V-PKIs embed cryptographic linkage values inside certificates.
+Sun et al.~\cite{sun2010efficient} introduced dual forward and backward hash chains, where publishing two seeds for time slot $j$ on the CRL invalidates all future pseudonyms with 48~bytes per vehicle ($O(1)$ constant overhead) without exposing past identities.
+In SCMS~\cite{brecht2018scms}, Linkage Authorities advance forward hash chains to produce pre-linkage values ($plv_1, plv_2$), yielding Linkage Values ($lv = plv_1 \oplus plv_2$).
+To revoke a vehicle starting at period $t_s$, the authority publishes its two period-$t_s$ seeds on the CRL.
+Receiving vehicles compute subsequent Linkage Values ($t \ge t_s$) and discard matching beacons.
+Because hash functions are strictly one-way, publishing seeds for period $t_s$ preserves retrospective unlinkability (backward privacy), preventing adversaries from linking trips taken prior to revocation.
 
 \subsubsection{Passive Revocation: IFAL and Automotive OAuth 2.0}
-To avoid broadcasting CRLs over the air entirely, the European Issue First Activate Later (IFAL) scheme preloads dormant certificates into vehicle storage~\cite{yoshizawa2023new}.
-Certificates are activated in 90-day periods using small activation keys downloaded from the authority.
-If a vehicle misbehaves, the authority simply stops sending future activation keys, and the vehicle is passively silenced once its current 90-day period expires.
-To improve this concept and eliminate the 90-day vulnerability window, Yoshizawa and Preneel~\cite{yoshizawa2023new} proposed an automotive OAuth~2.0 framework with ratcheting encryption.
-Starting the vehicle's engine acts as driver consent, triggering the OBU to request daily activation tokens from the authority.
-The onboard Hardware Security Module (HSM) verifies the token before unlocking signing capabilities, shrinking the revocation window down to 24~hours.
+The European Issue First Activate Later (IFAL) scheme preloads dormant certificates spanning up to five years~\cite{yoshizawa2023new}.
+Certificates are activated in 90-day epochs using compact keys encrypted under a static factory transport key.
+Revocation is passive: the authority halts delivery of future activation keys, silencing rogue nodes once the active epoch expires without over-the-air CRL broadcasts.
 
-\subsection{Limitations and Practical Vulnerabilities}
-Despite their sophisticated design, pseudonym systems face significant technical limitations:
+To eliminate the 90-day exposure window and replace static transport keys, Yoshizawa and Preneel~\cite{yoshizawa2023new} proposed an automotive OAuth~2.0 model with ratcheted Authenticated Encryption (AES-GCM-SIV).
+Starting the vehicle ignition acts as driver consent (Resource Owner), triggering the OBU (Client) to request daily activation tokens from the Authorisation Authority (Authorisation Server).
+The onboard Hardware Security Module (HSM, Resource Server) verifies the token before enabling message signing.
+Deriving temporary session keys via a one-way hash ratchet ensures forward and backward secrecy while shrinking the revocation window from 90 days to 24 hours.
+
+\newpage
+
+\subsection{Technical Limitations and Practical Vulnerabilities}
+\label{subsec:limitations_and_vulnerabilities}
+
+Despite these advancements, pseudonym architectures exhibit practical vulnerabilities in high-density deployments:
+
+\subsubsection{Cryptographic Aging and Multi-Key Birthday Attacks}
+Simpl\'icio et al.~\cite{simplicio2018privacy} revealed that encrypting predictable plaintexts under 128-bit keys across vehicles exposes SCMS to multi-key birthday attacks.
+Collecting pre-linkage values from 20,000 vehicles over a year ($\approx 2^{20}$ values) lowers effective security to 108 bits ($128 - 20 = 108$), falling below the NIST 112-bit minimum.
+Furthermore, precomputed rainbow tables can invert hash chains once revocation seeds are published, breaking backward privacy.
+Domain-separated 96-bit security strings and tree-structured Linkage Hooks resolve these issues, enabling temporary revocations for investigative windows (e.g., hit-and-run events) without compromising multi-year credentials.
+
+\subsubsection{The Certificate Waste Paradox}
+Rigid sequential time slots (e.g., 12-minute slots in IFAL) cause certificates to expire chronologically while parked~\cite{yoshizawa2023new}.
+Because passenger vehicles remain parked over 96\% of the time (averaging 46.1 minutes of daily driving in Europe), 95.2\% of issued certificates expire unused.
+Across the EU's 277.8 million vehicles, this wastes $\approx 13.27$ trillion certificates ($\approx 1.85$~PB of data) annually.
+
+\subsubsection{Passive Eviction Gap and Channel Vulnerabilities}
+Baseline IFAL leaves a 90-day window where compromised nodes can broadcast authenticated false alerts~\cite{yoshizawa2023new}.
+Delivering activation codes via SMS over eCall modems violates EU directives mandating that emergency modems remain dormant during normal driving to prevent cellular tracking, while NIST SP 800-63B prohibits SMS for authentication due to spoofing risks.
 
 \begin{figure}[!t]
 \centering
-\includegraphics[width=0.92\columnwidth]{figures/rq3/rq3_sybil_attack_concurrent_pseudonyms.png}
+\includegraphics[width=0.88\columnwidth]{figures/rq3/rq3_sybil_attack_concurrent_pseudonyms.png}
 \caption{Sybil attack exploiting concurrent pseudonym pools: (a) A single false alert is outvoted by honest vehicles; (b) A malicious node uses three valid pseudonyms simultaneously to manufacture a fake accident majority~\cite{haidar2019risk}.}
 \label{fig:sybil_attack}
 \end{figure}
 
-\begin{itemize}
-    \item \textbf{Multi-Key Birthday Attacks:} Simplício et al.~\cite{simplicio2018privacy} demonstrated that because SCMS Linkage Authorities encrypt fixed plaintexts under 128-bit keys, an attacker collecting pre-linkage values from 20,000 vehicles over a year can execute a multi-key collision attack that lowers effective security to 108~bits (below the NIST 112-bit minimum).
-    This vulnerability is resolved by injecting unique 96-bit domain-separated security strings into each hashing step.
-    
-    \item \textbf{The Certificate Waste Paradox:} In systems that assign rigid sequential time slots to certificates, certificates expire when their time window passes.
-    Because private passenger cars remain parked approximately 96\% of the time, empirical studies show that 95.2\% of all issued pseudonym certificates expire without ever signing a single message~\cite{yoshizawa2023new}.
-    Scaled across the European Union's 277 million vehicles, this wastes approximately 1.85 Petabytes of cryptographic data annually.
-    
-    \item \textbf{Sybil Attacks and Pool Exhaustion:} To reduce certificate waste, industry consortia allow vehicles to hold concurrent pools of valid certificates (e.g., 20 to 100 certificates per week).
-    However, Haidar et al.~\cite{haidar2019risk} showed that this introduces dangerous vulnerabilities, as depicted in Fig.~\ref{fig:sybil_attack}.
-    In a Sybil attack, a hacked vehicle signs different messages using multiple valid pseudonyms at the same moment, creating phantom vehicles that fabricate fake traffic jams or manipulate traffic signals.
-    Conversely, in a pool exhaustion attack, an adversary records and replays a target vehicle's pseudonym; the victim assumes an ID collision occurred, switches certificates, and rapidly burns through its entire week's certificate budget in seconds.
+\subsubsection{Sybil Exploitation versus Pseudonym Pool Exhaustion}
+To mitigate waste, standards permit concurrent pseudonym pools (e.g., 20 to 100 valid certificates per week).
+Haidar et al.~\cite{haidar2019risk} demonstrated that concurrent pools enable Sybil attacks, where a rogue OBU signs conflicting alerts with multiple valid pseudonyms simultaneously to fabricate phantom traffic jams or emergency platoons (Fig.~\ref{fig:sybil_attack}).
+Conversely, adversaries can replay a target's pseudonym, tricking the OBU into assuming an ID collision and burning through its weekly pool in seconds (privacy denial-of-service, DoS).
 
-    \item \textbf{Verification Latency Bottlenecks:} In pairing-based schemes like PASS~\cite{sun2010efficient}, verifying a single unfamiliar certificate requires multiple bilinear pairing operations taking $\approx 14.7$~ms.
-    In dense highway traffic with dozens of vehicles broadcasting at 10~Hz, the message processing queue overflows, dropping 40\% to 50\% of incoming safety packets.
-    For this reason, standard V-PKIs mandate hardware-accelerated ECDSA signatures.
-
-    \item \textbf{Syntactic versus Semantic Privacy:} Pseudonym certificates provide only syntactic privacy (changing the digital signature and header ID).
-    They provide zero semantic privacy over the physical trajectory data inside the packet.
-    Because safety beacons broadcast exact GPS positions ten times per second, an eavesdropper using standard Kalman filters can easily connect consecutive beacons across pseudonym switches based on vehicle speed and heading~\cite{brecht2018scms}.
-    To break this physical tracking, pseudonym changes must be combined with physical Pseudonym Change Strategies (PCS), such as intersection Mix-Zones (Fig.~\ref{fig:mix_zone}) or silent periods during lane changes.
-\end{itemize}
+\subsubsection{Verification Latency Bottlenecks}
+Pairing-based verification in PASS requires $\approx 14.7$~ms per certificate~\cite{sun2010efficient}.
+In dense traffic with dozens of vehicles broadcasting at 10~Hz, OBU queues overflow, causing 40\%--50\% packet loss.
+Standard V-PKIs therefore require hardware-accelerated ECDSA verification.
 
 \begin{figure}[!t]
 \centering
-\includegraphics[width=0.72\columnwidth]{figures/rq3/rq3_mix_zone_intersection_pseudonym_change.jpg}
+\includegraphics[width=0.68\columnwidth]{figures/rq3/rq3_mix_zone_intersection_pseudonym_change.jpg}
 \caption{Mix-zone deployment at an intersection: encrypting beacons and injecting decoy trajectories inside the mix-zone prevents external trackers from linking entry pseudonyms to exit pseudonyms.}
 \label{fig:mix_zone}
 \end{figure}
+
+\subsubsection{Syntactic Anonymity versus Semantic Kinematic Tracking}
+Pseudonym rotation alters packet headers but leaves 10~Hz kinematic telemetry in plaintext.
+Eavesdroppers using Kalman filters or Bayesian trackers can connect consecutive beacons across pseudonym switches based on trajectory continuity~\cite{brecht2018scms}.
+Radio-frequency transmitter fingerprinting further bypasses digital anonymity.
+Breaking tracking requires physical Pseudonym Change Strategies (PCS) such as intersection Mix-Zones (Fig.~\ref{fig:mix_zone}) or silent periods, though silent periods introduce dangerous safety blind spots.
+
+\subsubsection{Cryptographic Authenticity versus Physical Misbehaviour}
+Pseudonym certificates verify sender credentials but cannot validate whether sensor data corresponds to physical reality.
+Certified nodes can broadcast cryptographically valid beacons containing fabricated hazard locations.
+Consequently, V-PKI must be complemented by onboard Misbehaviour Detection Systems (MDS)~\cite{heijden2017survey} that execute kinematic plausibility checks and sensor cross-validation before triggering certificate revocation.

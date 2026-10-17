@@ -178,17 +178,13 @@
 
 **1.6 Lista Completa de Referências Bibliográficas (6 Artigos)**
 
-* **\[Ref-1 / arXiv:2310.03525v5\] T. Huang, J. Liu, X. Zhou, D. C. Nguyen, M. R. Azghadi, Y. Xia, Q.-L. Han, e S. Sun, "Vehicle-to-Everything Cooperative Perception for Autonomous Driving," *Proceedings of the IEEE*, vol. 113, 2025\.** 
+* **[Ref-1 / arXiv:2310.03525v5]** T. Huang, J. Liu, X. Zhou, D. C. Nguyen, M. R. Azghadi, Y. Xia, Q.-L. Han, and S. Sun, "Vehicle-to-Everything Cooperative Perception for Autonomous Driving," *Proceedings of the IEEE*, vol. 113, no. 5, pp. 443–477, May 2025, doi: [10.1109/JPROC.2025.3600903](https://doi.org/10.1109/JPROC.2025.3600903).
+* **[Ref-2 / arXiv:2509.24927v1]** A. Guo, S. Zhang, E. Tang, X. Gao, H. Pang, H. Tian, Y. Mu, W. Wen, C. Fang, and Z. Chen, "When Autonomous Vehicle Meets V2X Cooperative Perception: How Far Are We?," in *Proc. 40th IEEE/ACM International Conference on Automated Software Engineering (ASE 2025)*, 2025 / *arXiv preprint arXiv:2509.24927v1*, 2025.
+* **[Ref-3 / arXiv:2512.00490v2]** J. Zhang, Q. Xu, Z. Li, Y. Wu, C. Xu, and K. Li, "Cooperative Safety Intelligence over V2X Networks: A Survey," *IEEE Communications Surveys & Tutorials*, vol. 28, pp. 6836–6867, 2026 / *arXiv preprint arXiv:2512.00490v2*, 2026.
+* **[Ref-4 / arXiv:2607.00874v2]** M. Antonopoulos, A. Bolovinou, B. Roungas, E. Daskalaki, and A. Amditis, "Beyond Line of Sight: Hybrid Validation of V2X Collective Perception in Complex Scenarios," *arXiv preprint arXiv:2607.00874v2*, 2026.
+* **[Ref-5 / arXiv:2609.19681v1]** S. Ito and T. Azumi, "VAST: V2X/Dynamic Map-Aware Autonomous Driving Systems Validation Toolchain," *arXiv preprint arXiv:2609.19681v1*, 2026.
+* **[Ref-6 / arXiv:2102.04538v1]** M. H. Castañeda Garcia, A. Molina-Galan, M. Boban, J. Gozalvez, B. Coll-Perales, T. Şahin, and A. Kousaridas, "A Tutorial on 5G NR V2X Communications," *IEEE Communications Surveys & Tutorials*, vol. 23, no. 3, pp. 1689–1726, thirdquarter 2021, doi: [10.1109/COMST.2021.3058688](https://doi.org/10.1109/COMST.2021.3058688).
 
-* **\[Ref-2 / arXiv:2509.24927v1\] A. Guo, S. Zhang, E. Tang, X. Gao, H. Pang, H. Tian, Y. Mu, W. Wen, C. Fang, e Z. Chen, "When Autonomous Vehicle Meets V2X Cooperative Perception: How Far Are We?," *arXiv preprint arXiv:2509.24927v1*, 2025\.** 
-
-* **\[Ref-3 / arXiv:2512.00490v2\] J. Zhang, Q. Xu, Z. Li, Y. Wu, C. Xu, e K. Li, "Cooperative Safety Intelligence over V2X Networks: A Survey," *arXiv preprint arXiv:2512.00490v2*, 2026\.** 
-
-* **\[Ref-4 / arXiv:2607.00874v2\] M. Antonopoulos et al., "Beyond Line of Sight: Hybrid Validation of V2X Collective Perception in Complex Scenarios," *arXiv preprint arXiv:2607.00874v2*, 2026\.**
-
-* **\[Ref-5 / arXiv:2609.19681v1\] S. Ito e T. Azumi, "VAST: V2X/Dynamic Map-Aware Autonomous Driving Systems Validation Toolchain," *arXiv preprint arXiv:2609.19681v1*, 2026\.**
-
-* **\[Ref-6 / arXiv:2102.04538v1\] M. H. Castañeda Garcia, A. Molina-Galan, M. Boban, J. Gozalvez, B. Coll-Perales, T. Şahin, e A. Kousaridas, "A Tutorial on 5G NR V2X Communications," *IEEE Communications Surveys & Tutorials*, vol. 23, no. 3, pp. 1689-1726, 2021\.**
 
 **Secção Complementar: Formulação Matemática**
 

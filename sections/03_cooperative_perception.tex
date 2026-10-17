@@ -85,12 +85,12 @@ Such spatial offsets can cause the receiving vehicle to see duplicated obstacles
 \subsection{Strict QoS Requirements}
 Cooperative perception imposes rigorous QoS constraints on the wireless network:
 \begin{itemize}
-    \item \textbf{Ultra-Low Latency ($<10$--$20$~ms):} When an autonomous vehicle travels at 120~km/h (33.3~m/s), a transmission delay of 100~ms causes a displacement of 3.33~metres before the alert is processed.
+    \item \textbf{Ultra-Low Latency (under 10 to 20~ms):} When an autonomous vehicle travels at 120~km/h (about 33~metres per second), a transmission delay of 100~ms causes a displacement of 3.33~metres before the alert is processed.
     If delay exceeds 100~ms, object coordinates become stale, degrading spatial tracking.
     When latency exceeds 500~ms, empirical studies show that cooperative perception performs worse than an isolated vehicle~\cite{guo2025autonomous}.
-    \item \textbf{Ultra-High Reliability ($>99.999\%$):} Missed packets during high-speed emergency manoeuvres lead directly to collisions.
+    \item \textbf{Ultra-High Reliability (above 99.999\%):} Missed packets during high-speed emergency manoeuvres lead directly to collisions.
     Safety applications require near-zero packet loss within the active braking horizon.
-    \item \textbf{High Refresh Frequency ($10$--$20$~Hz):} Continuous trajectory estimation in Kalman filters requires regular updates to handle accelerating obstacles smoothly.
+    \item \textbf{High Refresh Frequency (10 to 20~Hz):} Continuous trajectory estimation in Kalman filters requires regular updates to handle accelerating obstacles smoothly.
 \end{itemize}
 
 \subsection{Error Taxonomy and Simulation Benchmarks}
@@ -121,7 +121,7 @@ As classified in Fig.~\ref{fig:error_taxonomy}, cooperative perception errors fa
 
 In closed-loop simulation environments, autonomous driving performance is evaluated using a composite Driving Score.
 This score combines the percentage of the assigned route completed with a cumulative penalty for driving infractions, such as collisions with obstacles, lane departures, and emergency braking events.
-Under ideal wireless conditions, cooperative intermediate fusion models reduce vehicle collision rates from $36.8\%$ in isolated driving down to $26.3\%$~\cite{guo2025autonomous}.
-However, when communication latency rises between $500$~ms and $1000$~ms, the Driving Score drops sharply by $10.3\%$, and the collision rate climbs to $42.1\%$.
-Similarly, introducing positioning errors between $0.2$~m and $0.6$~m pushes collision rates to $42.1\%$, predominantly causing severe localisation errors that shift bounding boxes into incorrect positions.
+Under ideal wireless conditions, cooperative intermediate fusion models reduce vehicle collision rates from 36.8\% in isolated driving down to 26.3\%~\cite{guo2025autonomous}.
+However, when communication latency rises between 500~ms and 1000~ms, the Driving Score drops sharply by 10.3\%, and the collision rate climbs to 42.1\%.
+Similarly, introducing positioning errors between 0.2~m and 0.6~m pushes collision rates to 42.1\%, predominantly causing severe localisation errors that shift bounding boxes into incorrect positions.
 These empirical findings demonstrate that stale or misaligned cooperative data can degrade vehicle safety below the level of an isolated vehicle operating alone.

@@ -4,31 +4,24 @@
 
 Once a reliable wireless communication link is established, vehicles can deploy advanced safety and automation services.
 The primary application for high-level automated driving is cooperative perception, also known as collective perception~\cite{zhang2026cooperative}.
-In this paradigm, connected vehicles and intelligent roadside infrastructure share localised sensory data in real time, overcoming the physical limitations of individual onboard sensors~\cite{huang2025v2x}.
+In this paradigm, connected vehicles and intelligent roadside infrastructure share localised sensory data in real time, overcoming the physical limits of individual onboard sensors~\cite{huang2025v2x}.
+In connected driving terminology, the host vehicle that receives data and makes driving decisions is called the \textit{ego vehicle}, whereas surrounding connected cars and infrastructure devices are referred to as partner nodes.
 
 \subsection{Motivation: Overcoming Physical Sensor Occlusions}
-Modern autonomous vehicles rely on three primary onboard perception sensors to perceive their surroundings:
+Modern autonomous vehicles rely on three main onboard sensors to perceive their surroundings:
 \begin{itemize}
-    \item \textbf{Cameras:} Capture high-resolution colour, lane markings, and semantic signs, but degrade significantly under adverse lighting, shadows, and direct headlight glare.
-    \item \textbf{LiDAR:} Generates accurate 3D point clouds with high geometric fidelity, but suffers severe beam attenuation in heavy rain, dense fog, and blizzards.
-    \item \textbf{Radar:} Accurately measures range and Doppler velocity under poor weather, but provides coarse angular resolution and sparse point returns.
+    \item \textbf{Cameras:} Capture clear colours, road markings, and signs, but struggle in dark conditions, in shadows, or under strong headlight glare.
+    \item \textbf{LiDAR:} Generates detailed 3D shape models of the environment, but laser beams get blocked easily in heavy rain, thick fog, and snow.
+    \item \textbf{Radar:} Works well in bad weather and measures distance and speed accurately, but has low detail and provides fewer detection points.
 \end{itemize}
 
-Despite their complementary sensing modalities, all onboard sensors share an insurmountable physical limit: they depend strictly on direct line-of-sight propagation~\cite{zhang2026cooperative}.
-In dense urban traffic, large trucks, buses, roadside buildings, and sharp street corners constantly block this line-of-sight.
-Fig.~\ref{fig:urban_cp_scenario} illustrates this operational hazard at an urban crosswalk.
-Without V2X cooperation, an automated vehicle following a large delivery truck has its frontal field-of-view completely obstructed.
-A pedestrian crossing ahead remains invisible until stepping into the driving lane, leaving insufficient braking distance and creating a fatal collision risk.
-With cooperative perception, a vehicle travelling in the opposite direction or an elevated RSU observes the pedestrian with an unobstructed line-of-sight.
-The discovering node immediately broadcasts the pedestrian's coordinates over the V2X network.
-The receiving vehicle fuses this shared knowledge into its world model, anticipates the hazard ahead, and decelerates smoothly before the hazard emerges into physical view~\cite{antonopoulos2026beyond}.
-
-\begin{figure}[!t]
-\centering
-\includegraphics[width=0.98\columnwidth]{figures/rq2/rq2_urban_cooperative_perception_scenario.png}
-\caption{Urban cooperative perception scenario: (a) Without V2X, onboard sensors are occluded by a delivery truck; (b) With V2X, shared sensor streams reveal the occluded pedestrian in advance.}
-\label{fig:urban_cp_scenario}
-\end{figure}
+Despite their different strengths, all onboard sensors share a fundamental physical limit: they depend strictly on a direct line of sight~\cite{zhang2026cooperative}.
+In dense urban traffic, large trucks, buses, roadside buildings, and street corners constantly block this line of sight.
+Without V2X cooperation, an automated vehicle following a large delivery truck has its forward view completely obstructed.
+A pedestrian crossing ahead remains invisible until stepping into the driving lane, leaving insufficient braking distance and causing a collision risk.
+With cooperative perception, a vehicle travelling in the opposite direction or an elevated RSU observes the pedestrian with a clear view.
+The discovering node immediately broadcasts the pedestrian's coordinates over the vehicular network.
+The receiving ego vehicle adds this shared knowledge to its map, spots the danger early, and slows down safely before the pedestrian comes into physical view~\cite{antonopoulos2026beyond}.
 
 \subsection{Standardised Message Frameworks: CAM, DENM, and CPM}
 Standardisation organisations have defined structured message formats to support vehicular awareness across heterogeneous platforms:
@@ -37,46 +30,47 @@ Standardisation organisations have defined structured message formats to support
     They convey only the sender's own dynamic state (GPS coordinates, speed, acceleration, and yaw rate) without describing neighbouring objects.
     \item \textbf{DENM:} Event-triggered safety alerts sent when an unexpected hazard arises, such as roadworks, emergency electronic brake lights, or black ice.
     \item \textbf{Collective Perception Messages (CPM):} Standardised by ETSI in TR~103~562 and TS~103~324~\cite{antonopoulos2026beyond}.
-    Unlike ego-only CAMs, a CPM enables an agent to describe third-party objects detected by its local perception sensors.
-    A CPM contains the sender's sensor capabilities, free-space perception zones, and a list of detected objects detailing their 3D positions, bounding box dimensions, velocity vectors, and classification confidence scores.
+    Unlike CAMs that only describe the sender itself, a CPM allows a vehicle to share details about other objects detected by its onboard sensors.
+    A CPM contains the sender's sensor coverage area, free road space, and a list of detected objects detailing their positions, sizes, speeds, and detection confidence.
 \end{itemize}
 
 \subsection{Taxonomy of Sensor Fusion Strategies}
-When vehicles collaborate, they must decide at what data processing stage to execute information fusion.
-As illustrated in Fig.~\ref{fig:fusion_schemes}, cooperative perception architectures fall into three fundamental categories: early fusion, intermediate fusion, and late fusion~\cite{huang2025v2x}.
+When vehicles collaborate, they must decide at what data processing stage to combine information.
+As illustrated in Fig.~\ref{fig:fusion_schemes}, cooperative perception architectures fall into three main categories: early fusion, intermediate fusion, and late fusion~\cite{huang2025v2x}.
 
+% acho q esta imagem n é muito necessária tbh
 \begin{figure}[!t]
 \centering
 \includegraphics[width=0.95\columnwidth]{figures/rq2/rq2_fusion_schemes_early_intermediate_late.png}
-\caption{The three primary sensor fusion strategies in cooperative perception: (a) Early Fusion (raw data), (b) Intermediate Fusion (feature representations), and (c) Late Fusion (detected objects).}
+\caption{Sensor fusion strategies: Early (raw data), Intermediate (features), and Late (objects).}
 \label{fig:fusion_schemes}
 \end{figure}
 
 \subsubsection{Early Fusion (Raw Data Collaboration)}
-In early fusion, vehicles transmit unprocessed sensor measurements, such as raw LiDAR point clouds or uncompressed camera frames.
-The receiving vehicle gathers the raw data streams from all connected neighbours and combines them into a single global dataset before running detection algorithms.
-This strategy preserves complete geometric and semantic details, yielding the highest theoretical detection accuracy.
-However, transmitting raw measurements requires massive wireless bandwidth exceeding 100~Mbps per vehicle, alongside microsecond-level clock synchronisation.
-These intense requirements overwhelm standard vehicular radio channels, making early fusion impractical for widespread ad-hoc vehicular deployment.
+In early fusion, vehicles transmit unprocessed sensor measurements, such as raw LiDAR point clouds or camera images.
+The receiving vehicle combines these raw streams from connected neighbours before running its detection algorithms.
+However, transmitting raw measurements demands high wireless bandwidth exceeding 100~Mbps per vehicle, alongside microsecond clock synchronisation.
+This approach requires the least trust in other vehicles, as the ego vehicle relies entirely on its own verified models to identify objects.
+These intense demands make early fusion impractical over standard vehicular radio channels.
 
 \subsubsection{Intermediate Fusion (Feature-Level Collaboration)}
-In intermediate fusion, each vehicle first processes its raw sensor data through a local deep neural network encoder to extract compressed feature maps.
-Vehicles broadcast only these compact latent representations over the V2X link.
-The receiving vehicle aligns the incoming feature maps within a common spatial reference frame and merges them using spatial attention mechanisms or graph neural networks.
-The final object detections and bounding boxes are then decoded directly from this fused feature space.
-State-of-the-art architectures demonstrate that intermediate feature fusion achieves detection accuracy close to early fusion while keeping wireless bandwidth demands within sustainable limits between 1 and 10~Mbps~\cite{huang2025v2x,guo2025autonomous}.
+In intermediate fusion, each vehicle first processes raw sensor data with a neural network to extract compressed feature maps.
+Vehicles broadcast only these compact latent representations over direct V2V wireless sidelinks (such as the C-V2X PC5 interface or IEEE 802.11p/bd direct links).
+The receiving vehicle aligns the incoming feature maps and merges them using neural attention mechanisms before decoding object bounding boxes.
+This strategy requires a moderate level of trust, because the ego vehicle relies on partner models to extract valid, uncorrupted feature representations.
+Intermediate fusion achieves detection accuracy close to early fusion while keeping wireless bandwidth within sustainable limits between 1 and 10~Mbps~\cite{huang2025v2x,guo2025autonomous}.
 
 \subsubsection{Late Fusion (Decision or Object-Level Collaboration)}
-In late fusion, each vehicle completes the entire detection process independently on board using its own sensors and local machine learning models.
-Vehicles exchange only their final perception results, structured as a list of detected obstacles with 3D bounding boxes, velocities, and confidence scores, as defined in ETSI CPM messages.
-The receiving vehicle combines these received object lists with its own detections using spatial clustering and tracking filters.
-Late fusion requires minimal wireless bandwidth (typically 10~kbps to 100~kbps), allowing it to operate easily over existing wireless links.
-However, if an occluded obstacle is partially hidden and missed by a vehicle's onboard detector, that obstacle is permanently lost because the raw supporting sensor evidence was discarded before transmission.
+In late fusion, each vehicle completes object detection independently on board using its own sensors.
+Vehicles exchange only their final detection lists, including 3D bounding boxes, speeds, and confidence scores, as formatted in ETSI CPMs.
+The receiving vehicle combines these received lists with its own detections using spatial clustering filters.
+This strategy requires the highest level of trust, since the ego vehicle directly accepts object decisions made by others and cannot verify the raw sensor evidence.
+Although late fusion uses minimal bandwidth (10 to 100~kbps), any partially occluded obstacle missed by the sender's local detector is permanently lost.
 
 \subsection{Spatial Coordinate Alignment and Pose Sensitivity}
 Before two vehicles can combine spatial observations, their geometric reference frames must be unified.
 Each vehicle measures the environment from its own perspective, using a local coordinate system centred on its own chassis.
-To map a detected point from a sending vehicle into the ego vehicle's frame of reference, the system mathematically translates and rotates the coordinates using the sender's spatial position and orientation angles, specifically yaw, pitch, and roll.
+To map a detected point from a sending vehicle into the ego vehicle's frame of reference, the system mathematically translates and rotates the coordinates using the sender's spatial position and orientation angles (yaw, pitch, and roll).
 This spatial alignment relies heavily on accurate onboard positioning systems, such as GPS and inertial measurement units.
 If the sending vehicle suffers from sensor noise or calibration drift, even a minor orientation error of one degree can displace a detected obstacle by more than a metre at a distance of 50~metres.
 Such spatial offsets can cause the receiving vehicle to see duplicated obstacles or place pedestrians into the wrong road lane.
@@ -84,12 +78,12 @@ Such spatial offsets can cause the receiving vehicle to see duplicated obstacles
 \subsection{Strict QoS Requirements}
 Cooperative perception imposes rigorous QoS constraints on the wireless network:
 \begin{itemize}
-    \item \textbf{Ultra-Low Latency (under 10 to 20~ms):} When an autonomous vehicle travels at 120~km/h (about 33~metres per second), a transmission delay of 100~ms causes a displacement of 3.33~metres before the alert is processed.
-    If delay exceeds 100~ms, object coordinates become stale, degrading spatial tracking.
-    When latency exceeds 500~ms, empirical studies show that cooperative perception performs worse than an isolated vehicle~\cite{guo2025autonomous}.
-    \item \textbf{Ultra-High Reliability (above 99.999\%):} Missed packets during high-speed emergency manoeuvres lead directly to collisions.
-    Safety applications require near-zero packet loss within the active braking horizon.
-    \item \textbf{High Refresh Frequency (10 to 20~Hz):} Continuous trajectory estimation in Kalman filters requires regular updates to handle accelerating obstacles smoothly.
+    \item \textbf{Low Latency:} Industry standards (such as 3GPP and ETSI) require end-to-end latencies between 10~ms and 100~ms for safety-critical services.
+    When transmission delay exceeds 100~ms, shared coordinates become stale and tracking accuracy drops quickly.
+    If delay exceeds 500~ms, cooperative perception can perform worse than an isolated vehicle driving alone~\cite{guo2025autonomous}.
+    \item \textbf{High Reliability:} Safety applications require near-zero packet loss during emergency manoeuvres, as dropped messages can lead directly to collisions~\cite{castaneda2021tutorial,zhang2026cooperative}.
+    For advanced cooperative driving, 5G NR V2X sidelink standards target reliability levels of up to 99.999\%~\cite{castaneda2021tutorial}.
+    \item \textbf{Update Frequency:} Collective perception services require message update rates between 10 and 20~Hz so that tracking filters can reliably follow accelerating vehicles and pedestrians~\cite{huang2025v2x,antonopoulos2026beyond}.
 \end{itemize}
 
 \subsection{Error Taxonomy and Simulation Benchmarks}
@@ -98,8 +92,8 @@ As classified in Fig.~\ref{fig:error_taxonomy}, cooperative perception errors fa
 
 \begin{figure}[!t]
 \centering
-\includegraphics[width=0.92\columnwidth]{figures/rq2/rq2_cooperative_perception_error_taxonomy.png}
-\caption{Taxonomy of detection errors in cooperative perception: Misleading errors (LCME, LCLE, LADE) and Miscorrecting errors (CCME, CCLE, CADE).}
+\includegraphics[width=0.98\columnwidth]{figures/rq2/rq2_cooperative_perception_error_taxonomy.png}
+\caption{Taxonomy of cooperative perception errors: Misleading (LE) and Miscorrecting (CE) errors.}
 \label{fig:error_taxonomy}
 \end{figure}
 
@@ -118,9 +112,6 @@ As classified in Fig.~\ref{fig:error_taxonomy}, cooperative perception errors fa
     \end{itemize}
 \end{enumerate}
 
-In closed-loop simulation environments, autonomous driving performance is evaluated using a composite Driving Score.
-This score combines the percentage of the assigned route completed with a cumulative penalty for driving infractions, such as collisions with obstacles, lane departures, and emergency braking events.
-Under ideal wireless conditions, cooperative intermediate fusion models reduce vehicle collision rates from 36.8\% in isolated driving down to 26.3\%~\cite{guo2025autonomous}.
-However, when communication latency rises between 500~ms and 1000~ms, the Driving Score drops sharply by 10.3\%, and the collision rate climbs to 42.1\%.
-Similarly, introducing positioning errors between 0.2~m and 0.6~m pushes collision rates to 42.1\%, predominantly causing severe localisation errors that shift bounding boxes into incorrect positions.
-These empirical findings demonstrate that stale or misaligned cooperative data can degrade vehicle safety below the level of an isolated vehicle operating alone.
+In closed-loop driving simulations, intermediate feature fusion lowers collision rates from 36.8\% in isolated driving down to 26.3\% under good wireless conditions~\cite{guo2025autonomous}.
+However, when transmission delay exceeds 500~ms or positioning errors occur, the overall Driving Score drops and collisions increase to 42.1\%, performing worse than an isolated vehicle.
+In summary, cooperative perception allows connected vehicles to see past physical obstacles and detect hidden hazards, but these benefits rely strictly on low wireless latency, accurate geometric alignment, and resilient sensor fusion.

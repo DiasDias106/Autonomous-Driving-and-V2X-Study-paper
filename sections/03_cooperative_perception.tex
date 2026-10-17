@@ -5,7 +5,6 @@
 Once a reliable wireless communication link is established, vehicles can deploy advanced safety and automation services.
 The primary application for high-level automated driving is cooperative perception, also known as collective perception~\cite{zhang2026cooperative}.
 In this paradigm, connected vehicles and intelligent roadside infrastructure share localised sensory data in real time, overcoming the physical limitations of individual onboard sensors~\cite{huang2025v2x}.
-This section analyses the motivation for cooperative sensing, examines standardised message frameworks, details the main sensor fusion strategies, evaluates strict QoS requirements, and reviews empirical error patterns observed in driving simulations.
 
 \subsection{Motivation: Overcoming Physical Sensor Occlusions}
 Modern autonomous vehicles rely on three primary onboard perception sensors to perceive their surroundings:
@@ -65,7 +64,7 @@ In intermediate fusion, each vehicle first processes its raw sensor data through
 Vehicles broadcast only these compact latent representations over the V2X link.
 The receiving vehicle aligns the incoming feature maps within a common spatial reference frame and merges them using spatial attention mechanisms or graph neural networks.
 The final object detections and bounding boxes are then decoded directly from this fused feature space.
-State-of-the-art architectures demonstrate that intermediate feature fusion achieves detection accuracy close to early fusion while keeping wireless bandwidth demands within sustainable limits between 1~Mbps and 10~Mbps~\cite{huang2025v2x,guo2025autonomous}.
+State-of-the-art architectures demonstrate that intermediate feature fusion achieves detection accuracy close to early fusion while keeping wireless bandwidth demands within sustainable limits between 1 and 10~Mbps~\cite{huang2025v2x,guo2025autonomous}.
 
 \subsubsection{Late Fusion (Decision or Object-Level Collaboration)}
 In late fusion, each vehicle completes the entire detection process independently on board using its own sensors and local machine learning models.

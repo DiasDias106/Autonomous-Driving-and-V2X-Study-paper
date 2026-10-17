@@ -3,7 +3,7 @@
 \label{sec:cooperative_perception}
 
 Once a reliable wireless communication link is established, vehicles can deploy advanced safety and automation services.
-The primary application for high-level automated driving is cooperative perception, also known as collective perception~\cite{zhang2026cooperative}.
+The primary application for high-level automated driving is cooperative perception, also known as collective perception~\cite{etsi_cpm_2019}.
 In this paradigm, connected vehicles and intelligent roadside infrastructure share localised sensory data in real time, overcoming the physical limitations of individual onboard sensors~\cite{huang2025v2x}.
 This section analyses the motivation for cooperative sensing, examines standardised message frameworks, details the main sensor fusion strategies, evaluates strict QoS requirements, and reviews empirical error patterns observed in driving simulations.
 
@@ -37,7 +37,7 @@ Standardisation organisations have defined structured message formats to support
     \item \textbf{CAM and Basic Safety Messages (BSM):} Periodic single-hop status broadcasts transmitted at 1 to 10~Hz.
     They convey only the sender's own dynamic state (GPS coordinates, speed, acceleration, and yaw rate) without describing neighbouring objects.
     \item \textbf{DENM:} Event-triggered safety alerts sent when an unexpected hazard arises, such as roadworks, emergency electronic brake lights, or black ice.
-    \item \textbf{Collective Perception Messages (CPM):} Standardised by ETSI in TR~103~562 and TS~103~324~\cite{antonopoulos2026beyond}.
+    \item \textbf{Collective Perception Messages (CPM):} Standardised by ETSI in TR~103~562~\cite{etsi_cpm_2019} and TS~103~324.
     Unlike ego-only CAMs, a CPM enables an agent to describe third-party objects detected by its local perception sensors.
     A CPM contains the sender's sensor capabilities, free-space perception zones, and a list of detected objects detailing their 3D positions, bounding box dimensions, velocity vectors, and classification confidence scores.
 \end{itemize}
@@ -65,7 +65,7 @@ In intermediate fusion, each vehicle first processes its raw sensor data through
 Vehicles broadcast only these compact latent representations over the V2X link.
 The receiving vehicle aligns the incoming feature maps within a common spatial reference frame and merges them using spatial attention mechanisms or graph neural networks.
 The final object detections and bounding boxes are then decoded directly from this fused feature space.
-State-of-the-art architectures demonstrate that intermediate feature fusion achieves detection accuracy close to early fusion while keeping wireless bandwidth demands within sustainable limits between 1~Mbps and 10~Mbps~\cite{huang2025v2x,guo2025autonomous}.
+State-of-the-art architectures such as V2X-ViT~\cite{xu2022v2xvit}, Where2comm~\cite{hu2022where2comm}, and F-Cooper~\cite{chen2019fcooper} demonstrate that intermediate fusion achieves detection accuracy close to early fusion while keeping wireless bandwidth demands within sustainable limits between 1~Mbps and 10~Mbps.
 
 \subsubsection{Late Fusion (Decision or Object-Level Collaboration)}
 In late fusion, each vehicle completes the entire detection process independently on board using its own sensors and local machine learning models.
@@ -85,7 +85,7 @@ Such spatial offsets can cause the receiving vehicle to see duplicated obstacles
 \subsection{Strict QoS Requirements}
 Cooperative perception imposes rigorous QoS constraints on the wireless network:
 \begin{itemize}
-    \item \textbf{Ultra-Low Latency (under 10 to 20~ms):} When an autonomous vehicle travels at 120~km/h (33.3~m/s), a transmission delay of 100~ms causes a displacement of 3.33~metres before the alert is processed.
+    \item \textbf{Ultra-Low Latency (under 10 to 20~ms):} When an autonomous vehicle travels at 120~km/h (about 33~metres per second), a transmission delay of 100~ms causes a displacement of 3.33~metres before the alert is processed.
     If delay exceeds 100~ms, object coordinates become stale, degrading spatial tracking.
     When latency exceeds 500~ms, empirical studies show that cooperative perception performs worse than an isolated vehicle~\cite{guo2025autonomous}.
     \item \textbf{Ultra-High Reliability (above 99.999\%):} Missed packets during high-speed emergency manoeuvres lead directly to collisions.
@@ -94,7 +94,7 @@ Cooperative perception imposes rigorous QoS constraints on the wireless network:
 \end{itemize}
 
 \subsection{Error Taxonomy and Simulation Benchmarks}
-Extensive empirical testing using simulation toolchains such as CARLA, OpenCDA, and VAST~\cite{ito2026vast} reveals that wireless network impairments induce critical perception failures~\cite{guo2025autonomous}.
+Extensive empirical testing using simulation toolchains such as CARLA~\cite{dosovitskiy2017carla}, OpenCDA, and VAST~\cite{ito2026vast} reveals that wireless network impairments induce critical perception failures~\cite{guo2025autonomous}.
 As classified in Fig.~\ref{fig:error_taxonomy}, cooperative perception errors fall into two formal classes:
 
 \begin{figure}[!t]

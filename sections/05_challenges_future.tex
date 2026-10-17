@@ -31,15 +31,15 @@ Software-defined radio gateways and multi-channel roadside coordination mechanis
 \label{subsec:edge_computing}
 
 Autonomous vehicles require massive computational resources to process multi-modal neural network fusion in real time.
-While automotive OBUs operate under strict thermal and power limits, centralised cloud servers introduce wide-area round-trip latencies that exceed safety-critical operational deadlines ($>100$~ms)~\cite{huang2025v2x}.
+While automotive OBUs operate under strict thermal and power limits, centralised cloud servers introduce wide-area round-trip latencies that exceed safety-critical operational deadlines (over 100~ms)~\cite{storck2020survey}.
 Multi-access Edge Computing (MEC) resolves this bottleneck by co-locating high-performance edge servers with RSUs~\cite{huang2025v2x}.
 MEC nodes ingest sensor streams from surrounding vehicles and infrastructure cameras, execute intermediate feature fusion, generate an omniscient regional Bird's-Eye-View dynamic map, and broadcast this fused context back to vehicles within single-digit milliseconds.
 
 Despite its benefits, edge-assisted cooperative perception introduces three critical research challenges:
 \begin{itemize}
     \item \textbf{High-Speed Mobility and Context Handover:} As vehicles move at highway speeds, they traverse edge server coverage cells in a few seconds.
-    Migrating active deep learning tracking contexts and spatial feature caches between adjacent edge nodes without interrupting safety-critical perception streams remains an open scheduling challenge~\cite{zhang2026cooperative}.
-    \item \textbf{Deadline-Constrained Workload Scheduling:} Real-time perception and trajectory prediction must conclude within strict 10--20~ms windows.
+    Migrating active deep learning tracking contexts and spatial feature caches between adjacent edge nodes without interrupting safety-critical perception streams remains an open scheduling challenge~\cite{storck2020survey}.
+    \item \textbf{Deadline-Constrained Workload Scheduling:} Real-time perception and trajectory prediction must conclude within strict windows of 10 to 20~ms.
     Edge schedulers must prioritise safety-critical VRU tracking over non-critical infotainment workloads during sudden traffic surges.
     \item \textbf{Asymmetric Uplink Bottlenecks:} Uplink channels from vehicles to RSUs frequently experience lower data throughput than broadcast downlinks, constraining the upload of rich point cloud data and necessitating adaptive feature compression.
 \end{itemize}
@@ -89,4 +89,4 @@ Current V-PKI security depends on classical elliptic curve cryptography (ECDSA a
 The eventual development of cryptanalytically relevant quantum computers will break these algorithms, compromising vehicular safety and driver privacy.
 Transitioning V2X networks to quantum-resistant lattice-based cryptography (such as ML-DSA and ML-KEM) is imperative.
 However, post-quantum signatures and public keys are significantly larger than classical counterparts.
-Fitting post-quantum cryptographic tokens into vehicular wireless packet constraints (MTU $\approx 1500$~bytes) while meeting real-time verification deadlines ($<10$~ms) represents a formidable open engineering challenge.
+Fitting post-quantum cryptographic tokens into vehicular wireless packet limits (under 1500~bytes) while meeting real-time verification deadlines (under 10~ms) represents a major open engineering challenge.

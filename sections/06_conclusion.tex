@@ -2,23 +2,23 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
-The Internet of Vehicles (IoV) represents a major paradigm shift in intelligent transportation systems, transforming isolated connected cars into cooperative IoT nodes.
+The Internet of Vehicles (IoV) represents a major paradigm shift in intelligent transport systems, transforming isolated connected cars into cooperative IoT nodes.
 This survey presented an in-depth, systematic analysis of V2X communications across three foundational pillars: radio access technologies, cooperative perception systems, and cryptographic security architectures.
 
 First, we compared dedicated short-range standards (IEEE 802.11p and 802.11bd) with cellular alternatives (LTE-V2X and 5G NR-V2X).
 While IEEE 802.11p offers mature, low-complexity ad-hoc communication, its CSMA/CA mechanism suffers from severe packet collisions under high vehicle density.
-In contrast, 5G NR-V2X introduces flexible OFDM numerologies, advanced sidelink feedback, and autonomous distributed scheduling (Mode~2), delivering the sub-10~ms latencies and multi-gigabit throughput needed for advanced automated maneuvers.
+In contrast, 5G NR-V2X introduces flexible OFDM numerologies, advanced sidelink feedback, and autonomous distributed scheduling (Mode~2), delivering the sub-10~ms latencies and multi-gigabit throughput needed for advanced automated manoeuvres.
 Global deployments remain regionally fragmented: China has mandated nationwide C-V2X infrastructure, the European Union maintains a hybrid dual-stack approach, and the United States has reallocated spectrum toward C-V2X after decades of DSRC testing.
 
 Second, we evaluated cooperative perception frameworks designed to eliminate blind spots caused by line-of-sight occlusions and adverse weather.
 Intermediate feature-level fusion, enabled by Vision Transformers and spatial confidence maps, strikes the optimal balance between detection accuracy and communication bandwidth.
 However, simulation benchmarks using CARLA and dynamic map toolchains prove that cooperative perception is highly fragile.
-Network latencies exceeding 500~ms or spatial coordinate alignment errors larger than 0.2~meters double the collision rate of autonomous vehicles, highlighting the vital need for ultra-reliable communication links ($>99.999\%$) and real-time pose correction.
+Network latencies exceeding 500~ms or spatial coordinate alignment errors larger than 0.2~metres double the collision rate of autonomous vehicles, highlighting the vital need for ultra-reliable communication links ($>99.999\%$) and real-time pose correction.
 
-Third, we investigated Vehicle Public Key Infrastructure (V-PKI) and pseudonym certificate lifecycles.
+Third, we investigated V-PKI and pseudonym certificate lifecycles.
 Architectures like the North American SCMS and ETSI C-ITS enforce institutional separation of duties and leverage Butterfly Key expansion to issue thousands of pseudonyms efficiently.
 Nevertheless, managing certificate revocation remains a complex trade-off between wireless CRL broadcast overhead and passive epoch-based vulnerability windows.
-Furthermore, pseudonym randomization cannot fully eliminate tracking risks, as kinematic side channels and trajectory reconstruction techniques can re-identify vehicles.
+Furthermore, pseudonym randomisation cannot fully eliminate tracking risks, as kinematic side channels and trajectory reconstruction techniques can re-identify vehicles.
 
-Finally, we outlined open challenges and research directions, focusing on channel congestion control, roadside edge computing offloading, misbehavior detection for sensor data validation, and the transition toward 6G-V2X.
-Technologies such as Integrated Sensing and Communication (ISAC), semantic task-oriented messaging, and post-quantum cryptographic standards will play a vital role in building safe, scalable, and privacy-preserving connected vehicular ecosystems.
+Finally, we outlined open challenges and research directions, focusing on channel congestion control, roadside edge computing offloading, misbehaviour detection for sensor data validation, and the transition toward 6G-V2X.
+Technologies such as ISAC, semantic task-oriented messaging, and post-quantum cryptographic standards will play a vital role in building safe, scalable, and privacy-preserving connected vehicular ecosystems.

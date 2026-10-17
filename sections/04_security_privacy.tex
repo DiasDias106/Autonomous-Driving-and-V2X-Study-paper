@@ -23,15 +23,15 @@ OAuth V-PKI (Yoshizawa \& Preneel~\cite{yoshizawa2023new}) & Daily OAuth 2.0 tok
 \end{tabular}
 \end{table*}
 
-Securing Vehicle-to-Everything (V2X) communications is essential to prevent malicious actors from injecting falsified hazard alerts, altering trajectory coordinates, or triggering emergency braking.
+Securing V2X communications is essential to prevent malicious actors from injecting falsified hazard alerts, altering trajectory coordinates, or triggering emergency braking.
 However, authenticating vehicular transmissions introduces an acute conflict with driver privacy~\cite{brecht2018scms}.
 This section evaluates Vehicular Public Key Infrastructure (V-PKI), pseudonym certificate lifecycles, scalable batch issuance, revocation architectures, and practical attack surfaces in high-density vehicular networks.
 
 \subsection{Vehicular Security versus Privacy}
 \label{subsec:security_privacy_dilemma}
 
-Connected vehicle networks broadcast periodic status beacons at 10~Hz over the dedicated 5.9~GHz Intelligent Transport Systems (ITS) band.
-These beacons comprise Basic Safety Messages (BSMs) in North America and Cooperative Awareness Messages (CAMs) in Europe.
+Connected vehicle networks broadcast periodic status beacons at 10~Hz over the dedicated 5.9~GHz ITS band.
+These beacons comprise BSMs in North America and CAMs in Europe.
 Each packet conveys dynamic telemetry, including high-precision Global Navigation Satellite System (GNSS) coordinates, speed, heading, acceleration, and vehicle dimensions.
 This operational environment creates a fundamental engineering conflict:
 \begin{itemize}
@@ -41,7 +41,7 @@ This operational environment creates a fundamental engineering conflict:
     \item \textbf{Privacy and Location Unlinkability:} Signing beacons with static hardware credentials creates a wireless licence plate.
     Eavesdroppers recording 10~Hz location broadcasts can reconstruct historical journeys, infer residential and employment locations, and track motorists continuously.
 \end{itemize}
-Modern V-PKIs resolve this conflict by provisioning On-Board Units (OBUs) with \textbf{pseudonym certificates} devoid of personally identifiable information.
+Modern V-PKIs resolve this conflict by provisioning OBUs with \textbf{pseudonym certificates} devoid of personally identifiable information.
 Rotating pseudonyms provides \textit{conditional anonymity}: ordinary observers cannot link consecutive messages across pseudonym switches, while authorised traffic authorities retain cryptographic capabilities to trace and revoke misbehaving nodes.
 
 \begin{figure*}[!t]
@@ -61,7 +61,7 @@ Rotating pseudonyms provides \textit{conditional anonymity}: ordinary observers 
 \label{fig:scms_and_butterfly}
 \end{figure*}
 
-\newpage
+% \newpage      % tigago - comentei pq tava a fzr blocos vazios gigantes no pdf
 
 \subsection{Trust Architectures and Multi-Authority Separation of Duties}
 \label{subsec:trust_architectures}
@@ -88,7 +88,7 @@ Driver privacy is mathematically guaranteed unless at least two structurally ind
 The European C-ITS architecture (ETSI TS~102~940 and TS~102~941) implements a similar functional separation~\cite{haidar2019risk, yoshizawa2023new}.
 An Enrolment Authority (EA) manages long-term identities, while an Authorisation Authority (AA) issues short-term Authorisation Tickets (ATs) acting as pseudonym certificates.
 A central Distribution Centre (DC) publishes European Certificate Trust Lists (CTLs).
-ATs sign CAMs and Decentralised Environmental Notification Messages (DENMs), keeping long-term credentials off the air.
+ATs sign CAMs and DENMs, keeping long-term credentials off the air.
 
 \subsection{Scalable Batch Issuance: Butterfly Keys vs. Proxy Re-Signatures}
 \label{subsec:issuance_and_rollover}
@@ -103,7 +103,7 @@ The \textbf{Butterfly Key Expansion} mechanism resolves this dilemma~\cite{brech
     \item The PCA encrypts certificates and offsets for the vehicle and returns them through the RA.
     \item The vehicle decrypts the package, applies the PCA offsets and expansion steps to its private seed, and derives matching private signing keys locally.
 \end{enumerate}
-Earlier schemes such as PASS~\cite{sun2010efficient} offloaded certificate generation to Roadside Units (RSUs) using bilinear pairing proxy re-signatures with 175-byte re-signature keys.
+Earlier schemes such as PASS~\cite{sun2010efficient} offloaded certificate generation to RSUs using bilinear pairing proxy re-signatures with 175-byte re-signature keys.
 However, bilinear pairing verification consumes substantial processing time ($\approx 14.7$~ms), hindering wide adoption.
 
 \subsection{Revocation Paradigms and Credential Management}
@@ -129,7 +129,7 @@ Starting the vehicle ignition acts as driver consent (Resource Owner), triggerin
 The onboard Hardware Security Module (HSM, Resource Server) verifies the token before enabling message signing.
 Deriving temporary session keys via a one-way hash ratchet ensures forward and backward secrecy while shrinking the revocation window from 90 days to 24 hours.
 
-\newpage
+% \newpage      % tigago - comentei pq tava a fzr blocos vazios gigantes no pdf
 
 \subsection{Technical Limitations and Practical Vulnerabilities}
 \label{subsec:limitations_and_vulnerabilities}

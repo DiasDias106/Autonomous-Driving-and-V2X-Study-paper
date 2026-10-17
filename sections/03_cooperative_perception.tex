@@ -3,9 +3,9 @@
 \label{sec:cooperative_perception}
 
 Once a reliable wireless communication link is established, vehicles can deploy advanced safety and automation services.
-The primary application for high-level automated driving is Cooperative Perception (CP), also known as collective perception~\cite{etsi_cpm_2019}.
+The primary application for high-level automated driving is cooperative perception, also known as collective perception~\cite{etsi_cpm_2019}.
 In this paradigm, connected vehicles and intelligent roadside infrastructure share localised sensory data in real time, overcoming the physical limitations of individual onboard sensors~\cite{huang2025v2x}.
-This section analyses the motivation for cooperative sensing, examines standardised message frameworks, details the main sensor fusion strategies, evaluates strict quality-of-service (QoS) requirements, and reviews empirical error patterns observed in driving simulations.
+This section analyses the motivation for cooperative sensing, examines standardised message frameworks, details the main sensor fusion strategies, evaluates strict QoS requirements, and reviews empirical error patterns observed in driving simulations.
 
 \subsection{Motivation: Overcoming Physical Sensor Occlusions}
 Modern autonomous vehicles rely on three primary onboard perception sensors to perceive their surroundings:
@@ -15,12 +15,12 @@ Modern autonomous vehicles rely on three primary onboard perception sensors to p
     \item \textbf{Radar:} Accurately measures range and Doppler velocity under poor weather, but provides coarse angular resolution and sparse point returns.
 \end{itemize}
 
-Despite their complementary sensing modalities, all onboard sensors share an insurmountable physical limit: they depend strictly on direct Line-of-Sight (LOS) propagation~\cite{zhang2026cooperative}.
+Despite their complementary sensing modalities, all onboard sensors share an insurmountable physical limit: they depend strictly on direct line-of-sight propagation~\cite{zhang2026cooperative}.
 In dense urban traffic, large trucks, buses, roadside buildings, and sharp street corners constantly block this line-of-sight.
 Fig.~\ref{fig:urban_cp_scenario} illustrates this operational hazard at an urban crosswalk.
 Without V2X cooperation, an automated vehicle following a large delivery truck has its frontal field-of-view completely obstructed.
 A pedestrian crossing ahead remains invisible until stepping into the driving lane, leaving insufficient braking distance and creating a fatal collision risk.
-With cooperative perception, a vehicle travelling in the opposite direction or an elevated Roadside Unit (RSU) observes the pedestrian with an unobstructed line-of-sight.
+With cooperative perception, a vehicle travelling in the opposite direction or an elevated RSU observes the pedestrian with an unobstructed line-of-sight.
 The discovering node immediately broadcasts the pedestrian's coordinates over the V2X network.
 The receiving vehicle fuses this shared knowledge into its world model, anticipates the hazard ahead, and decelerates smoothly before the hazard emerges into physical view~\cite{antonopoulos2026beyond}.
 
@@ -34,9 +34,9 @@ The receiving vehicle fuses this shared knowledge into its world model, anticipa
 \subsection{Standardised Message Frameworks: CAM, DENM, and CPM}
 Standardisation organisations have defined structured message formats to support vehicular awareness across heterogeneous platforms:
 \begin{itemize}
-    \item \textbf{Cooperative Awareness Messages (CAM) / Basic Safety Messages (BSM):} Periodic single-hop status broadcasts transmitted at 1 to 10~Hz.
+    \item \textbf{CAM and Basic Safety Messages (BSM):} Periodic single-hop status broadcasts transmitted at 1 to 10~Hz.
     They convey only the sender's own dynamic state (GPS coordinates, speed, acceleration, and yaw rate) without describing neighbouring objects.
-    \item \textbf{Decentralised Environmental Notification Messages (DENM):} Event-triggered safety alerts sent when an unexpected hazard arises, such as roadworks, emergency electronic brake lights, or black ice.
+    \item \textbf{DENM:} Event-triggered safety alerts sent when an unexpected hazard arises, such as roadworks, emergency electronic brake lights, or black ice.
     \item \textbf{Collective Perception Messages (CPM):} Standardised by ETSI in TR~103~562~\cite{etsi_cpm_2019} and TS~103~324.
     Unlike ego-only CAMs, a CPM enables an agent to describe third-party objects detected by its local perception sensors.
     A CPM contains the sender's sensor capabilities, free-space perception zones, and a list of detected objects detailing their 3D positions, bounding box dimensions, velocity vectors, and classification confidence scores.
@@ -78,11 +78,11 @@ However, if an occluded obstacle is partially hidden and missed by a vehicle's o
 Before two vehicles can combine spatial observations, their geometric reference frames must be unified.
 Each vehicle measures the environment from its own perspective, using a local coordinate system centred on its own chassis.
 To map a detected point from a sending vehicle into the ego vehicle's frame of reference, the system mathematically translates and rotates the coordinates using the sender's spatial position and orientation angles, specifically yaw, pitch, and roll.
-This spatial alignment relies heavily on accurate onboard positioning systems, such as GPS and inertial measurement units (IMUs).
+This spatial alignment relies heavily on accurate onboard positioning systems, such as GPS and inertial measurement units.
 If the sending vehicle suffers from sensor noise or calibration drift, even a minor orientation error of one degree can displace a detected obstacle by more than a metre at a distance of 50~metres.
 Such spatial offsets can cause the receiving vehicle to see duplicated obstacles or place pedestrians into the wrong road lane.
 
-\subsection{Strict Quality-of-Service (QoS) Requirements}
+\subsection{Strict QoS Requirements}
 Cooperative perception imposes rigorous QoS constraints on the wireless network:
 \begin{itemize}
     \item \textbf{Ultra-Low Latency ($<10$--$20$~ms):} When an autonomous vehicle travels at 120~km/h (33.3~m/s), a transmission delay of 100~ms causes a displacement of 3.33~metres before the alert is processed.
@@ -108,13 +108,13 @@ As classified in Fig.~\ref{fig:error_taxonomy}, cooperative perception errors fa
     \item \textbf{Misleading Errors (LE):} Occur when the ego vehicle's individual perception was correct, but cooperative data corrupts the final fused result:
     \begin{itemize}
         \item \textit{LCME (Misleading Missing Error):} The ego vehicle detected an object, but cooperative fusion causes it to be discarded.
-        \item \textit{LCLE (Misleading Localization Error):} The ego vehicle localised an object accurately, but shared data shifts its bounding box into an incorrect position.
+        \item \textit{LCLE (Misleading Localisation Error):} The ego vehicle localised an object accurately, but shared data shifts its bounding box into an incorrect position.
         \item \textit{LADE (Misleading Additional Detection Error):} The cooperative network injects a non-existent phantom object, triggering dangerous phantom braking.
     \end{itemize}
     \item \textbf{Miscorrecting Errors (CE):} Occur when individual perception failed, and the cooperative network fails to resolve or worsens the mistake:
     \begin{itemize}
         \item \textit{CCME (Miscorrected Missing Error):} Both the ego vehicle and cooperative partners fail to detect an obstacle.
-        \item \textit{CCLE (Miscorrected Localization Error):} Both nodes detect an obstacle with large spatial errors that cooperation fails to correct.
+        \item \textit{CCLE (Miscorrected Localisation Error):} Both nodes detect an obstacle with large spatial errors that cooperation fails to correct.
         \item \textit{CADE (Miscorrected Additional Detection Error):} The cooperative network validates an onboard phantom detection as real.
     \end{itemize}
 \end{enumerate}

@@ -16,7 +16,7 @@ Simpl\'icio et al.~\cite{simplicio2018privacy} & Domain-separated security strin
 \addlinespace
 ETSI TVRA (Haidar et al.~\cite{haidar2019risk}) & European C-ITS trust model; TVRA risk analysis; Concurrent pseudonym pools. & Concurrent pools permit Sybil attacks; replay echoes cause rapid pseudonym pool exhaustion (DoS). & Cryptographically authenticates sender identity, but cannot verify physical truth of sensor data. \\
 \addlinespace
-PASS (Sun et al.~\cite{sun2010efficient}) & Dual hash-chain $O(1)$ revocation; Local RSU proxy re-signatures. & Bilinear pairing latency ($\approx 14.7$~ms per check) induces 40\%--50\% packet loss in dense traffic. & Eliminates RSU tracking and shrinks CRLs, but requires heavy cryptographic coprocessors. \\
+PASS (Sun et al.~\cite{sun2010efficient}) & Dual hash-chain $O(1)$ revocation; Local RSU proxy re-signatures. & Bilinear pairing latency ($\approx 14.7$~ms per check) induces 40\% to 50\% packet loss in dense traffic. & Eliminates RSU tracking and shrinks CRLs, but requires heavy cryptographic coprocessors. \\
 \addlinespace
 OAuth V-PKI (Yoshizawa \& Preneel~\cite{yoshizawa2023new}) & Daily OAuth 2.0 token activation; Ratcheted AES-GCM-SIV key derivation. & Rigid sequential slot allocation causes 95.2\% certificate waste; relies on cellular connectivity. & Shrinks revocation latency from 90 days to 24 hours, but requires periodic network access. \\
 \bottomrule
@@ -61,8 +61,6 @@ Rotating pseudonyms provides \textit{conditional anonymity}: ordinary observers 
 \label{fig:scms_and_butterfly}
 \end{figure*}
 
-% \newpage      % tigago - comentei pq tava a fzr blocos vazios gigantes no pdf
-
 \subsection{Trust Architectures and Multi-Authority Separation of Duties}
 \label{subsec:trust_architectures}
 
@@ -93,7 +91,7 @@ ATs sign CAMs and DENMs, keeping long-term credentials off the air.
 \subsection{Scalable Batch Issuance: Butterfly Keys vs. Proxy Re-Signatures}
 \label{subsec:issuance_and_rollover}
 
-Vehicles frequently navigate rural motorways or subterranean tunnels without cellular connectivity, requiring OBUs to preload batches of thousands of certificates (e.g., a one- to three-year supply).
+Vehicles frequently navigate rural motorways or subterranean tunnels without cellular connectivity, requiring OBUs to preload batches of thousands of certificates (such as a supply for one to three years).
 However, generating and uploading thousands of individual public keys onboard consumes excessive cellular bandwidth.
 The \textbf{Butterfly Key Expansion} mechanism resolves this dilemma~\cite{brecht2018scms} (Fig.~\ref{fig:scms_and_butterfly}(b)):
 \begin{enumerate}
@@ -129,8 +127,6 @@ Starting the vehicle ignition acts as driver consent (Resource Owner), triggerin
 The onboard Hardware Security Module (HSM, Resource Server) verifies the token before enabling message signing.
 Deriving temporary session keys via a one-way hash ratchet ensures forward and backward secrecy while shrinking the revocation window from 90 days to 24 hours.
 
-% \newpage      % tigago - comentei pq tava a fzr blocos vazios gigantes no pdf
-
 \subsection{Technical Limitations and Practical Vulnerabilities}
 \label{subsec:limitations_and_vulnerabilities}
 
@@ -165,7 +161,7 @@ Conversely, adversaries can replay a target's pseudonym, tricking the OBU into a
 
 \subsubsection{Verification Latency Bottlenecks}
 Pairing-based verification in PASS requires $\approx 14.7$~ms per certificate~\cite{sun2010efficient}.
-In dense traffic with dozens of vehicles broadcasting at 10~Hz, OBU queues overflow, causing 40\%--50\% packet loss.
+In dense traffic with dozens of vehicles broadcasting at 10~Hz, OBU queues overflow, causing 40\% to 50\% packet loss.
 Standard V-PKIs therefore require hardware-accelerated ECDSA verification.
 
 \begin{figure}[!t]

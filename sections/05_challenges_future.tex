@@ -39,7 +39,7 @@ Despite its benefits, edge-assisted cooperative perception introduces three crit
 \begin{itemize}
     \item \textbf{High-Speed Mobility and Context Handover:} As vehicles move at highway speeds, they traverse edge server coverage cells in a few seconds.
     Migrating active deep learning tracking contexts and spatial feature caches between adjacent edge nodes without interrupting safety-critical perception streams remains an open scheduling challenge~\cite{storck2020survey}.
-    \item \textbf{Deadline-Constrained Workload Scheduling:} Real-time perception and trajectory prediction must conclude within strict 10--20~ms windows.
+    \item \textbf{Deadline-Constrained Workload Scheduling:} Real-time perception and trajectory prediction must conclude within strict windows of 10 to 20~ms.
     Edge schedulers must prioritise safety-critical VRU tracking over non-critical infotainment workloads during sudden traffic surges.
     \item \textbf{Asymmetric Uplink Bottlenecks:} Uplink channels from vehicles to RSUs frequently experience lower data throughput than broadcast downlinks, constraining the upload of rich point cloud data and necessitating adaptive feature compression.
 \end{itemize}

@@ -85,7 +85,7 @@ Such spatial offsets can cause the receiving vehicle to see duplicated obstacles
 \subsection{Strict QoS Requirements}
 Cooperative perception imposes rigorous QoS constraints on the wireless network:
 \begin{itemize}
-    \item \textbf{Ultra-Low Latency (under 10 to 20~ms):} When an autonomous vehicle travels at 120~km/h (about 33~metres per second), a transmission delay of 100~ms causes a displacement of 3.33~metres before the alert is processed.
+    \item \textbf{Ultra-Low Latency (under 10 to 20~ms):} When an autonomous vehicle travels at 120~km/h (33.3~m/s), a transmission delay of 100~ms causes a displacement of 3.33~metres before the alert is processed.
     If delay exceeds 100~ms, object coordinates become stale, degrading spatial tracking.
     When latency exceeds 500~ms, empirical studies show that cooperative perception performs worse than an isolated vehicle~\cite{guo2025autonomous}.
     \item \textbf{Ultra-High Reliability (above 99.999\%):} Missed packets during high-speed emergency manoeuvres lead directly to collisions.

@@ -69,7 +69,7 @@ While cellular networks offer wide coverage, high throughput, and superior scala
 For direct V2V communication on the PC5 sidelink, LTE-V2X defines two radio resource allocation modes:
 \begin{itemize}
     \item \textbf{Mode 3 (Scheduled):} Cellular base stations (eNodeBs) dynamically allocate radio resources to vehicles, which requires continuous cellular network coverage.
-    \item \textbf{Mode 4 (Autonomous):} Vehicles autonomously select radio resources without cellular infrastructure using Sensing-Based Semi-Persistent Scheduling (SB-SPS), where each node senses channel energy over a historical window and reserves periodic subchannels.
+    \item \textbf{Mode 4 (Autonomous):} Vehicles autonomously select radio resources without cellular infrastructure, where each node senses channel energy over a historical window and reserves periodic subchannels.
 \end{itemize}
 Experimental tests show that LTE-V2X achieves higher packet delivery rates and longer communication range than IEEE 802.11p on highways and in dense traffic~\cite{nguyen2017comparison}.
 However, IEEE 802.11p handles sudden changes in message sizes and sending rates more easily than LTE-V2X, which is optimised for regular, periodic safety beacons~\cite{molina2020comparison}.
@@ -105,40 +105,13 @@ To solve this coexistence problem, research studies identify three main solution
 
 \begin{figure}[!t]
 \centering
-\includegraphics[width=\columnwidth]{figures/rq1/rq1_protocols_world_map.jpg}
+\includegraphics[width=0.90\columnwidth]{figures/rq1/rq1_protocols_world_map.jpg}
 \caption{Global landscape of V2X communication standards and pilot deployments across North America, Europe, China, South Korea, Japan, and Australasia~\cite{hejazi2022survey}.}
 \label{fig:global_deployments}
 \end{figure}
 
-The commercial deployment of V2X technologies varies across regions due to different government policies and industrial support, as surveyed by Hejazi and Bokor~\cite{hejazi2022survey} and shown in Fig.~\ref{fig:global_deployments}.
-
-\subsubsection{United States}
-The United States initially pioneered vehicular networking using DSRC.
-The U.S. Department of Transportation funded three major connected vehicle pilots in 2015:
-\begin{itemize}
-    \item \textbf{New York City:} Deployed 353 RSUs and 8,000 equipped vehicles to improve pedestrian safety in high-density urban corridors.
-    \item \textbf{Tampa:} Deployed 47 RSUs and over 1,000 equipped cars and buses to reduce morning rush-hour congestion and transit vehicle delays.
-    \item \textbf{Wyoming:} Deployed 75 RSUs and 400 commercial trucks along 400 miles of Interstate 80 to reduce winter weather collisions and truck blow-over incidents.
-\end{itemize}
-Following the 2017 San Diego connected car trials conducted by Qualcomm, Ford, and AT\&T, the Federal Communications Commission (FCC) issued a major ruling in November 2020 (FCC 20-164) that reallocated the 5.9~GHz band, dedicating the upper 30~MHz exclusively to C-V2X and shifting American deployment away from DSRC.
-
-\subsubsection{Europe}
-Europe has adopted a technology-neutral, hybrid approach under the Cooperative Intelligent Transport Systems (C-ITS) framework, combining ITS-G5 for direct safety-critical messages at intersections with cellular networks for wide-area alerts using standardised ETSI Cooperative Awareness Messages (CAMs) and Decentralised Environmental Notification Messages (DENMs).
-This framework has been validated through major multinational pilots:
-\begin{itemize}
-    \item \textbf{C-Roads Platform:} Deployed cross-border interoperable Day-1 services (such as hazardous location and slow vehicle alerts) across 16 countries and 43 cities via RSUs and On-Board Units (OBUs) using the Advanced Message Queuing Protocol.
-    \item \textbf{Cross-Border and National Pilots:} The CROCODILE project linked road networks across 13 Central and Eastern European countries for data collection, while France deployed the SCOOP@F pilot connecting 3,000 vehicles over 2,000~km of road.
-    The DRIVE C2X project established seven national test sites proving that cooperative speed limit signage reduces road casualties~\cite{hejazi2022survey}, while NordicWay tested cellular hazard warning services across Scandinavia.
-    \item \textbf{5G Testbeds:} The European 5GCAR project demonstrated 5G testbeds in France for lane-merge coordination and pedestrian protection.
-\end{itemize}
-
-\subsubsection{China}
-China has adopted a unified national policy centred exclusively on C-V2X.
-The Chinese government reserved dedicated frequencies in the 5.9~GHz band and released national standards for vehicular message formats.
-Large-scale city deployments include the Wuxi IoV project covering hundreds of urban intersections, alongside national demonstration test zones in Shanghai, Beijing, and Guangzhou.
-Major Chinese automobile manufacturers are actively releasing production vehicles equipped with factory-installed C-V2X modules.
-
-\subsubsection{Asia-Pacific and Oceania}
-Japan deployed early cooperative systems across its national highway system, and is currently testing C-V2X alongside 5G deployments.
-South Korea conducted nationwide highway C-ITS pilots led by the Ministry of Land, Infrastructure, and Transport, testing both LTE-V2X and 802.11p.
-Australia and New Zealand developed the Austroads connected vehicle programme, evaluating both technologies across major freight routes.
+As mapped in Fig.~\ref{fig:global_deployments}, commercial V2X adoption has bifurcated globally between dedicated cellular mandates and technology-neutral hybrid frameworks~\cite{hejazi2022survey}.
+China established an exclusive national commitment to C-V2X by allocating dedicated 5.9~GHz spectrum and deploying city-scale testbeds alongside factory-equipped production vehicles.
+The United States initially invested in DSRC through large-scale urban and highway pilots, but pivoted decisively toward C-V2X following the 2020 FCC spectrum reallocation.
+Conversely, Europe adheres to a hybrid C-ITS model combining ITS-G5 for local ad-hoc safety with cellular networks for wide-area alerts, validated through multinational platforms such as C-Roads, CROCODILE, and DRIVE C2X~\cite{hejazi2022survey}.
+Similarly, Asia-Pacific nations including Japan, South Korea, and Australia continue dual-stack evaluations across major transport corridors.

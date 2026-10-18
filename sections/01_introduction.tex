@@ -5,9 +5,9 @@
 Modern transport systems are undergoing a major digital transformation.
 As cities grow and vehicle traffic increases, traditional traffic management methods struggle to prevent collisions and reduce road congestion.
 To solve these problems, the Internet of Things (IoT) has expanded into the automotive sector, creating the Internet of Vehicles (IoV)~\cite{hejazi2022survey}.
-Under this approach, vehicles are no longer isolated mechanical machines.
+In this paradigm, vehicles are no longer isolated mechanical machines.
 Instead, they act as intelligent mobile IoT devices equipped with computational processors, storage units, multiple wireless radios, and advanced perception sensors.
-This survey examines how core IoT technologies enable cooperative, safe, and autonomous vehicular networks.
+This survey investigates how foundational IoT paradigms enable cooperative, safe, and autonomous vehicular networks.
 
 The core communication framework of IoV is known as Vehicle-to-Everything (V2X) communication.
 V2X enables cars to exchange dynamic information with nearby nodes in real time.
@@ -15,7 +15,7 @@ V2X enables cars to exchange dynamic information with nearby nodes in real time.
 \begin{figure}[!t]
 \centering
 \includegraphics[width=0.72\columnwidth]{figures/rq1/rq1_v2x_communication_modes.png}
-\caption{The four core communication interaction modes of V2X.}
+\caption{The main communication modes of V2X: V2I, V2V, V2N, and V2P.}
 \label{fig:v2x_modes}
 \end{figure}
 
@@ -33,12 +33,19 @@ As shown in Fig.~\ref{fig:v2x_modes}, V2X communication is grouped into four dis
 
 Although modern autonomous vehicles use powerful onboard sensors such as cameras, radar, and LiDAR, operating in isolation has fundamental physical limits.
 An onboard sensor cannot see through physical obstacles like buildings, heavy trucks, or sharp corners.
-Furthermore, bad weather such as thick fog, heavy rain, or blizzards significantly reduces sensor detection range.
+Furthermore, bad weather such as thick fog, heavy rain, or blizzards significantly shortens sensory detection range.
 Cooperative V2X communication addresses these limits by allowing vehicles to share what their sensors detect, creating a collective, extended field of view~\cite{huang2025v2x}.
 
-However, achieving safe and reliable cooperative driving requires answering three fundamental research questions, which form the core structure of this survey:
+However, achieving safe and reliable cooperative driving requires answering three fundamental questions, which form the sequential spine of this survey:
 \begin{enumerate}
-    \item \textbf{Radio Access Technologies and Deployment (Section~\ref{sec:technologies_and_deployment}):} How do dedicated short-range standards (IEEE 802.11p/bd) compare technically against cellular technologies (LTE-V2X, 5G NR-V2X) in physical/MAC design, spectrum allocation, and global commercial rollout?
-    \item \textbf{Cooperative Perception and Automated Driving (Section~\ref{sec:cooperative_perception}):} How can vehicles share sensor observations to extend situational awareness beyond line-of-sight limits, and what are the strict latency, throughput, and reliability trade-offs required for safe automated driving?
-    \item \textbf{Security, Privacy, and Pseudonym Systems (Section~\ref{sec:security_privacy}):} How do Vehicular Public Key Infrastructures (V-PKIs) protect vehicular messaging against cyberattacks and malicious falsification while preserving driver privacy against physical tracking?
+    \item \textbf{Radio Access Technologies:} How do vehicles transmit safety data wirelessly, and how do dedicated short-range standards compare with cellular technologies in real-world deployments worldwide?
+    \item \textbf{Cooperative Perception:} How can vehicles share their sensor observations to cooperate safely in automated driving, and what are the exact requirements for communication latency and reliability?
+    \item \textbf{Security and Privacy:} How can we protect vehicular messages against cyberattacks and malicious falsification while preventing adversaries from tracking drivers' daily travel routes?
 \end{enumerate}
+
+The remainder of this survey is organised to follow this logical progression.
+Section~\ref{sec:technologies_and_deployment} provides a detailed technical comparison of Cellular V2X and IEEE 802.11 standards and surveys their global deployment.
+Section~\ref{sec:cooperative_perception} examines cooperative perception architectures, sensor fusion strategies, quality-of-service demands, and failure patterns in simulation.
+Section~\ref{sec:security_privacy} investigates vehicular public key infrastructures, pseudonym lifecycles, revocation mechanisms, and key limitations.
+Section~\ref{sec:challenges_future} discusses open research challenges in channel congestion, edge computing, misbehaviour detection, and the transition toward 6G-V2X.
+Finally, Section~\ref{sec:conclusion} concludes the paper with a summary of key insights.
